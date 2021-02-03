@@ -16,6 +16,11 @@ public class Point {
     this.z = z;
   }
 
+  @Override
+  public String toString() {
+    return "Point{x=" + x + ", y=" + y + ", z=" + z + '}';
+  }
+
   public float getX() { return x;}
 
   public float getY() { return y;}
