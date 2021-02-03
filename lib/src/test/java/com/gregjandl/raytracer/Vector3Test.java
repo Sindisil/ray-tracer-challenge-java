@@ -2,6 +2,7 @@ package com.gregjandl.raytracer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -69,4 +70,35 @@ public class Vector3Test {
     assertEquals(v.add(p), new Point(1, 1, 6));
   }
 
+  @Test
+  @DisplayName("A Vector may be negated")
+  void testNegate() {
+    var v = new Vector3(1, -2, 3);
+    assertEquals(new Vector3(-1, 2, -3), v.negate());
+  }
+
+  @Test
+  @DisplayName("A vector may be multiplied by a scalar")
+  void testMultiplyByScalar() {
+    var v = new Vector3(1, -2, 3);
+    assertEquals(new Vector3(3.5f, -7, 10.5f), v.multiply(3.5f));
+    assertEquals(new Vector3(0.5f, -1, 1.5f), v.multiply(0.5f));
+  }
+
+  @Test
+  @DisplayName("A Vector may be divided by scalar")
+  void testDivideByScalar() {
+    var v = new Vector3(1, -2, 3);
+    assertEquals(new Vector3(0.5f, -1f, 1.5f), v.divide(2));
+  }
+
+  @Test
+  @DisplayName("Vectors can return their magnitude")
+  void testMagnitude() {
+    assertEquals(1, new Vector3(1, 0, 0).magnitude());
+    assertEquals(1, new Vector3(0, 1, 0).magnitude());
+    assertEquals(1, new Vector3(0, 0, 1).magnitude());
+    assertTrue(Utils.aboutEqual(Math.sqrt(14), new Vector3(1, 2, 3).magnitude()));
+    assertTrue(Utils.aboutEqual(Math.sqrt(14), new Vector3(-1, -2, -3).magnitude()));
+  }
 }

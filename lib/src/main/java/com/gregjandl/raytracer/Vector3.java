@@ -44,4 +44,20 @@ public class Vector3 {
   public Point add(Point p) {
     return new Point(x + p.getX(), y + p.getY(), z + p.getZ());
   }
+
+  public Vector3 negate() {
+    return new Vector3(-x, -y, -z);
+  }
+
+  public Vector3 multiply(float n) {
+    return new Vector3(x * n, y * n, z * n);
+  }
+
+  public Vector3 divide(float n) {
+    return new Vector3(x / n, y / n, z / n);
+  }
+
+  public double magnitude() {
+    return Math.sqrt(x * x + y * y + z * z);
+  }
 }

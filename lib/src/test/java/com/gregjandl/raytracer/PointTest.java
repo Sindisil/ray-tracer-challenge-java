@@ -68,4 +68,6 @@ class PointTest {
     var v = new Vector3(5f, 6f, 7f);
     assertEquals(new Point(-2f, -4f, -6f), p.subtract(v));
   }
+
 }
+
