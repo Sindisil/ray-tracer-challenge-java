@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class UtilsTest {
   @Test
-  @DisplayName("floats may be compared for aproximate equality")
+  @DisplayName("floats may be compared for approximate equality")
   void testFloatAboutEquals() {
     assertTrue(Utils.aboutEqual(1.0f, 1.0f));
     assertFalse(Utils.aboutEqual(1.0f, 100.0f));

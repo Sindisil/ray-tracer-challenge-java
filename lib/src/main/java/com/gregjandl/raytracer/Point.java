@@ -16,27 +16,17 @@ public class Point {
     this.z = z;
   }
 
-  public float getX() {
-    return x;
-  }
+  public float getX() { return x;}
 
-  public float getY() {
-    return y;
-  }
+  public float getY() { return y;}
 
-  public float getZ() {
-    return z;
-  }
+  public float getZ() { return z;}
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Point point = (Point) o;
+    if (this == o) { return true;}
+    if (o == null || getClass() != o.getClass()) { return false;}
+    var point = (Point) o;
     return Utils.aboutEqual(point.x, x) && Utils.aboutEqual(point.y, y)
         && Utils.aboutEqual(point.z, z);
   }
@@ -44,5 +34,17 @@ public class Point {
   @Override
   public int hashCode() {
     return Objects.hash(x, y, z);
+  }
+
+  public Point add(Vector3 v) {
+    return new Point(x + v.getX(), y + v.getY(), z + v.getZ());
+  }
+
+  public Vector3 subtract(Point p) {
+    return new Vector3(x - p.getX(), y - p.getY(), z - p.getZ());
+  }
+
+  public Point subtract(Vector3 v) {
+    return new Point(x - v.getX(), y - v.getY(), z - v.getZ());
   }
 }
