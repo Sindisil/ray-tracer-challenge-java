@@ -1,7 +1,9 @@
 package com.gregjandl.raytracer;
 
+import static java.lang.Math.sqrt;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.DisplayName;
@@ -98,7 +100,47 @@ public class Vector3Test {
     assertEquals(1, new Vector3(1, 0, 0).magnitude());
     assertEquals(1, new Vector3(0, 1, 0).magnitude());
     assertEquals(1, new Vector3(0, 0, 1).magnitude());
-    assertTrue(Utils.aboutEqual(Math.sqrt(14), new Vector3(1, 2, 3).magnitude()));
-    assertTrue(Utils.aboutEqual(Math.sqrt(14), new Vector3(-1, -2, -3).magnitude()));
+    assertTrue(Utils.aboutEqual(sqrt(14), new Vector3(1, 2, 3).magnitude()));
+    assertTrue(Utils.aboutEqual(sqrt(14), new Vector3(-1, -2, -3).magnitude()));
+  }
+
+  @Nested
+  @DisplayName("Vector3 normalization")
+  class Normalization {
+    @Test
+    @DisplayName("Attempting to normalize zero length Vector throws")
+    void testNormalizeZero() {
+      var ex = assertThrows(ArithmeticException.class, () -> new Vector3(0, 0, 0).normalize());
+      assertEquals("Can't normalize Vector3(0,0,0)", ex.getMessage());
+    }
+
+    @Test
+    @DisplayName("Non-zero Vectors may be normalized")
+    void testNormalize() {
+      assertEquals(new Vector3(1, 0, 0), new Vector3(4, 0, 0).normalize());
+      assertEquals(new Vector3(1 / sqrt(14), 2 / sqrt(14), 3 / sqrt(14)),
+          new Vector3(1, 2, 3).normalize());
+    }
+
+    @Test
+    @DisplayName("Normalized Vector has magnitude 1")
+    void testNormalizedMagnitude() {
+      assertTrue(Utils.aboutEqual(1, new Vector3(1, 2, 3).normalize().magnitude()));
+    }
+  }
+
+  @Test
+  @DisplayName("The dot product of two Vectors")
+  void testDotProduct() {
+    assertEquals(20, new Vector3(1, 2, 3).dot(new Vector3(2, 3, 4)));
+  }
+
+  @Test
+  @DisplayName("The cross product of two Vectors")
+  void testCrossProduct() {
+    var v1 = new Vector3(1, 2, 3);
+    var v2 = new Vector3(2, 3, 4);
+    assertEquals(new Vector3(-1, 2, -1), v1.cross(v2));
+    assertEquals(new Vector3(1, -2, 1), v2.cross(v1));
   }
 }
