@@ -7,11 +7,6 @@ public class Vector3 {
   private final float y;
   private final float z;
 
-  @Override
-  public String toString() {
-    return "Vector3{x=" + x + ", y=" + y + ", z=" + z + '}';
-  }
-
   public Vector3(float x, float y, float z) {
     this.x = x;
     this.y = y;
@@ -42,6 +37,11 @@ public class Vector3 {
   @Override
   public int hashCode() {
     return Objects.hash(x, y, z);
+  }
+
+  @Override
+  public String toString() {
+    return "Vector3{x=" + x + ", y=" + y + ", z=" + z + '}';
   }
 
   public Vector3 subtract(Vector3 other) {

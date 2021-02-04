@@ -18,7 +18,14 @@ public class Vector3Test {
     assertEquals(v.getX(), 4);
     assertEquals(v.getY(), -4);
     assertEquals(v.getZ(), 3);
+  }
 
+  @Test
+  @DisplayName("Vectors have toString")
+  void testToString() {
+    var expected = "Vector3{x=" + 1.1 + ", y=" + 2.2 + ", z=" + 3.3 + '}';
+    var actual = new Vector3(1.1, 2.2, 3.3).toString();
+    assertEquals(expected, actual);
   }
 
   @Nested

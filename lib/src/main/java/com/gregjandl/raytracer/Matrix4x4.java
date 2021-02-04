@@ -3,17 +3,32 @@ package com.gregjandl.raytracer;
 import java.util.Arrays;
 
 public class Matrix4x4 {
-  private final float[] m;
+  private final float[] m = new float[16];
 
+  /**
+   * Constructs a 4x4 matrix from the supplied two dimensional float array.
+   *
+   * @param data float[4][4] containing initialization data for new matrix
+   */
   public Matrix4x4(float[][] data) {
     if (data.length != 4 || data[0].length != 4) {
       throw new IllegalArgumentException("Matrix4x4 invalid initializer size [" + data.length +
           "][" + (data.length > 0 ? data[0].length : "--") + "]");
     }
-    m = new float[16];
     for (int row = 0; row < data.length; ++row) {
       System.arraycopy(data[row], 0, m, row * 4, data[0].length);
     }
+  }
+
+  /**
+   * Constructs a 4x4 identity Matrix.
+   */
+  public Matrix4x4() {
+    Arrays.fill(m, 0);
+    m[0] = 1;
+    m[4 + 1] = 1;
+    m[2 * 4 + 2] = 1;
+    m[3 * 4 + 3] = 1;
   }
 
   public float get(int row, int col) {
@@ -39,5 +54,22 @@ public class Matrix4x4 {
   @Override
   public int hashCode() {
     return Arrays.hashCode(m);
+  }
+
+  @Override
+  public String toString() {
+    var b = new StringBuilder("Matrix4x4{");
+    for (int row = 0; row < 4; ++row) {
+      b.append("{");
+      for (int col = 0; col < 4; ++col) {
+        b.append(m[row * 4 + col]);
+        if (col < 3) {
+          b.append(", ");
+        }
+      }
+      b.append(row < 3 ? "}, " : "}");
+    }
+    b.append("}");
+    return b.toString();
   }
 }

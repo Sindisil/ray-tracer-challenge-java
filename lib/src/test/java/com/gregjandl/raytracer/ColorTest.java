@@ -16,6 +16,14 @@ public class ColorTest {
   }
 
   @Test
+  @DisplayName("Color has toString")
+  void testToString() {
+    var expected = "Color{r=" + 0.0 + ", g=" + 0.0 + ", b=" + 0.0 + '}';
+    var actual = Color.BLACK.toString();
+    assertEquals(expected, actual);
+  }
+
+  @Test
   @DisplayName("A Color may be converted to an AWT Color")
   void testConvertToAwtColor() {
     var c = Color.GRAY;

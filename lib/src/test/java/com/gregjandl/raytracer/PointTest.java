@@ -18,6 +18,14 @@ class PointTest {
     assertEquals(p.getZ(), 3);
   }
 
+  @Test
+  @DisplayName("Point has toString")
+  void testToString() {
+    var expected = "Point{x=" + 1.1 + ", y=" + 2.2 + ", z=" + 3.3 + '}';
+    var actual = new Point(1.1f, 2.2f, 3.3f).toString();
+    assertEquals(expected, actual);
+  }
+
   @Nested
   @DisplayName("Points may be compared for equality")
   class testEquality {
@@ -70,4 +78,3 @@ class PointTest {
   }
 
 }
-

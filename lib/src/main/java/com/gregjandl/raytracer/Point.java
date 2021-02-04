@@ -16,11 +16,6 @@ public class Point {
     this.z = z;
   }
 
-  @Override
-  public String toString() {
-    return "Point{x=" + x + ", y=" + y + ", z=" + z + '}';
-  }
-
   public float getX() { return x;}
 
   public float getY() { return y;}
@@ -39,6 +34,11 @@ public class Point {
   @Override
   public int hashCode() {
     return Objects.hash(x, y, z);
+  }
+
+  @Override
+  public String toString() {
+    return "Point{x=" + x + ", y=" + y + ", z=" + z + '}';
   }
 
   public Point add(Vector3 v) {
