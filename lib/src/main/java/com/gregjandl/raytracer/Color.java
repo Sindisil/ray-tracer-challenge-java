@@ -7,16 +7,27 @@ public class Color {
   private final float g;
   private final float b;
 
+  @SuppressWarnings("unused")
   public static final Color BLACK = new Color(0, 0, 0);
+  @SuppressWarnings("unused")
   public static final Color WHITE = new Color(1, 1, 1);
+  @SuppressWarnings("unused")
   public static final Color RED = new Color(1, 0, 0);
+  @SuppressWarnings("unused")
   public static final Color GREEN = new Color(0, 1, 0);
+  @SuppressWarnings("unused")
   public static final Color BLUE = new Color(0, 0, 1);
+  @SuppressWarnings("unused")
   public static final Color YELLOW = new Color(1, 1, 0);
+  @SuppressWarnings("unused")
   public static final Color MAGENTA = new Color(1, 0, 1);
+  @SuppressWarnings("unused")
   public static final Color CYAN = new Color(0, 1, 1);
+  @SuppressWarnings("unused")
   public static final Color LT_GRAY = new Color(.25f, .25f, .25f);
+  @SuppressWarnings("unused")
   public static final Color GRAY = new Color(.5f, .5f, .5f);
+  @SuppressWarnings("unused")
   public static final Color DK_GRAY = new Color(.75f, .75f, .75f);
 
   public Color(float r, float g, float b) {
@@ -74,4 +85,3 @@ public class Color {
     return new Color(r * c2.r, g * c2.g, b * c2.b);
   }
 }
-
