@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 public class Matrix4x4Test {
   @Test
   @DisplayName("Creating and inspecting a 4x4 matrix")
-  void testAccess() {
+  void testCreateAndAccess() {
     var m = new Matrix4x4(new float[][]{
         {1, 2, 3, 4},
         {5.5f, 6.5f, 7.5f, 8.5f},
@@ -23,6 +23,13 @@ public class Matrix4x4Test {
     assertEquals(7.5f, m.get(1, 2));
     assertEquals(11, m.get(2, 2));
     assertEquals(15.5f, m.get(3, 2));
+  }
+
+  @Test
+  @DisplayName("Matrix ctor is bounds checked")
+  void testBadCreate() {
+    assertThrows(IllegalArgumentException.class, () -> new Matrix4x4(new float[][]{{1}, {2}, {3}}));
+    assertThrows(IllegalArgumentException.class, () -> new Matrix4x4(new float[][]{}));
   }
 
   @Test

@@ -8,7 +8,7 @@ public class Matrix4x4 {
   public Matrix4x4(float[][] data) {
     if (data.length != 4 || data[0].length != 4) {
       throw new IllegalArgumentException("Matrix4x4 invalid initializer size [" + data.length +
-          "][" + data[0].length + "]");
+          "][" + (data.length > 0 ? data[0].length : "--") + "]");
     }
     m = new float[16];
     for (int row = 0; row < data.length; ++row) {
