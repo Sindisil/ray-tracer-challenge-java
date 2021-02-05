@@ -39,6 +39,14 @@ public class Matrix4x4 {
     return m[row * 4 + col];
   }
 
+  public Matrix4x4 set(int row, int col, float val) {
+    if (row < 0 || row > 3 || col < 0 || col > 3) {
+      throw new IndexOutOfBoundsException("index [" + row + ", " + col + "] not in [0-3, 0-3]");
+    }
+    m[row * 4 + col] = val;
+    return this;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) { return true; }

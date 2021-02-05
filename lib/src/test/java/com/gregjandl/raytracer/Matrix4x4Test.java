@@ -26,6 +26,25 @@ public class Matrix4x4Test {
   }
 
   @Test
+  @DisplayName("Matrix cells may be individually set")
+  void testSet() {
+    var m = new Matrix4x4();
+    assertEquals(0, m.get(1, 1));
+    m.set(1, 1, 42);
+    assertEquals(42, m.get(1, 1));
+    m.set(1, 1, -13);
+    assertEquals(-13, m.get(1, 1));
+  }
+
+  @Test
+  @DisplayName("Matrix set is bounds checked")
+  void testBadSet() {
+    var m = new Matrix4x4();
+    assertThrows(IndexOutOfBoundsException.class, () -> m.set(-1, 0, 1));
+    assertThrows(IndexOutOfBoundsException.class, () -> m.set(1, 5, 2));
+  }
+
+  @Test
   @DisplayName("Matrix ctor is bounds checked")
   void testBadCreate() {
     assertThrows(IllegalArgumentException.class, () -> new Matrix4x4(new float[][]{{1}, {2}, {3}}));
