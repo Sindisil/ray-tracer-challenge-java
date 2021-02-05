@@ -1,8 +1,10 @@
 package com.gregjandl.raytracer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -140,7 +142,31 @@ public class Matrix4x4Test {
 
   @Test
   @DisplayName("The identity matrix transposed is unchanged")
-  void testTransposeIdenity() {
+  void testTransposeIdentity() {
     assertEquals(Matrix4x4.identity(), Matrix4x4.identity().transpose());
+  }
+
+  @Test
+  @DisplayName("Calculating the determinant of a 4x4 matrix")
+  void testDeterminant() {
+    var m = new Matrix4x4(
+        new float[][]{{-2, -8, 3, 5}, {-3, 1, 7, 3}, {1, 2, -9, 6}, {-6, 7, 7, -9}});
+    assertTrue(Utils.aboutEqual(-4071f, m.determinant()));
+
+  }
+
+  @Test
+  @DisplayName("Testing an invertible matrix for invertibility")
+  void testInvertible() {
+    var m = new Matrix4x4(new float[][]{{6, 4, 4, 4}, {5, 5, 7, 6}, {4, -9, 3, -7}, {9, 1, 7, -6}});
+    assertTrue(m.isInvertible());
+  }
+
+  @Test
+  @DisplayName("Testing an invertible matrix for invertibility")
+  void testNonInvertible() {
+    var m = new Matrix4x4(
+        new float[][]{{-4, 2, -2, 3}, {9, 6, 2, 6}, {0, -5, 1, -5}, {0, 0, 0, 0}});
+    assertFalse(m.isInvertible());
   }
 }

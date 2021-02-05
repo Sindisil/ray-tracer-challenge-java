@@ -119,4 +119,29 @@ public class Matrix4x4 {
     }
     return ret;
   }
+
+  /**
+   * Calculates the determinant of the matrix.
+   *
+   * @return the determinant
+   */
+  public float determinant() {
+    // 2x2 determinants needed to compute the full determinant.
+    // name format is dCCRR where CC == columns and RR == rows
+    var d2323 = get(2, 2) * get(3, 3) - get(2, 3) * get(3, 2);
+    var d1323 = get(2, 1) * get(3, 3) - get(2, 3) * get(3, 1);
+    var d1223 = get(2, 1) * get(3, 2) - get(2, 2) * get(3, 1);
+    var d0323 = get(2, 0) * get(3, 3) - get(2, 3) * get(3, 0);
+    var d0223 = get(2, 0) * get(3, 2) - get(2, 2) * get(3, 0);
+    var d0123 = get(2, 0) * get(3, 1) - get(2, 1) * get(3, 0);
+
+    return get(0, 0) * (get(1, 1) * d2323 - get(1, 2) * d1323 + get(1, 3) * d1223)
+        - get(0, 1) * (get(1, 0) * d2323 - get(1, 2) * d0323 + get(1, 3) * d0223)
+        + get(0, 2) * (get(1, 0) * d1323 - get(1, 1) * d0323 + get(1, 3) * d0123)
+        - get(0, 3) * (get(1, 0) * d1223 - get(1, 1) * d0223 + get(1, 2) * d0123);
+  }
+
+  public boolean isInvertible() {
+    return determinant() != 0;
+  }
 }
