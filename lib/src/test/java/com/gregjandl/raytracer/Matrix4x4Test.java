@@ -88,4 +88,44 @@ public class Matrix4x4Test {
     assertNotEquals(a, c);
     assertNotEquals(a, d);
   }
+
+  @Test
+  @DisplayName("Matrices may be multiplied")
+  void testMultiply() {
+    var a = new Matrix4x4(new float[][]{
+        {1, 2, 3, 4}, {5, 6, 7, 8}, {9, 8, 7, 6}, {5, 4, 3, 2}});
+    var b = new Matrix4x4(new float[][]{
+        {-2, 1, 2, 3}, {3, 2, 1, -1}, {4, 3, 6, 5}, {1, 2, 7, 8}});
+    var c = new Matrix4x4(new float[][]{
+        {20, 22, 50, 48}, {44, 54, 114, 108}, {40, 58, 110, 102}, {16, 26, 46, 42}});
+
+    assertEquals(c, a.multiply(b));
+  }
+
+  @Test
+  @DisplayName("A matrix may be multiplied by a Vector")
+  void testMultiplyByVector() {
+    var m = new Matrix4x4(new float[][]{{1, 2, 3, 4}, {2, 4, 4, 2}, {8, 6, 4, 1}, {0, 0, 0, 1}});
+    var v = new Vector3(1, 2, 3);
+    assertEquals(new Vector3(14, 22, 32), m.multiply(v));
+  }
+
+  @Test
+  @DisplayName("A matrix may be multiplied by a Point")
+  void testMultiplyByPoint() {
+    var m = new Matrix4x4(new float[][]{{1, 2, 3, 4}, {2, 4, 4, 2}, {8, 6, 4, 1}, {0, 0, 0, 1}});
+    var p = new Point(1, 2, 3);
+    assertEquals(new Point(18, 24, 33), m.multiply(p));
+  }
+
+  @Test
+  @DisplayName("Multiplying by the identity matrix returns the original value")
+  void testMultiplyByIdentity() {
+    var m = new Matrix4x4(new float[][]{{1, 2, 3, 4}, {2, 4, 4, 2}, {8, 6, 4, 1}, {0, 0, 0, 1}});
+    var p = new Point(1, 2, 3);
+    var v = new Vector3(4, 5, 6);
+    assertEquals(m, Matrix4x4.identity().multiply(m));
+    assertEquals(p, Matrix4x4.identity().multiply(p));
+    assertEquals(v, Matrix4x4.identity().multiply(v));
+  }
 }

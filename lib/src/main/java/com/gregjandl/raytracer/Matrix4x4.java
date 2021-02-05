@@ -81,4 +81,32 @@ public class Matrix4x4 {
     b.append("}");
     return b.toString();
   }
+
+  public Matrix4x4 multiply(Matrix4x4 other) {
+    var res = new Matrix4x4();
+    for (int r = 0; r < 4; ++r) {
+      for (int c = 0; c < 4; ++c) {
+        res.set(r, c,
+            get(r, 0) * other.get(0, c)
+                + get(r, 1) * other.get(1, c)
+                + get(r, 2) * other.get(2, c)
+                + get(r, 3) * other.get(3, c));
+      }
+    }
+    return res;
+  }
+
+  public Vector3 multiply(Vector3 v) {
+    return new Vector3(
+        get(0, 0) * v.getX() + get(0, 1) * v.getY() + get(0, 2) * v.getZ(),
+        get(1, 0) * v.getX() + get(1, 1) * v.getY() + get(1, 2) * v.getZ(),
+        get(2, 0) * v.getX() + get(2, 1) * v.getY() + get(2, 2) * v.getZ());
+  }
+
+  public Point multiply(Point p) {
+    return new Point(
+        get(0, 0) * p.getX() + get(0, 1) * p.getY() + get(0, 2) * p.getZ() + get(0, 3),
+        get(1, 0) * p.getX() + get(1, 1) * p.getY() + get(1, 2) * p.getZ() + get(1, 3),
+        get(2, 0) * p.getX() + get(2, 1) * p.getY() + get(2, 2) * p.getZ() + get(2, 3));
+  }
 }
