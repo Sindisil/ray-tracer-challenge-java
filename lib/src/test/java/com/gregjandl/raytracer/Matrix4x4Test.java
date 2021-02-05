@@ -157,16 +157,54 @@ public class Matrix4x4Test {
 
   @Test
   @DisplayName("Testing an invertible matrix for invertibility")
-  void testInvertible() {
+  void testCheckInvertible() {
     var m = new Matrix4x4(new float[][]{{6, 4, 4, 4}, {5, 5, 7, 6}, {4, -9, 3, -7}, {9, 1, 7, -6}});
     assertTrue(m.isInvertible());
   }
 
   @Test
   @DisplayName("Testing an invertible matrix for invertibility")
-  void testNonInvertible() {
+  void testCheckNonInvertible() {
     var m = new Matrix4x4(
         new float[][]{{-4, 2, -2, 3}, {9, 6, 2, 6}, {0, -5, 1, -5}, {0, 0, 0, 0}});
     assertFalse(m.isInvertible());
+  }
+
+  @Test
+  @DisplayName("Attempting to invert a non-invertible matrix should throw")
+  void testInvertNonInvertible() {
+    var m = new Matrix4x4(
+        new float[][]{{-4, 2, -2, 3}, {9, 6, 2, 6}, {0, -5, 1, -5}, {0, 0, 0, 0}});
+    assertThrows(ArithmeticException.class, m::invert);
+  }
+
+  @Test
+  @DisplayName("Calculating the inverse of matrices")
+  void testInvert() {
+    var m1 = new Matrix4x4(
+        new float[][]{{-5, 2, 6, -8}, {1, -5, 1, 8}, {7, 7, -6, -7}, {1, -3, 7, 4}});
+    var invM1 = new Matrix4x4(new float[][]{
+        {0.21805f, 0.45113f, 0.24060f, -0.04511f},
+        {-0.80827f, -1.45677f, -0.44361f, 0.52068f},
+        {-0.07895f, -0.22368f, -0.05263f, 0.19737f},
+        {-0.52256f, -0.81391f, -0.30075f, 0.30639f}});
+    var m2 = new Matrix4x4(
+        new float[][]{{8, -5, 9, 2}, {7, 5, 6, 1}, {-6, 0, 9, 6}, {-3, 0, -9, -4}});
+    var invM2 = new Matrix4x4(new float[][]{
+        {-.15385f, -.15385f, -.28205f, -.53846f},
+        {-.07692f, .12308f, .02564f, .03077f},
+        {.35897f, .35897f, .43590f, .92308f},
+        {-.69231f, -.69231f, -.76923f, -1.92308f}});
+    assertEquals(invM1, m1.invert());
+    assertEquals(invM2, m2.invert());
+  }
+
+  @Test
+  @DisplayName("Multiplying a product by one factor's inverse")
+  void testMultiplyByInverse() {
+    var m1 = new Matrix4x4(
+        new float[][]{{3, -9, 7, 3}, {3, -8, 2, -9}, {-4, 4, 4, 4}, {1, -6, 5, -1}});
+    var m2 = new Matrix4x4(new float[][]{{8, 2, 2, 2}, {3, -1, 7, 0}, {7, 0, 5, 4}, {6, -2, 0, 5}});
+    assertEquals(m1, m1.multiply(m2).multiply(m2.invert()));
   }
 }
