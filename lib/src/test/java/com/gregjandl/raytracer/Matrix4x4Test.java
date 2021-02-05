@@ -128,4 +128,19 @@ public class Matrix4x4Test {
     assertEquals(p, Matrix4x4.identity().multiply(p));
     assertEquals(v, Matrix4x4.identity().multiply(v));
   }
+
+  @Test
+  @DisplayName("A Matrix may be transposed")
+  void testTranspose() {
+    var m = new Matrix4x4(new float[][]{{0, 9, 3, 0}, {9, 8, 0, 8}, {1, 8, 5, 3}, {0, 0, 5, 8}});
+    var expected = new Matrix4x4(
+        new float[][]{{0, 9, 1, 0}, {9, 8, 8, 0}, {3, 0, 5, 5}, {0, 8, 3, 8}});
+    assertEquals(expected, m.transpose());
+  }
+
+  @Test
+  @DisplayName("The identity matrix transposed is unchanged")
+  void testTransposeIdenity() {
+    assertEquals(Matrix4x4.identity(), Matrix4x4.identity().transpose());
+  }
 }

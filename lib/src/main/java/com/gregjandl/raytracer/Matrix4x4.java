@@ -109,4 +109,14 @@ public class Matrix4x4 {
         get(1, 0) * p.getX() + get(1, 1) * p.getY() + get(1, 2) * p.getZ() + get(1, 3),
         get(2, 0) * p.getX() + get(2, 1) * p.getY() + get(2, 2) * p.getZ() + get(2, 3));
   }
+
+  public Matrix4x4 transpose() {
+    var ret = new Matrix4x4();
+    for (int c = 0; c < 4; ++c) {
+      for (int r = 0; r < 4; ++r) {
+        ret.set(c, r, get(r, c));
+      }
+    }
+    return ret;
+  }
 }
