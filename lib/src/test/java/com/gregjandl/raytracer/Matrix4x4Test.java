@@ -35,7 +35,7 @@ public class Matrix4x4Test {
   @Test
   @DisplayName("Matrix has a toString")
   void testToString() {
-    var actual = new Matrix4x4().toString();
+    var actual = Matrix4x4.identity().toString();
     var expected = "Matrix4x4{{1.0, 0.0, 0.0, 0.0}, {0.0, 1.0, 0.0, 0.0}, {0.0, 0.0, 1.0, 0.0}, "
         + "{0.0, 0.0, 0.0, 1.0}}";
     assertEquals(expected, actual);

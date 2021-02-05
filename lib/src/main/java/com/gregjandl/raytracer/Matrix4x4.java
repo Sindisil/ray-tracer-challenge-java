@@ -6,6 +6,11 @@ public class Matrix4x4 {
   private final float[] m = new float[16];
 
   /**
+   * Constructs a 4x4 matrix initialized to all zeros.
+   */
+  public Matrix4x4() {}
+
+  /**
    * Constructs a 4x4 matrix from the supplied two dimensional float array.
    *
    * @param data float[4][4] containing initialization data for new matrix
@@ -21,14 +26,10 @@ public class Matrix4x4 {
   }
 
   /**
-   * Constructs a 4x4 identity Matrix.
+   * Returns a 4x4 identity Matrix.
    */
-  public Matrix4x4() {
-    Arrays.fill(m, 0);
-    m[0] = 1;
-    m[4 + 1] = 1;
-    m[2 * 4 + 2] = 1;
-    m[3 * 4 + 3] = 1;
+  public static Matrix4x4 identity() {
+    return new Matrix4x4().set(0, 0, 1).set(1, 1, 1).set(2, 2, 1).set(3, 3, 1);
   }
 
   public float get(int row, int col) {
