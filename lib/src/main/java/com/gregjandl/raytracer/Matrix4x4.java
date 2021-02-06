@@ -220,4 +220,16 @@ public class Matrix4x4 {
 
     return inverted;
   }
+
+  static Matrix4x4 translation(float x, float y, float z) {
+    var m = identity();
+    m.set(0, 3, x);
+    m.set(1, 3, y);
+    m.set(2, 3, z);
+    return m;
+  }
+
+  public Matrix4x4 translate(float x, float y, float z) {
+    return translation(x, y, z).multiply(this);
+  }
 }

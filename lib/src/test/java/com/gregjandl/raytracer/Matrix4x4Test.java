@@ -207,4 +207,29 @@ public class Matrix4x4Test {
     var m2 = new Matrix4x4(new float[][]{{8, 2, 2, 2}, {3, -1, 7, 0}, {7, 0, 5, 4}, {6, -2, 0, 5}});
     assertEquals(m1, m1.multiply(m2).multiply(m2.invert()));
   }
+
+  @Test
+  @DisplayName("Multiplying by a translation matrix")
+  void testMultiplyPointByTranslationMatrix() {
+    var translation = Matrix4x4.translation(5, -3, 2);
+    var point = new Point(-3, 4, 5);
+    assertEquals(new Point(2, 1, 7), translation.multiply(point));
+    assertEquals(new Point(2, 1, 7), Matrix4x4.identity().translate(5, -3, 2).multiply(point));
+  }
+
+  @Test
+  @DisplayName("Multiplying by the inverse of a translation matrix")
+  void testMultiplyPointByInverseTranslationMatrix() {
+    var translation = Matrix4x4.translation(5, -3, 2);
+    var point = new Point(-3, 4, 5);
+    assertEquals(new Point(-8, 7, 3), translation.invert().multiply(point));
+  }
+
+  @Test
+  @DisplayName("Translation doesn't affect vectors")
+  void testMultiplyVectorByTranslationMatrix() {
+    var translation = Matrix4x4.translation(5, -3, 2);
+    var vector = new Vector3(-3, 4, 5);
+    assertEquals(vector, translation.multiply(vector));
+  }
 }
