@@ -213,8 +213,9 @@ public class Matrix4x4Test {
   void testMultiplyPointByTranslationMatrix() {
     var translation = Matrix4x4.translation(5, -3, 2);
     var point = new Point(-3, 4, 5);
-    assertEquals(new Point(2, 1, 7), translation.multiply(point));
-    assertEquals(new Point(2, 1, 7), Matrix4x4.identity().translate(5, -3, 2).multiply(point));
+    var translatedPoint = new Point(2, 1, 7);
+    assertEquals(translatedPoint, translation.multiply(point));
+    assertEquals(translatedPoint, Matrix4x4.identity().translate(5, -3, 2).multiply(point));
   }
 
   @Test
@@ -231,5 +232,41 @@ public class Matrix4x4Test {
     var translation = Matrix4x4.translation(5, -3, 2);
     var vector = new Vector3(-3, 4, 5);
     assertEquals(vector, translation.multiply(vector));
+  }
+
+  @Test
+  @DisplayName("A scaling matrix applied to a point")
+  void testApplyScalingMatrixToPoint() {
+    var point = new Point(-4, 6, 8);
+    var scaledPoint = new Point(-8, 18, 32);
+    assertEquals(scaledPoint, Matrix4x4.scaling(2, 3, 4).multiply(point));
+    assertEquals(scaledPoint, Matrix4x4.identity().scale(2, 3, 4).multiply(point));
+  }
+
+  @Test
+  @DisplayName("A scaling matrix applied to a vector")
+  void testApplyScalingMatrixToVector() {
+    var vector = new Vector3(-4, 6, 8);
+    var scaledVector = new Vector3(-8, 18, 32);
+    assertEquals(scaledVector, Matrix4x4.scaling(2, 3, 4).multiply(vector));
+    assertEquals(scaledVector, Matrix4x4.identity().scale(2, 3, 4).multiply(vector));
+  }
+
+  @Test
+  @DisplayName("Multiplying by the inverse of a scaling matrix")
+  void testMultiplyByInverseScalingMatrix() {
+    var vector = new Vector3(-4, 6, 8);
+    var scaledVector = new Vector3(-2, 2, 2);
+    assertEquals(scaledVector, Matrix4x4.scaling(2, 3, 4).invert().multiply(vector));
+    assertEquals(scaledVector, Matrix4x4.identity().scale(2, 3, 4).invert().multiply(vector));
+  }
+
+  @Test
+  @DisplayName("Reflection is scaling by a negative value")
+  void testReflection() {
+    var point = new Point(2, 3, 4);
+    var reflected = new Point(-2, 3, 4);
+    assertEquals(reflected, Matrix4x4.scaling(-1, 1, 1).multiply(point));
+    assertEquals(reflected, Matrix4x4.identity().scale(-1, 1, 1).multiply(point));
   }
 }

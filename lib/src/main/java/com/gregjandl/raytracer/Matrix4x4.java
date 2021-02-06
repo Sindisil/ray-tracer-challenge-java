@@ -32,6 +32,14 @@ public class Matrix4x4 {
     return new Matrix4x4().set(0, 0, 1).set(1, 1, 1).set(2, 2, 1).set(3, 3, 1);
   }
 
+  static Matrix4x4 translation(float x, float y, float z) {
+    return identity().set(0, 3, x).set(1, 3, y).set(2, 3, z);
+  }
+
+  public static Matrix4x4 scaling(float x, float y, float z) {
+    return new Matrix4x4().set(0, 0, x).set(1, 1, y).set(2, 2, z).set(3, 3, 1);
+  }
+
   public float get(int row, int col) {
     if (row < 0 || row > 3 || col < 0 || col > 3) {
       throw new IndexOutOfBoundsException("index [" + row + ", " + col + "] not in [0-3, 0-3]");
@@ -221,15 +229,11 @@ public class Matrix4x4 {
     return inverted;
   }
 
-  static Matrix4x4 translation(float x, float y, float z) {
-    var m = identity();
-    m.set(0, 3, x);
-    m.set(1, 3, y);
-    m.set(2, 3, z);
-    return m;
-  }
-
   public Matrix4x4 translate(float x, float y, float z) {
     return translation(x, y, z).multiply(this);
+  }
+
+  public Matrix4x4 scale(float x, float y, float z) {
+    return scaling(x, y, z).multiply(this);
   }
 }
