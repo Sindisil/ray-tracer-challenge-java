@@ -40,6 +40,30 @@ public class Matrix4x4 {
     return new Matrix4x4().set(0, 0, x).set(1, 1, y).set(2, 2, z).set(3, 3, 1);
   }
 
+  public static Matrix4x4 rotationOnX(double r) {
+    return new Matrix4x4()
+        .set(0, 0, 1)
+        .set(1, 1, (float) Math.cos(r)).set(1, 2, -((float) Math.sin(r)))
+        .set(2, 1, (float) Math.sin(r)).set(2, 2, (float) Math.cos(r))
+        .set(3, 3, 1);
+  }
+
+  public static Matrix4x4 rotationOnY(double r) {
+    return new Matrix4x4()
+        .set(0, 0, (float) Math.cos(r)).set(0, 2, (float) Math.sin(r))
+        .set(1, 1, 1)
+        .set(2, 0, -((float) Math.sin(r))).set(2, 2, (float) Math.cos(r))
+        .set(3, 3, 1);
+  }
+
+  public static Matrix4x4 rotationOnZ(double r) {
+    return new Matrix4x4()
+        .set(0, 0, (float) Math.cos(r)).set(0, 1, -((float) Math.sin(r)))
+        .set(1, 0, (float) Math.sin(r)).set(1, 1, (float) Math.cos(r))
+        .set(2, 2, 1)
+        .set(3, 3, 1);
+  }
+
   public float get(int row, int col) {
     if (row < 0 || row > 3 || col < 0 || col > 3) {
       throw new IndexOutOfBoundsException("index [" + row + ", " + col + "] not in [0-3, 0-3]");
@@ -133,6 +157,7 @@ public class Matrix4x4 {
    *
    * @return the determinant
    */
+  @SuppressWarnings({"SpellCheckingInspection", "DuplicatedCode"})
   public float determinant() {
     // 2x2 determinants needed to compute the full determinant.
     // name format is dCCRR where CC == columns and RR == rows
@@ -153,6 +178,7 @@ public class Matrix4x4 {
     return determinant() != 0;
   }
 
+  @SuppressWarnings({"SpellCheckingInspection", "DuplicatedCode"})
   public Matrix4x4 invert() {
     // 2x2 determinants needed to compute the full determinant.
     // name format is dCCRR where CC == columns and RR == rows
@@ -235,5 +261,17 @@ public class Matrix4x4 {
 
   public Matrix4x4 scale(float x, float y, float z) {
     return scaling(x, y, z).multiply(this);
+  }
+
+  public Matrix4x4 rotateOnX(double r) {
+    return rotationOnX(r).multiply(this);
+  }
+
+  public Matrix4x4 rotateOnY(double r) {
+    return rotationOnY(r).multiply(this);
+  }
+
+  public Matrix4x4 rotateOnZ(double r) {
+    return rotationOnZ(r).multiply(this);
   }
 }

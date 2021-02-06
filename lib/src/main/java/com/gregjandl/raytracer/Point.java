@@ -16,6 +16,12 @@ public class Point {
     this.z = z;
   }
 
+  Point(double x, double y, double z) {
+    this.x = (float) x;
+    this.y = (float) y;
+    this.z = (float) z;
+  }
+
   public float getX() { return x;}
 
   public float getY() { return y;}

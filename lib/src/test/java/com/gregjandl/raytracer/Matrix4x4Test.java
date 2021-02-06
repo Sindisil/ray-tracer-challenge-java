@@ -269,4 +269,73 @@ public class Matrix4x4Test {
     assertEquals(reflected, Matrix4x4.scaling(-1, 1, 1).multiply(point));
     assertEquals(reflected, Matrix4x4.identity().scale(-1, 1, 1).multiply(point));
   }
+
+  @Test
+  @DisplayName("Rotating a point around the x axis")
+  void testRotateOnX() {
+    var p = new Point(0, 1, 0);
+    var pRotEighth = new Point(0, Math.sqrt(2) / 2, Math.sqrt(2) / 2);
+    var pRotQuarter = new Point(0, 0, 1);
+
+    assertEquals(pRotEighth, Matrix4x4.rotationOnX(Math.PI / 4).multiply(p));
+    assertEquals(pRotEighth, Matrix4x4.identity().rotateOnX(Math.PI / 4).multiply(p));
+    assertEquals(pRotQuarter, Matrix4x4.rotationOnX(Math.PI / 2).multiply(p));
+    assertEquals(pRotQuarter, Matrix4x4.identity().rotateOnX(Math.PI / 2).multiply(p));
+  }
+
+  @Test
+  @DisplayName("Inverse of rotation matrix rotates in the opposite direction")
+  void testRotateOnXInverse() {
+    var p = new Point(0, 1, 0);
+    var pRotEighth = new Point(0, Math.sqrt(2) / 2, -Math.sqrt(2) / 2);
+
+    assertEquals(pRotEighth, Matrix4x4.rotationOnX(Math.PI / 4).invert().multiply(p));
+    assertEquals(pRotEighth, Matrix4x4.identity().rotateOnX(Math.PI / 4).invert().multiply(p));
+  }
+
+  @Test
+  @DisplayName("Rotating a point around the y axis")
+  void testRotateOnY() {
+    var p = new Point(0, 0, 1);
+    var pRotEighth = new Point(Math.sqrt(2) / 2, 0, Math.sqrt(2) / 2);
+    var pRotQuarter = new Point(1, 0, 0);
+
+    assertEquals(pRotEighth, Matrix4x4.rotationOnY(Math.PI / 4).multiply(p));
+    assertEquals(pRotEighth, Matrix4x4.identity().rotateOnY(Math.PI / 4).multiply(p));
+    assertEquals(pRotQuarter, Matrix4x4.rotationOnY(Math.PI / 2).multiply(p));
+    assertEquals(pRotQuarter, Matrix4x4.identity().rotateOnY(Math.PI / 2).multiply(p));
+  }
+
+  @Test
+  @DisplayName("Inverse of rotation matrix rotates in the opposite direction")
+  void testRotateOnYInverse() {
+    var p = new Point(0, 0, 1);
+    var pRotEighth = new Point(-Math.sqrt(2) / 2, 0, Math.sqrt(2) / 2);
+
+    assertEquals(pRotEighth, Matrix4x4.rotationOnY(Math.PI / 4).invert().multiply(p));
+    assertEquals(pRotEighth, Matrix4x4.identity().rotateOnY(Math.PI / 4).invert().multiply(p));
+  }
+
+  @Test
+  @DisplayName("Rotating a point around the Z axis")
+  void testRotateOnZ() {
+    var p = new Point(0, 1, 0);
+    var pRotEighth = new Point(-Math.sqrt(2) / 2, Math.sqrt(2) / 2, 0);
+    var pRotQuarter = new Point(-1, 0, 0);
+
+    assertEquals(pRotEighth, Matrix4x4.rotationOnZ(Math.PI / 4).multiply(p));
+    assertEquals(pRotEighth, Matrix4x4.identity().rotateOnZ(Math.PI / 4).multiply(p));
+    assertEquals(pRotQuarter, Matrix4x4.rotationOnZ(Math.PI / 2).multiply(p));
+    assertEquals(pRotQuarter, Matrix4x4.identity().rotateOnZ(Math.PI / 2).multiply(p));
+  }
+
+  @Test
+  @DisplayName("Inverse of rotation matrix rotates in the opposite direction")
+  void testRotateOnZInverse() {
+    var p = new Point(0, 1, 0);
+    var pRotEighth = new Point(Math.sqrt(2) / 2, Math.sqrt(2) / 2, 0);
+
+    assertEquals(pRotEighth, Matrix4x4.rotationOnZ(Math.PI / 4).invert().multiply(p));
+    assertEquals(pRotEighth, Matrix4x4.identity().rotateOnZ(Math.PI / 4).invert().multiply(p));
+  }
 }
