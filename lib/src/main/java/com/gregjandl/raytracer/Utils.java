@@ -1,6 +1,6 @@
 package com.gregjandl.raytracer;
 
-public class Utils {
+public final class Utils {
   public static final float EPSILON = 0.0001f;
 
   public static boolean aboutEqual(double lhs, double rhs) {
