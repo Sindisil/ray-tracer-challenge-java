@@ -32,14 +32,61 @@ public class Matrix4x4 {
     return new Matrix4x4().set(0, 0, 1).set(1, 1, 1).set(2, 2, 1).set(3, 3, 1);
   }
 
+  /**
+   * Generate a transformation matrix to translate in {@code x}, {@code y}, and {@code z}
+   * dimensions.
+   * <pre>
+   *   +--        --+
+   *   | 1  0  0  x |
+   *   | 0  1  0  y |
+   *   | 0  0  1  z |
+   *   | 0  0  0  1 |
+   *   +--        --+
+   * </pre>
+   *
+   * @param x translation factor in {@code x} dimension.
+   * @param y translation factor in {@code y} dimension.
+   * @param z translation factor in {@code z} dimension.
+   * @return the transformation matrix
+   */
   static Matrix4x4 translation(float x, float y, float z) {
     return identity().set(0, 3, x).set(1, 3, y).set(2, 3, z);
   }
 
+  /**
+   * Generate a transformation matrix to scale in {@code x}, {@code y}, and {@code z} dimensions.
+   * <pre>
+   *   +--        --+
+   *   | x  0  0  0 |
+   *   | 0  y  0  0 |
+   *   | 0  0  z  0 |
+   *   | 0  0  0  1 |
+   *   +--        --+
+   * </pre>
+   *
+   * @param x scaling factor in {@code x} dimension.
+   * @param y scaling factor in {@code y} dimension.
+   * @param z scaling factor in {@code z} dimension.
+   * @return the transformation matrix
+   */
   public static Matrix4x4 scaling(float x, float y, float z) {
     return new Matrix4x4().set(0, 0, x).set(1, 1, y).set(2, 2, z).set(3, 3, 1);
   }
 
+  /**
+   * Generate a transformation matrix to perform clockwise rotation around the X axis.
+   * <pre>
+   *   +--                   --+
+   *   | 1     0       0    0 |
+   *   | 0   cos r  -sin r  0 |
+   *   | 0   sin r   cos r  0 |
+   *   | 0     0       0    0 |
+   *   +--                   --+
+   * </pre>
+   *
+   * @param r clockwise rotation in radians
+   * @return the transformation matrix
+   */
   public static Matrix4x4 rotationOnX(double r) {
     return new Matrix4x4()
         .set(0, 0, 1)
@@ -48,6 +95,20 @@ public class Matrix4x4 {
         .set(3, 3, 1);
   }
 
+  /**
+   * Generate a transformation matrix to perform clockwise rotation around the Y axis.
+   * <pre>
+   *   +--                 --+
+   *   |  cos r  0  sin r  0 |
+   *   |    0    0    0    0 |
+   *   | -sin r  0  cos r  0 |
+   *   |    0    0    0    0 |
+   *   +--                 --+
+   * </pre>
+   *
+   * @param r clockwise rotation in radians
+   * @return the transformation matrix
+   */
   public static Matrix4x4 rotationOnY(double r) {
     return new Matrix4x4()
         .set(0, 0, (float) Math.cos(r)).set(0, 2, (float) Math.sin(r))
@@ -56,6 +117,20 @@ public class Matrix4x4 {
         .set(3, 3, 1);
   }
 
+  /**
+   * Generate a transformation matrix to perform clockwise rotation around the Z axis.
+   * <pre>
+   *   +--                 --+
+   *   | cos r  -sin r  0  0 |
+   *   | sin r   cos r  0  0 |
+   *   |  0       0     0  0 |
+   *   |  0       0     0  0 |
+   *   +--                 --+
+   * </pre>
+   *
+   * @param r clockwise rotation in radians
+   * @return the transformation matrix
+   */
   public static Matrix4x4 rotationOnZ(double r) {
     return new Matrix4x4()
         .set(0, 0, (float) Math.cos(r)).set(0, 1, -((float) Math.sin(r)))
@@ -255,22 +330,64 @@ public class Matrix4x4 {
     return inverted;
   }
 
+  /**
+   * Apply a transformation matrix to this matrix, translating in {@code x}, {@code y}, and {@code
+   * z} dimensions.
+   *
+   * @param x Translation factor for {@code x} dimension.
+   * @param y Translation factor for {@code y} dimension.
+   * @param z Translation factor for {@code z} dimension.
+   * @return the transformed matrix
+   */
   public Matrix4x4 translate(float x, float y, float z) {
     return translation(x, y, z).multiply(this);
   }
 
+  /**
+   * Apply a transformation matrix to this matrix, scaling in {@code x}, {@code y}, and {@code z}
+   * dimensions.
+   *
+   * @param x Scaling factor for {@code x} dimension.
+   * @param y Scaling factor for {@code y} dimension.
+   * @param z Scaling factor for {@code z} dimension.
+   * @return the transformed matrix
+   */
   public Matrix4x4 scale(float x, float y, float z) {
     return scaling(x, y, z).multiply(this);
   }
 
+  /**
+   * Apply a transformation matrix to this matrix to rotate {@code r} radians clockwise around the X
+   * axis.
+   *
+   * @param r Amount to rotate, in radians
+   * @return The transformed matrix
+   * @see Matrix4x4#rotationOnX(double)
+   */
   public Matrix4x4 rotateOnX(double r) {
     return rotationOnX(r).multiply(this);
   }
 
+  /**
+   * Apply a transformation matrix to this matrix to rotate {@code r} radians clockwise around the Y
+   * axis.
+   *
+   * @param r Amount to rotate, in radians
+   * @return The transformed matrix
+   * @see Matrix4x4#rotationOnY(double)
+   */
   public Matrix4x4 rotateOnY(double r) {
     return rotationOnY(r).multiply(this);
   }
 
+  /**
+   * Apply a transformation matrix to this matrix to rotate {@code r} radians clockwise around the Z
+   * axis.
+   *
+   * @param r Amount to rotate, in radians
+   * @return The transformed matrix
+   * @see Matrix4x4#rotationOnZ(double)
+   */
   public Matrix4x4 rotateOnZ(double r) {
     return rotationOnZ(r).multiply(this);
   }
