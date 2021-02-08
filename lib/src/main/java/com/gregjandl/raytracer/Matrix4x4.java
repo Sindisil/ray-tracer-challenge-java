@@ -139,6 +139,40 @@ public class Matrix4x4 {
         .set(3, 3, 1);
   }
 
+  /**
+   * Generate a transformation matrix to perform a shear operation in one or more of:
+   * <ul>
+   *   <li>x in proportion to y</li>
+   *   <li>x in proportion to z</li>
+   *   <li>y in proportion to x</li>
+   *   <li>y in proportion to z</li>
+   *   <li>z in proportion to x</li>
+   *   <li>z in proportion to y</li>
+   * </ul>
+   * <pre>
+   *   +--           --+
+   *   |  1  xy  xz  0 |
+   *   | yx   1  yz  0 |
+   *   | zx  zy   1  0 |
+   *   |  0   0   0  0 |
+   *   +--           --+
+   * </pre>
+   *
+   * @param xy factor y is multiplied by before adding to x
+   * @param xz factor z is multiplied by before adding to x
+   * @param yx factor x is multiplied by before adding to y
+   * @param yz factor z is multiplied by before adding to y
+   * @param zx factor x is multiplied by before adding to z
+   * @param zy factor y is multiplied by before adding to z
+   * @return the transformation matrix
+   */
+  public static Matrix4x4 shearing(float xy, float xz, float yx, float yz, float zx, float zy) {
+    return identity()
+        .set(0, 1, xy).set(0, 2, xz)
+        .set(1, 0, yx).set(1, 2, yz)
+        .set(2, 0, zx).set(2, 1, zy);
+  }
+
   public float get(int row, int col) {
     if (row < 0 || row > 3 || col < 0 || col > 3) {
       throw new IndexOutOfBoundsException("index [" + row + ", " + col + "] not in [0-3, 0-3]");
@@ -390,5 +424,29 @@ public class Matrix4x4 {
    */
   public Matrix4x4 rotateOnZ(double r) {
     return rotationOnZ(r).multiply(this);
+  }
+
+  /**
+   * Apply a transformation matrix to this matrix to shear in one or more of:
+   * <ul>
+   *   <li>x in proportion to y</li>
+   *   <li>x in proportion to z</li>
+   *   <li>y in proportion to x</li>
+   *   <li>y in proportion to z</li>
+   *   <li>z in proportion to x</li>
+   *   <li>z in proportion to y</li>
+   * </ul>
+   *
+   * @param xy factor y is multiplied by before adding to x
+   * @param xz factor z is multiplied by before adding to x
+   * @param yx factor x is multiplied by before adding to y
+   * @param yz factor z is multiplied by before adding to y
+   * @param zx factor x is multiplied by before adding to z
+   * @param zy factor y is multiplied by before adding to z
+   * @return the transformed matrix
+   * @see Matrix4x4#shearing(float, float, float, float, float, float)
+   */
+  public Matrix4x4 shear(float xy, float xz, float yx, float yz, float zx, float zy) {
+    return shearing(xy, xz, yx, yz, zx, zy).multiply(this);
   }
 }

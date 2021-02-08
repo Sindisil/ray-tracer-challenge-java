@@ -341,5 +341,57 @@ public class Matrix4x4Test {
     assertEquals(pRotEighth, Matrix4x4.identity().rotateOnZ(Math.PI / 4).invert().multiply(p));
   }
 
+  @Test
+  @DisplayName("A shearing transformation moving x in proportion to y")
+  void testShearXY() {
+    var point = new Point(2, 3, 4);
+    var shearedPoint = new Point(5, 3, 4);
+    assertEquals(shearedPoint, Matrix4x4.shearing(1, 0, 0, 0, 0, 0).multiply(point));
+    assertEquals(shearedPoint, Matrix4x4.identity().shear(1, 0, 0, 0, 0, 0).multiply(point));
+  }
 
+  @Test
+  @DisplayName("A shearing transformation moving x in proportion to z")
+  void testShearXZ() {
+    var point = new Point(2, 3, 4);
+    var shearedPoint = new Point(8, 3, 4);
+    assertEquals(shearedPoint, Matrix4x4.shearing(0, 1.5f, 0, 0, 0, 0).multiply(point));
+    assertEquals(shearedPoint, Matrix4x4.identity().shear(0, 1.5f, 0, 0, 0, 0).multiply(point));
+  }
+
+  @Test
+  @DisplayName("A shearing transformation moving y in proportion to x")
+  void testShearYX() {
+    var point = new Point(2, 3, 4);
+    var shearedPoint = new Point(2, 5, 4);
+    assertEquals(shearedPoint, Matrix4x4.shearing(0, 0, 1, 0, 0, 0).multiply(point));
+    assertEquals(shearedPoint, Matrix4x4.identity().shear(0, 0, 1, 0, 0, 0).multiply(point));
+  }
+
+  @Test
+  @DisplayName("A shearing transformation moving y in proportion to z")
+  void testShearYZ() {
+    var point = new Point(2, 3, 4);
+    var shearedPoint = new Point(2, 7, 4);
+    assertEquals(shearedPoint, Matrix4x4.shearing(0, 0, 0, 1, 0, 0).multiply(point));
+    assertEquals(shearedPoint, Matrix4x4.identity().shear(0, 0, 0, 1, 0, 0).multiply(point));
+  }
+
+  @Test
+  @DisplayName("A shearing transformation moving z in proportion to x")
+  void testShearZX() {
+    var point = new Point(2, 3, 4);
+    var shearedPoint = new Point(2, 3, 6);
+    assertEquals(shearedPoint, Matrix4x4.shearing(0, 0, 0, 0, 1, 0).multiply(point));
+    assertEquals(shearedPoint, Matrix4x4.identity().shear(0, 0, 0, 0, 1, 0).multiply(point));
+  }
+
+  @Test
+  @DisplayName("A shearing transformation moving z in proportion to y")
+  void testShearZY() {
+    var point = new Point(2, 3, 4);
+    var shearedPoint = new Point(2, 3, 7);
+    assertEquals(shearedPoint, Matrix4x4.shearing(0, 0, 0, 0, 0, 1).multiply(point));
+    assertEquals(shearedPoint, Matrix4x4.identity().shear(0, 0, 0, 0, 0, 1).multiply(point));
+  }
 }
