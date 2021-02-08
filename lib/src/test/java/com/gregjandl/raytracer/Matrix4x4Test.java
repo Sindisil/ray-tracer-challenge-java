@@ -394,4 +394,35 @@ public class Matrix4x4Test {
     assertEquals(shearedPoint, Matrix4x4.shearing(0, 0, 0, 0, 0, 1).multiply(point));
     assertEquals(shearedPoint, Matrix4x4.identity().shear(0, 0, 0, 0, 0, 1).multiply(point));
   }
+
+  @Test
+  @DisplayName("Transformations are applied in sequence")
+  void testTransformationSequence() {
+    var point = new Point(1, 0, 1);
+    var rotation = Matrix4x4.rotationOnX(Math.PI / 2);
+    var scaling = Matrix4x4.scaling(5, 5, 5);
+    var translation = Matrix4x4.translation(10, 5, 7);
+
+    var p2 = rotation.multiply(point);
+    assertEquals(new Point(1, -1, 0), p2);
+    var p3 = scaling.multiply(p2);
+    assertEquals(new Point(5, -5, 0), p3);
+    var p4 = translation.multiply(p3);
+    assertEquals(new Point(15, 0, 7), p4);
+  }
+
+  @Test
+  @DisplayName("Chained transformations must be applied in the correct order")
+  void testChainedTransformations() {
+    var p = new Point(1, 0, 1);
+    var rotation = Matrix4x4.rotationOnX(Math.PI / 2);
+    var scaling = Matrix4x4.scaling(5, 5, 5);
+    var translation = Matrix4x4.translation(10, 5, 7);
+    var expected = new Point(15, 0, 7);
+
+    var transformation = translation.multiply(scaling).multiply(rotation);
+    assertEquals(expected, transformation.multiply(p));
+    var p2 = Matrix4x4.rotationOnX(Math.PI / 2).scale(5, 5, 5).translate(10, 5, 7).multiply(p);
+    assertEquals(expected, p2);
+  }
 }
