@@ -46,10 +46,12 @@ public class Matrix4x4Test {
     assertThrows(IndexOutOfBoundsException.class, () -> m.set(1, 5, 2));
   }
 
+  @SuppressWarnings("ResultOfObjectAllocationIgnored")
   @Test
   @DisplayName("Matrix ctor is bounds checked")
   void testBadCreate() {
     assertThrows(IllegalArgumentException.class, () -> new Matrix4x4(new float[][]{{1}, {2}, {3}}));
+    //noinspection ZeroLengthArrayAllocation
     assertThrows(IllegalArgumentException.class, () -> new Matrix4x4(new float[][]{}));
   }
 
@@ -338,4 +340,6 @@ public class Matrix4x4Test {
     assertEquals(pRotEighth, Matrix4x4.rotationOnZ(Math.PI / 4).invert().multiply(p));
     assertEquals(pRotEighth, Matrix4x4.identity().rotateOnZ(Math.PI / 4).invert().multiply(p));
   }
+
+
 }
