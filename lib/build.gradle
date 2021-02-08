@@ -2,6 +2,18 @@ plugins {
     id 'java-library'
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(15)
+
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.deprecation = true
+    options.compilerArgs << '-Xlint:all'
+}
+
 repositories {
     mavenCentral()
 }
