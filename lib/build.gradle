@@ -11,7 +11,7 @@ java {
 
 tasks.withType(JavaCompile) {
     options.deprecation = true
-    options.compilerArgs << '-Xlint:all'
+    options.compilerArgs << '-Xlint'
 }
 
 repositories {
