@@ -2,6 +2,9 @@ package com.gregjandl.raytracer;
 
 import java.util.Arrays;
 
+/**
+ * {@code Matrix4x4} represents a 4x4 float matrix.
+ */
 public class Matrix4x4 {
   private final float[] m = new float[16];
 
@@ -27,6 +30,8 @@ public class Matrix4x4 {
 
   /**
    * Returns a 4x4 identity Matrix.
+   *
+   * @return a 4x4 identity Matrix
    */
   public static Matrix4x4 identity() {
     return new Matrix4x4().set(0, 0, 1).set(1, 1, 1).set(2, 2, 1).set(3, 3, 1);
@@ -173,6 +178,15 @@ public class Matrix4x4 {
         .set(2, 0, zx).set(2, 1, zy);
   }
 
+  /**
+   * Return the value of the matrix element at ({@code row}, {@code col}).
+   * <p>
+   * The matrix coordinates are zero based (i.e., valid range is [0, 3]).
+   *
+   * @param row the row coordinate of the element
+   * @param col the column coordinate of the element
+   * @return the value of specified element
+   */
   public float get(int row, int col) {
     if (row < 0 || row > 3 || col < 0 || col > 3) {
       throw new IndexOutOfBoundsException("index [" + row + ", " + col + "] not in [0-3, 0-3]");
@@ -188,6 +202,14 @@ public class Matrix4x4 {
     return this;
   }
 
+  /**
+   * Compares this {@code Matrix4x4} to the specified {@code Object}.
+   *
+   * @param o {@code Object} to which this {@code Matrix4x4} should be compared
+   * @return {@code true} if and only if the specified {@code Object} is a {@code Matrix4x4} whose
+   * elements differ by less than {@link Utils#EPSILON}.
+   * @see Utils#aboutEqual(double, double)
+   */
   @Override
   public boolean equals(Object o) {
     if (this == o) { return true; }
@@ -201,11 +223,22 @@ public class Matrix4x4 {
     return true;
   }
 
+  /**
+   * Returns the hash code for this {@code Vector3}
+   *
+   * @return hash code for this {@code Vector3}
+   */
   @Override
   public int hashCode() {
     return Arrays.hashCode(m);
   }
 
+  /**
+   * Returns a string representation of this {@code Matrix4x4}. This method is intended to be used
+   * for debugging purposes; the representation may change, but will not be {@code null}.
+   *
+   * @return a string representation of this {@code Matrix4x4}
+   */
   @Override
   public String toString() {
     var b = new StringBuilder("Matrix4x4{");
@@ -223,6 +256,12 @@ public class Matrix4x4 {
     return b.toString();
   }
 
+  /**
+   * Returns a {@code Matrix4x4} whose value is (this * other).
+   *
+   * @param other {@code Matrix4x4} by which this {@code Matrix4x4} is to be multiplied
+   * @return this * other
+   */
   public Matrix4x4 multiply(Matrix4x4 other) {
     var res = new Matrix4x4();
     for (int r = 0; r < 4; ++r) {
@@ -237,6 +276,12 @@ public class Matrix4x4 {
     return res;
   }
 
+  /**
+   * Returns a {@code Matrix4x4} whose value is (this * v).
+   *
+   * @param v {@code Vector3} by which this {@code Matrix4x4} is to be multiplied
+   * @return this * v
+   */
   public Vector3 multiply(Vector3 v) {
     return new Vector3(
         get(0, 0) * v.getX() + get(0, 1) * v.getY() + get(0, 2) * v.getZ(),
@@ -244,6 +289,12 @@ public class Matrix4x4 {
         get(2, 0) * v.getX() + get(2, 1) * v.getY() + get(2, 2) * v.getZ());
   }
 
+  /**
+   * Returns a {@code Matrix4x4} whose value is (this * p).
+   *
+   * @param p {@code Point} by which this {@code Matrix4x4} is to be multiplied
+   * @return this * p
+   */
   public Point multiply(Point p) {
     return new Point(
         get(0, 0) * p.getX() + get(0, 1) * p.getY() + get(0, 2) * p.getZ() + get(0, 3),
@@ -251,6 +302,11 @@ public class Matrix4x4 {
         get(2, 0) * p.getX() + get(2, 1) * p.getY() + get(2, 2) * p.getZ() + get(2, 3));
   }
 
+  /**
+   * Returns a {@code Matrix4x4} whose values is this {@code Matrix4x4} transposed.
+   *
+   * @return this transposed
+   */
   public Matrix4x4 transpose() {
     var ret = new Matrix4x4();
     for (int c = 0; c < 4; ++c) {
@@ -268,8 +324,10 @@ public class Matrix4x4 {
    */
   @SuppressWarnings({"SpellCheckingInspection", "DuplicatedCode"})
   public float determinant() {
-    // 2x2 determinants needed to compute the full determinant.
-    // name format is dCCRR where CC == columns and RR == rows
+    /*
+     2x2 determinants needed to compute the full determinant.
+     name format is dCCRR where CC == columns and RR == rows
+    */
     var d2323 = get(2, 2) * get(3, 3) - get(2, 3) * get(3, 2);
     var d1323 = get(2, 1) * get(3, 3) - get(2, 3) * get(3, 1);
     var d1223 = get(2, 1) * get(3, 2) - get(2, 2) * get(3, 1);
@@ -283,14 +341,27 @@ public class Matrix4x4 {
         - get(0, 3) * (get(1, 0) * d1223 - get(1, 1) * d0223 + get(1, 2) * d0123);
   }
 
+  /**
+   * Tests if the matrix is invertible.
+   *
+   * @return {@code true} if the matrix is invertible, {@code false} if not.
+   */
   public boolean isInvertible() {
     return determinant() != 0;
   }
 
+  /**
+   * Calculates the inverse of the matrix.
+   *
+   * @return a matrix that is the inverse of this matrix
+   */
   @SuppressWarnings({"SpellCheckingInspection", "DuplicatedCode"})
   public Matrix4x4 invert() {
-    // 2x2 determinants needed to compute the full determinant.
-    // name format is dCCRR where CC == columns and RR == rows
+
+    /*
+     2x2 determinants needed to compute the full determinant.
+     name format is dCCRR where CC == columns and RR == rows
+    */
     var d2323 = get(2, 2) * get(3, 3) - get(2, 3) * get(3, 2);
     var d1323 = get(2, 1) * get(3, 3) - get(2, 3) * get(3, 1);
     var d1223 = get(2, 1) * get(3, 2) - get(2, 2) * get(3, 1);
@@ -309,8 +380,10 @@ public class Matrix4x4 {
 
     var invDeterminant = 1 / determinant;
 
-    // Additional 2x2 determinants needed to invert matrix
-    //    names are dCCRR where CC == cols && RR == rows
+    /*
+     Additional 2x2 determinants needed to invert matrix
+        names are dCCRR where CC == cols && RR == rows
+    */
     var d2313 = get(1, 2) * get(3, 3) - get(1, 3) * get(3, 2);
     var d1313 = get(1, 1) * get(3, 3) - get(1, 3) * get(3, 1);
     var d1213 = get(1, 1) * get(3, 2) - get(1, 2) * get(3, 1);

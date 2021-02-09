@@ -118,7 +118,7 @@ public class Vector3Test {
     @DisplayName("Attempting to normalize zero length Vector throws")
     void testNormalizeZero() {
       var ex = assertThrows(ArithmeticException.class, () -> new Vector3(0, 0, 0).normalize());
-      assertEquals("Can't normalize Vector3(0,0,0)", ex.getMessage());
+      assertEquals("Can't normalize a Vector3 with zero magnitude", ex.getMessage());
     }
 
     @Test
