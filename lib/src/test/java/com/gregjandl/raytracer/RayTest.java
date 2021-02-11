@@ -2,6 +2,7 @@ package com.gregjandl.raytracer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.DisplayName;
@@ -56,4 +57,21 @@ public class RayTest {
     assertEquals(new Point(4.5, 3, 4), r.getPosition(2.5f));
   }
 
+  @Test
+  @DisplayName("Translating a ray")
+  void testTranslate() {
+    var r = new Ray(new Point(1, 2, 3), new Vector3(0, 1, 0));
+    var translated = r.transform(Matrix4x4.translation(3, 4, 5));
+    assertEquals(new Point(4, 6, 8), translated.getOrigin());
+    assertEquals(new Vector3(0, 1, 0), translated.getDirection());
+  }
+
+  @Test
+  @DisplayName("Scaling a ray")
+  void testScaling() {
+    var r = new Ray(new Point(1, 2, 3), new Vector3(0, 1, 0));
+    var scaled = r.transform(Matrix4x4.scaling(2, 3, 4));
+    assertEquals(new Point(2, 6, 12), scaled.getOrigin());
+    assertEquals(new Vector3(0, 3, 0), scaled.getDirection());
+  }
 }

@@ -74,7 +74,24 @@ public class Ray {
     return "Ray{origin=" + origin + ", direction=" + direction + '}';
   }
 
+  /**
+   * Return the {@code Point} a distance (or time) {@code t} along this {@code Ray}.
+   *
+   * @param t distance along Ray
+   * @return {@code Point} at the specified distance along this {@code Ray}
+   */
   public Point getPosition(float t) {
     return origin.add(direction.multiply(t));
+  }
+
+  /**
+   * Apply the specified transformation matrix to this {@code Ray}.
+   *
+   * @param m transformation matrix to apply
+   * @return a new {@code Ray} whose origin and direction have been multiplied by the specified
+   * transformation matrix.
+   */
+  public Ray transform(Matrix4x4 m) {
+    return new Ray(m.multiply(origin), m.multiply(direction));
   }
 }
