@@ -2,6 +2,7 @@ package com.gregjandl.raytracer;
 
 import static java.lang.Math.sqrt;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -35,15 +36,21 @@ public class Vector3Test {
     final Vector3 b = new Vector3(5.0f, -3.0f, 17.0f);
     final Vector3 c = new Vector3(5.0f, 56.0f, -3.0f);
 
+    @SuppressWarnings({"ConstantConditions", "EqualsBetweenInconvertibleTypes", "EqualsWithItself",
+        "SimplifiableAssertion"})
     @Test
-    @DisplayName("a and b should compare equal to each other, but not to c")
+    @DisplayName("a and b should compare equal to each other symmetrically, but not to c, "
+        + "non-Vector3 or null")
     void testAEqualsBNotC() {
-      assertEquals(b, a);
-      assertEquals(a, b);
-      assertNotEquals(a, c);
-      assertNotEquals(c, a);
-      assertNotEquals(b, c);
-      assertNotEquals(c, b);
+      assertTrue(a.equals(a)); // equal to self
+      assertTrue(a.equals(b)); // equal
+      assertTrue(b.equals(a)); // symmetric
+      assertFalse(a.equals(c)); // differ
+      assertFalse(c.equals(a)); // symmetric
+      assertFalse(b.equals(c)); // differ
+      assertFalse(c.equals(b)); // symmetric
+      assertFalse(a.equals("not a vector")); // differ in type
+      assertFalse(a.equals(null)); // differ from null
     }
 
     @Test
@@ -53,6 +60,14 @@ public class Vector3Test {
       assertNotEquals(new Vector3(5.0f, 0.0f, 17.0f), a);
       assertNotEquals(new Vector3(0.0f, -3.0f, 17.0f), a);
     }
+  }
+
+  @Test
+  @DisplayName("hash codes are equal if objects are equal")
+  void testHashCode() {
+    var a = new Vector3(1, 2, 3);
+    var b = new Vector3(1, 2, 3);
+    assertEquals(a.hashCode(), b.hashCode());
   }
 
   @Test

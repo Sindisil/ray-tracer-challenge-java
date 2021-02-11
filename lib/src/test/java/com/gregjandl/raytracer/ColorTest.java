@@ -1,6 +1,8 @@
 package com.gregjandl.raytracer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -64,4 +66,33 @@ public class ColorTest {
     assertEquals(new Color(.9f, .2f, .04f), c2.multiply(c1));
   }
 
+  @SuppressWarnings({"SimplifiableAssertion", "EqualsWithItself",
+      "EqualsBetweenInconvertibleTypes", "ConstantConditions"})
+  @Test
+  @DisplayName("Colors may be tested for equality")
+  void testEquals() {
+    var c1a = new Color(1, 2, 3);
+    var c1b = new Color(1, 2, 3);
+    var c2 = new Color(4, 2, 3);
+    var c3 = new Color(1, 4, 3);
+    var c4 = new Color(1, 2, 4);
+
+    assertTrue(c1a.equals(c1a)); // equals self
+    assertTrue(c1a.equals(c1b)); // equals
+    assertTrue(c1b.equals(c1a)); // symmetric
+    assertFalse(c1a.equals(c2)); // differ in each field
+    assertFalse(c1a.equals(c3)); // differ in each field
+    assertFalse(c1a.equals(c4)); // differ in each field
+    assertFalse(c4.equals(c1a)); // symmetric
+    assertFalse(c1a.equals("not a color")); // differ in type
+    assertFalse(c1a.equals(null)); // differ from null
+  }
+
+  @Test
+  @DisplayName("Color hash codes are equal if objects are equal")
+  void testHashCode() {
+    var c1 = new Color(1, 2, 3);
+    var c2 = new Color(1, 2, 3);
+    assertEquals(c2.hashCode(), c1.hashCode());
+  }
 }

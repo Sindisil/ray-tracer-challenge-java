@@ -1,7 +1,9 @@
 package com.gregjandl.raytracer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -33,15 +35,28 @@ class PointTest {
     final Point b = new Point(5, -3, 17f);
     final Point c = new Point(5, 56, -3f);
 
+    @SuppressWarnings({"SimplifiableAssertion", "ConstantConditions",
+        "EqualsBetweenInconvertibleTypes", "EqualsWithItself"})
     @Test
     @DisplayName("a and b should compare equal to each other, but not to c")
     void testAEqualsBNotC() {
-      assertEquals(b, a);
-      assertEquals(a, b);
-      assertNotEquals(a, c);
-      assertNotEquals(c, a);
-      assertNotEquals(b, c);
-      assertNotEquals(c, b);
+      assertTrue(a.equals(b)); // equals
+      assertTrue(b.equals(a)); // symmetry
+      assertFalse(a.equals(c)); // differ
+      assertFalse(c.equals(a)); // symmetry
+      assertFalse(b.equals(c)); // differ
+      assertFalse(c.equals(b)); // symmetry
+      assertTrue(a.equals(a)); // equals self
+      assertFalse(a.equals("not a Point")); // differ by class
+      assertFalse(a.equals(null)); // not equal null
+    }
+
+    @Test
+    @DisplayName("hash codes are equal if objects are equal")
+    void testHashCode() {
+      var a = new Point(1, 2, 3);
+      var b = new Point(1, 2, 3);
+      assertEquals(a.hashCode(), b.hashCode());
     }
 
     @Test

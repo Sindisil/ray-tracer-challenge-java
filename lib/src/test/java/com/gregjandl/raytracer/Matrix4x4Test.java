@@ -2,7 +2,6 @@ package com.gregjandl.raytracer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -76,6 +75,8 @@ public class Matrix4x4Test {
     assertThrows(IndexOutOfBoundsException.class, () -> m.get(1, 4));
   }
 
+  @SuppressWarnings({"SimplifiableAssertion", "EqualsBetweenInconvertibleTypes",
+      "ConstantConditions"})
   @Test
   @DisplayName("Matrix equality")
   void testEquals() {
@@ -88,9 +89,20 @@ public class Matrix4x4Test {
     var d = new Matrix4x4(new float[][]{
         {1, 2, 3, 4}, {5, 6, 7, 8}, {9.1f, 8.1f, 7.1f, 6.1f}, {5, 4, 3, 2.1f}});
 
-    assertEquals(a, b);
-    assertNotEquals(a, c);
-    assertNotEquals(a, d);
+    assertTrue(a.equals(b)); // equals
+    assertTrue(b.equals(a)); // symmetric
+    assertFalse(a.equals(c)); // differ
+    assertFalse(a.equals(d)); // differ
+    assertFalse(a.equals("not a matrix")); // differ in type
+    assertFalse(a.equals(null)); // differ from null
+  }
+
+  @Test
+  @DisplayName("Matrix4x4 hash codes are equal if matrices are equal")
+  void testHashCode() {
+    var a = new Matrix4x4(new float[][]{{1, 2, 3, 4}, {5, 6, 7, 8}, {8, 7, 6, 5}, {4, 3, 2, 1}});
+    var b = new Matrix4x4(new float[][]{{1, 2, 3, 4}, {5, 6, 7, 8}, {8, 7, 6, 5}, {4, 3, 2, 1}});
+    assertEquals(b.hashCode(), a.hashCode());
   }
 
   @Test
