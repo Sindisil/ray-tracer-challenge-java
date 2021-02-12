@@ -1,10 +1,12 @@
 package com.gregjandl.raytracer;
 
+import java.util.Collections;
+import java.util.List;
+
 public class Sphere {
-  private static final float[] EMPTY_ARRAY = new float[0];
   private static final Point WORLD_ORIGIN = new Point(0, 0, 0);
 
-  public float[] intersects(Ray r) {
+  public List<Intersection> intersects(Ray r) {
     var sphereToRay = r.getOrigin().subtract(WORLD_ORIGIN);
     var a = r.getDirection().dot(r.getDirection());
     var b = 2 * r.getDirection().dot(sphereToRay);
@@ -13,12 +15,12 @@ public class Sphere {
     var discriminant = (b * b) - 4 * a * c;
 
     if (discriminant < 0) {
-      return EMPTY_ARRAY;
+      return Collections.emptyList();
     }
 
     var sqrtOfDiscriminant = Math.sqrt(discriminant);
-    return new float[]{
-        (float) (-b - sqrtOfDiscriminant) / (2 * a),
-        (float) (-b + sqrtOfDiscriminant) / (2 * a)};
+    return List.of(
+        new Intersection((float) (-b - sqrtOfDiscriminant) / (2 * a), this),
+        new Intersection((float) (-b + sqrtOfDiscriminant) / (2 * a), this));
   }
 }

@@ -1,6 +1,7 @@
 package com.gregjandl.raytracer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.DisplayName;
@@ -13,9 +14,9 @@ public class SphereTest {
     var r = new Ray(new Point(0, 0, -5), new Vector3(0, 0, 1));
     var s = new Sphere();
     var xs = s.intersects(r);
-    assertEquals(2, xs.length);
-    assertTrue(Utils.aboutEqual(xs[0], 4));
-    assertTrue(Utils.aboutEqual(xs[1], 6));
+    assertEquals(2, xs.size());
+    assertTrue(Utils.aboutEqual(xs.get(0).getT(), 4));
+    assertTrue(Utils.aboutEqual(xs.get(1).getT(), 6));
   }
 
   @Test
@@ -24,9 +25,9 @@ public class SphereTest {
     var r = new Ray(new Point(0, 1, -5), new Vector3(0, 0, 1));
     var s = new Sphere();
     var xs = s.intersects(r);
-    assertEquals(2, xs.length);
-    assertTrue(Utils.aboutEqual(xs[0], 5));
-    assertTrue(Utils.aboutEqual(xs[1], 5));
+    assertEquals(2, xs.size());
+    assertTrue(Utils.aboutEqual(xs.get(0).getT(), 5));
+    assertTrue(Utils.aboutEqual(xs.get(1).getT(), 5));
   }
 
   @Test
@@ -35,7 +36,7 @@ public class SphereTest {
     var r = new Ray(new Point(0, 2, -5), new Vector3(0, 0, 1));
     var s = new Sphere();
     var xs = s.intersects(r);
-    assertEquals(0, xs.length);
+    assertTrue(xs.isEmpty());
   }
 
   @Test
@@ -44,9 +45,9 @@ public class SphereTest {
     var r = new Ray(new Point(0, 0, 0), new Vector3(0, 0, 1));
     var s = new Sphere();
     var xs = s.intersects(r);
-    assertEquals(xs.length, 2);
-    assertTrue(Utils.aboutEqual(xs[0], -1));
-    assertTrue(Utils.aboutEqual(xs[1], 1));
+    assertEquals(2, xs.size());
+    assertTrue(Utils.aboutEqual(xs.get(0).getT(), -1));
+    assertTrue(Utils.aboutEqual(xs.get(1).getT(), 1));
   }
 
   @Test
@@ -55,8 +56,19 @@ public class SphereTest {
     var r = new Ray(new Point(0, 0, 5), new Vector3(0, 0, 1));
     var s = new Sphere();
     var xs = s.intersects(r);
-    assertEquals(xs.length, 2);
-    assertTrue(Utils.aboutEqual(xs[0], -6));
-    assertTrue(Utils.aboutEqual(xs[1], -4));
+    assertEquals(2, xs.size());
+    assertTrue(Utils.aboutEqual(xs.get(0).getT(), -6));
+    assertTrue(Utils.aboutEqual(xs.get(1).getT(), -4));
+  }
+
+  @Test
+  @DisplayName("Intersect sets the object of the Intersection")
+  void testIntersectionObject() {
+    var r = new Ray(new Point(0, 0, -5), new Vector3(0, 0, 1));
+    var s = new Sphere();
+    var xs = s.intersects(r);
+    assertEquals(2, xs.size());
+    assertSame(xs.get(0).getObject(), s);
+    assertSame(xs.get(1).getObject(), s);
   }
 }
