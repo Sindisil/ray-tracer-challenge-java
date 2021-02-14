@@ -1,4 +1,4 @@
-package com.gregjandl.raytracer;
+package com.gregjandl.raytracer.rtlib;
 
 /**
  * {@code Utils} collects utility classes and constants related to this raytracer implementation.

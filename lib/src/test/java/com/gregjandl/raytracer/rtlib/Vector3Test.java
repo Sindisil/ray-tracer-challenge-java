@@ -1,4 +1,4 @@
-package com.gregjandl.raytracer;
+package com.gregjandl.raytracer.rtlib;
 
 import static java.lang.Math.sqrt;
 import static org.junit.jupiter.api.Assertions.assertEquals;

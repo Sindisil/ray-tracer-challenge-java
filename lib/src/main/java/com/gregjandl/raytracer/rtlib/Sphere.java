@@ -1,4 +1,4 @@
-package com.gregjandl.raytracer;
+package com.gregjandl.raytracer.rtlib;
 
 public class Sphere {
   private static final Point WORLD_ORIGIN = new Point(0, 0, 0);
