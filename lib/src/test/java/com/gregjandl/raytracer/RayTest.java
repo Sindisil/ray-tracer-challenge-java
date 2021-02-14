@@ -2,7 +2,6 @@ package com.gregjandl.raytracer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.DisplayName;
@@ -31,7 +30,7 @@ public class RayTest {
     var r5 = new Ray(new Point(3, 2, 1), new Vector3(6, 5, 4));
 
     assertTrue(r1.equals(r1));
-    assertTrue(r1.equals(r2));
+    assertTrue(r1.equals(r2) && r2.equals(r1));
     assertFalse(r1.equals(r3));
     assertFalse(r1.equals(r4));
     assertFalse(r1.equals(r5));
