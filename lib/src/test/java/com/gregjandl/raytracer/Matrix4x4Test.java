@@ -47,7 +47,7 @@ public class Matrix4x4Test {
 
   @SuppressWarnings("ResultOfObjectAllocationIgnored")
   @Test
-  @DisplayName("Matrix ctor is bounds checked")
+  @DisplayName("Matrix constructor is bounds checked")
   void testBadCreate() {
     assertThrows(IllegalArgumentException.class, () -> new Matrix4x4(new float[][]{{1}, {2}, {3}}));
     //noinspection ZeroLengthArrayAllocation
