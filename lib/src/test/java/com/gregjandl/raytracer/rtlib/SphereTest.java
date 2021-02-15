@@ -90,4 +90,26 @@ public class SphereTest {
     assertEquals(t, s.getTransform());
     assertThrows(NullPointerException.class, () -> s.setTransform(null));
   }
+
+  @Test
+  @DisplayName("Intersecting a scaled sphere with a ray")
+  void testIntersectScaled() {
+    var r = new Ray(new Point(0, 0, -5), new Vector3(0, 0, 1));
+    var s = new Sphere();
+    s.setTransform(Matrix4x4.scaling(2, 2, 2));
+    var xs = s.intersects(r);
+    assertEquals(2, xs.size());
+    assertEquals(3, xs.get(0).getT());
+    assertEquals(7, xs.get(1).getT());
+  }
+
+  @Test
+  @DisplayName("Intersecting a translated sphere with a ray")
+  void testIntersectTranslated() {
+    var r = new Ray(new Point(0, 0, -5), new Vector3(0, 0, 1));
+    var s = new Sphere();
+    s.setTransform(Matrix4x4.translation(5, 0, 0));
+    var xs = s.intersects(r);
+    assertTrue(xs.isEmpty());
+  }
 }

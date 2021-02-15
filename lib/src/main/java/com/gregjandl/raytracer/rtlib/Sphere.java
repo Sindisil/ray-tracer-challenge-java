@@ -18,9 +18,10 @@ public class Sphere {
    * {@code Sphere}
    */
   public Intersections intersects(Ray r) {
-    var sphereToRay = r.getOrigin().subtract(WORLD_ORIGIN);
-    var a = r.getDirection().dot(r.getDirection());
-    var b = 2 * r.getDirection().dot(sphereToRay);
+    var transformedRay = r.transform(transform.invert());
+    var sphereToRay = transformedRay.getOrigin().subtract(WORLD_ORIGIN);
+    var a = transformedRay.getDirection().dot(transformedRay.getDirection());
+    var b = 2 * transformedRay.getDirection().dot(sphereToRay);
     var c = sphereToRay.dot(sphereToRay) - 1;
 
     var discriminant = (b * b) - 4 * a * c;
