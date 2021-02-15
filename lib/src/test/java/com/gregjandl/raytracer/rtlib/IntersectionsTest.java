@@ -2,6 +2,7 @@ package com.gregjandl.raytracer.rtlib;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -40,14 +41,17 @@ public class IntersectionsTest {
   @Test
   @DisplayName("Intersections may be compared for equality")
   void testIntersectionEquals() {
-    var s = new Sphere();
-    var i1 = new Intersections.Intersection(3.4f, s);
-    var i2 = new Intersections.Intersection(3.4f, s);
-    var i3 = new Intersections.Intersection(4.5f, s);
+    var s1 = new Sphere();
+    var s2 = new Sphere();
+    var i1 = new Intersections.Intersection(3.4f, s1);
+    var i2 = new Intersections.Intersection(3.4f, s1);
+    var i3 = new Intersections.Intersection(4.5f, s1);
+    var i4 = new Intersections.Intersection(4.5f, s2);
 
     assertTrue(i1.equals(i1));
     assertTrue(i1.equals(i2) && i2.equals(i1));
     assertFalse(i1.equals(i3));
+    assertFalse(i3.equals(i4));
     assertFalse(i1.equals("not an Intersection"));
     assertFalse(i1.equals(null));
   }
@@ -60,6 +64,34 @@ public class IntersectionsTest {
     var i2 = new Intersections.Intersection(3.4f, s);
 
     assertEquals(i1.hashCode(), i2.hashCode());
+  }
+
+  @Test
+  @DisplayName("An Intersections collection may be asked if it contains a specified Intersection")
+  void testContains() {
+    var s = new Sphere();
+    var i1 = new Intersections.Intersection(1, s);
+    var i2 = new Intersections.Intersection(2, s);
+    var i3 = new Intersections.Intersection(-1, s);
+    var xs = new Intersections();
+    xs.addAll(List.of(i1, i2));
+    assertTrue(xs.contains(i1));
+    assertFalse(xs.contains(i3));
+  }
+
+  @Test
+  @DisplayName("An Intersections container may be iterated over")
+  void testIteration() {
+    var s = new Sphere();
+    var i1 = new Intersections.Intersection(5, s);
+    var i2 = new Intersections.Intersection(7, s);
+    var i3 = new Intersections.Intersection(-3, s);
+    var i4 = new Intersections.Intersection(2, s);
+    var xs = new Intersections();
+    xs.addAll(List.of(i1, i2, i3, i4));
+    for (var i : xs) {
+      assertNotNull(i);
+    }
   }
 
   @Test
