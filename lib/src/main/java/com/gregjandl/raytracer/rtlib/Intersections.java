@@ -1,33 +1,56 @@
 package com.gregjandl.raytracer.rtlib;
 
+import com.gregjandl.raytracer.rtlib.Intersections.Intersection;
+import java.util.AbstractList;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
-class Intersections {
+class Intersections extends AbstractList<Intersection> {
   private final List<Intersection> xs;
 
-  Intersections() {
+  public Intersections() {
     xs = new ArrayList<>();
   }
 
-  void add(float t, Sphere object) {
-    var intersection = new Intersection(t, object);
+  @Override
+  public Iterator<Intersection> iterator() {
+    return xs.iterator();
+  }
+
+  @Override
+  public boolean add(Intersection intersection) {
     int i = 0;
-    while (i < xs.size() && t > xs.get(i).t) {
+    while (i < xs.size() && intersection.t > xs.get(i).t) {
       ++i;
     }
     xs.add(i, intersection);
+    return true;
   }
 
-  Intersection get(int i) {
+  public void add(float t, Sphere object) {
+    var intersection = new Intersection(t, object);
+    add(intersection);
+  }
+
+  @Override
+  public boolean contains(Object o) {
+    return xs.contains(o);
+  }
+
+  @Override
+  public Intersection get(int i) {
     return xs.get(i);
   }
 
-  int size() { return xs.size(); }
+  @Override
+  public int size() { return xs.size(); }
 
-  boolean isEmpty() { return xs.isEmpty(); }
+  public Optional<Intersection> hit() {
+    return xs.stream().filter(i -> i.t >= 0).findFirst();
+  }
 
   static class Intersection implements Comparable<Intersection> {
     private final float t;

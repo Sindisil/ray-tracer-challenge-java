@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -59,5 +60,55 @@ public class IntersectionsTest {
     var i2 = new Intersections.Intersection(3.4f, s);
 
     assertEquals(i1.hashCode(), i2.hashCode());
+  }
+
+  @Test
+  @DisplayName("The hit, when all intersections have positive t")
+  void testHitWithAllPositiveT() {
+    var s = new Sphere();
+    var i1 = new Intersections.Intersection(1, s);
+    var i2 = new Intersections.Intersection(2, s);
+    var xs = new Intersections();
+    xs.addAll(List.of(i1, i2));
+    var i = xs.hit();
+    assertEquals(i1, i.orElseThrow());
+  }
+
+  @Test
+  @DisplayName("The hit, when some intersections have negative t")
+  void testHitWithSomeNegativeT() {
+    var s = new Sphere();
+    var i1 = new Intersections.Intersection(-1, s);
+    var i2 = new Intersections.Intersection(1, s);
+    var xs = new Intersections();
+    xs.addAll(List.of(i1, i2));
+    var i = xs.hit();
+    assertEquals(i2, i.orElseThrow());
+  }
+
+  @Test
+  @DisplayName("The hit, when all intersections have negative t")
+  void testHitWithAllNegativeT() {
+    var s = new Sphere();
+    var i1 = new Intersections.Intersection(-2, s);
+    var i2 = new Intersections.Intersection(-1, s);
+    var xs = new Intersections();
+    xs.addAll(List.of(i1, i2));
+    var i = xs.hit();
+    assertTrue(i.isEmpty());
+  }
+
+  @Test
+  @DisplayName("The hit is always the lowest non-negative Intersection")
+  void testHitAlwaysLowest() {
+    var s = new Sphere();
+    var i1 = new Intersections.Intersection(5, s);
+    var i2 = new Intersections.Intersection(7, s);
+    var i3 = new Intersections.Intersection(-3, s);
+    var i4 = new Intersections.Intersection(2, s);
+    var xs = new Intersections();
+    xs.addAll(List.of(i1, i2, i3, i4));
+    var i = xs.hit();
+    assertEquals(i4, i.orElseThrow());
   }
 }
