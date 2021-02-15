@@ -25,6 +25,8 @@ public class Matrix4x4Test {
     assertEquals(7.5f, m.get(1, 2));
     assertEquals(11, m.get(2, 2));
     assertEquals(15.5f, m.get(3, 2));
+    assertThrows(IllegalArgumentException.class, () -> new Matrix4x4(new float[5][4]));
+    assertThrows(IllegalArgumentException.class, () -> new Matrix4x4(new float[4][5]));
   }
 
   @Test
@@ -43,6 +45,8 @@ public class Matrix4x4Test {
   void testBadSet() {
     var m = new Matrix4x4();
     assertThrows(IndexOutOfBoundsException.class, () -> m.set(-1, 0, 1));
+    assertThrows(IndexOutOfBoundsException.class, () -> m.set(4, 0, 1));
+    assertThrows(IndexOutOfBoundsException.class, () -> m.set(1, -5, 2));
     assertThrows(IndexOutOfBoundsException.class, () -> m.set(1, 5, 2));
   }
 
@@ -71,10 +75,11 @@ public class Matrix4x4Test {
     assertThrows(IndexOutOfBoundsException.class, () -> m.get(4, 4));
     assertThrows(IndexOutOfBoundsException.class, () -> m.get(3, 4));
     assertThrows(IndexOutOfBoundsException.class, () -> m.get(1, 4));
+    assertThrows(IndexOutOfBoundsException.class, () -> m.get(1, -4));
   }
 
   @SuppressWarnings({"SimplifiableAssertion", "EqualsBetweenInconvertibleTypes",
-      "ConstantConditions"})
+      "ConstantConditions", "EqualsWithItself"})
   @Test
   @DisplayName("Matrix equality")
   void testEquals() {
@@ -87,6 +92,7 @@ public class Matrix4x4Test {
     var d = new Matrix4x4(new float[][]{
         {1, 2, 3, 4}, {5, 6, 7, 8}, {9.1f, 8.1f, 7.1f, 6.1f}, {5, 4, 3, 2.1f}});
 
+    assertTrue(a.equals(a)); // equals self
     assertTrue(a.equals(b)); // equals
     assertTrue(b.equals(a)); // symmetric
     assertFalse(a.equals(c)); // differ
