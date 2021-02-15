@@ -445,6 +445,7 @@ public class Matrix4x4 {
    * @param y Translation factor for {@code y} dimension.
    * @param z Translation factor for {@code z} dimension.
    * @return the transformed matrix
+   * @see Matrix4x4#translation(float x, float y, float z)
    */
   public Matrix4x4 translate(float x, float y, float z) {
     return translation(x, y, z).multiply(this);
@@ -458,6 +459,7 @@ public class Matrix4x4 {
    * @param y Scaling factor for {@code y} dimension.
    * @param z Scaling factor for {@code z} dimension.
    * @return the transformed matrix
+   * @see Matrix4x4#scale(float x, float y, float z)
    */
   public Matrix4x4 scale(float x, float y, float z) {
     return scaling(x, y, z).multiply(this);
@@ -481,7 +483,7 @@ public class Matrix4x4 {
    *
    * @param r Amount to rotate, in radians
    * @return The transformed matrix
-   * @see Matrix4x4#rotationOnY(double)
+   * @see Matrix4x4#rotationOnY(double r)
    */
   public Matrix4x4 rotateOnY(double r) {
     return rotationOnY(r).multiply(this);
@@ -493,7 +495,7 @@ public class Matrix4x4 {
    *
    * @param r Amount to rotate, in radians
    * @return The transformed matrix
-   * @see Matrix4x4#rotationOnZ(double)
+   * @see Matrix4x4#rotationOnZ(double r)
    */
   public Matrix4x4 rotateOnZ(double r) {
     return rotationOnZ(r).multiply(this);
@@ -517,7 +519,7 @@ public class Matrix4x4 {
    * @param zx factor x is multiplied by before adding to z
    * @param zy factor y is multiplied by before adding to z
    * @return the transformed matrix
-   * @see Matrix4x4#shearing(float, float, float, float, float, float)
+   * @see Matrix4x4#shearing(float xy, float xz, float yx, float yz, float zx, float zy)
    */
   public Matrix4x4 shear(float xy, float xz, float yx, float yz, float zx, float zy) {
     return shearing(xy, xz, yx, yz, zx, zy).multiply(this);
