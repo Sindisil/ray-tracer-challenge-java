@@ -14,8 +14,11 @@ class Intersections {
 
   void add(float t, Sphere object) {
     var intersection = new Intersection(t, object);
-    int i = Collections.binarySearch(xs, intersection);
-    xs.add(i < 0 ? -(i + 1) : i, intersection);
+    int i = 0;
+    while (i < xs.size() && t > xs.get(i).t) {
+      ++i;
+    }
+    xs.add(i, intersection);
   }
 
   Intersection get(int i) {
