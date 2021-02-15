@@ -2,6 +2,7 @@ package com.gregjandl.raytracer.rtlib;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.DisplayName;
@@ -70,5 +71,23 @@ public class SphereTest {
     assertEquals(2, xs.size());
     assertSame(xs.get(0).getObject(), s);
     assertSame(xs.get(1).getObject(), s);
+  }
+
+  @Test
+  @DisplayName("A Sphere has a default identity transformation")
+  void testDefaultTransformation() {
+    var s = new Sphere();
+    assertEquals(Matrix4x4.identity(), s.getTransform());
+  }
+
+  @Test
+  @DisplayName("A Sphere's transformation matrix may be set to a non-null Matrix4x4")
+  void testSetTransform() {
+    var s = new Sphere();
+    assertEquals(Matrix4x4.identity(), s.getTransform());
+    var t = Matrix4x4.translation(2, 3, 4);
+    s.setTransform(t);
+    assertEquals(t, s.getTransform());
+    assertThrows(NullPointerException.class, () -> s.setTransform(null));
   }
 }

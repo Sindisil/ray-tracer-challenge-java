@@ -1,10 +1,14 @@
 package com.gregjandl.raytracer.rtlib;
 
+import java.util.Objects;
+
 /**
  * Represents a spherical object in space.
  */
 public class Sphere {
   private static final Point WORLD_ORIGIN = new Point(0, 0, 0);
+
+  private Matrix4x4 transform = Matrix4x4.identity();
 
   /**
    * Returns an {@code Intersections} object representing where the specified {@code Ray}
@@ -30,5 +34,26 @@ public class Sphere {
 
     return xs;
 
+  }
+
+  /**
+   * Return this {@code Sphere}'s current transformation matrix.
+   *
+   * A newly constructed {@code Sphere} has an identity transformation matrix.
+   * @return the transformation matrix
+   */
+  public Matrix4x4 getTransform() {
+    return transform;
+  }
+
+  /**
+   * Set this {@code Sphere}'s transformation matrix to the specified matrix, which must be
+   * non-null
+   * @param t the new transformation matrix
+   * @throws NullPointerException if the specified matrix is {@code null}
+   */
+  public void setTransform(Matrix4x4 t) {
+    Objects.requireNonNull(t);
+    transform = t;
   }
 }
