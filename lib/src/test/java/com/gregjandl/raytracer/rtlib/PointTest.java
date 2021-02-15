@@ -3,6 +3,7 @@ package com.gregjandl.raytracer.rtlib;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.DisplayName;
@@ -23,9 +24,7 @@ class PointTest {
   @Test
   @DisplayName("Point has toString")
   void testToString() {
-    var expected = "Point{x=" + 1.1 + ", y=" + 2.2 + ", z=" + 3.3 + '}';
-    var actual = new Point(1.1f, 2.2f, 3.3f).toString();
-    assertEquals(expected, actual);
+    assertNotNull(new Point(0, 0, 0).toString());
   }
 
   @Nested
