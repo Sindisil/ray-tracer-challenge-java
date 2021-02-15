@@ -30,7 +30,14 @@ public class Matrix4x4 {
 
   /**
    * Returns a 4x4 identity Matrix.
-   *
+   * <pre>
+   *   +--        --+
+   *   | 1  0  0  0 |
+   *   | 0  1  0  0 |
+   *   | 0  0  1  0 |
+   *   | 0  0  0  1 |
+   *   +--        --+
+   * </pre>
    * @return a 4x4 identity Matrix
    */
   public static Matrix4x4 identity() {
