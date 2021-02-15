@@ -2,6 +2,7 @@ package com.gregjandl.raytracer.rtlib;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.DisplayName;
@@ -45,6 +46,13 @@ public class RayTest {
     var r2 = new Ray(new Point(1, 2, 3), new Vector3(4, 5, 6));
     assertEquals(r1.hashCode(), r2.hashCode());
   }
+
+  @Test
+  @DisplayName("Ray has toString")
+  void testToString() {
+    assertNotNull(new Ray(new Point(0, 0, 0), new Vector3(1, 1, 1)).toString());
+  }
+
 
   @Test
   @DisplayName("Computing a point from a distance")
