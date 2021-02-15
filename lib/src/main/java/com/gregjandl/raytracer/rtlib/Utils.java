@@ -25,4 +25,13 @@ public final class Utils {
 
   private Utils() {}
 
+  /**
+   * Constrains the given {@code float} value to the range of [0.0 - 1.0].
+   *
+   * @param val value to clamp
+   * @return the specified value, clamped to the range [0.0 - 1.0]
+   */
+  public static float clamp(float val) {
+    return val < 0 ? 0 : val > 1 ? 1 : val;
+  }
 }

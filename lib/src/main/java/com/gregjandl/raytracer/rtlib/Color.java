@@ -102,16 +102,6 @@ public class Color {
   }
 
   /**
-   * Constrains the given {@code float} value to the usual component range of [0.0 - 1.0].
-   *
-   * @param val value to clamp
-   * @return the specified value, clamped to the range [0.0 - 1.0]
-   */
-  public static float clamp(float val) {
-    return val < 0 ? 0 : val > 1 ? 1 : val;
-  }
-
-  /**
    * Returns the Red component of this {@code Color}.
    *
    * @return the Red component
@@ -137,10 +127,10 @@ public class Color {
    * components to the valid range [0.0 - 1.1].
    *
    * @return the {@code java.awt.Color} equivalent to this {@code Color}
-   * @see Color#clamp(float)
+   * @see Utils#clamp(float)
    */
   public java.awt.Color toAwtColor() {
-    return new java.awt.Color(clamp(r), clamp(g), clamp(b));
+    return new java.awt.Color(Utils.clamp(r), Utils.clamp(g), Utils.clamp(b));
   }
 
   /**
