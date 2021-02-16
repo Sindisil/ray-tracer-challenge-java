@@ -8,9 +8,15 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * Represents a collection of zero or more {@code Intersection}s, ordered by {@code t}.
+ */
 class Intersections extends AbstractList<Intersection> {
   private final List<Intersection> xs;
 
+  /**
+   * Create an empty {@code Intersections} collection.
+   */
   public Intersections() {
     xs = new ArrayList<>();
   }
@@ -30,6 +36,14 @@ class Intersections extends AbstractList<Intersection> {
     return true;
   }
 
+  /**
+   * Construct a new {@code Intersection} from the specified time {@code t} and Sphere {@code
+   * object} and add it to this {@code Intersections} collection, maintaining the sorted order of
+   * entries.
+   *
+   * @param t time of new {@code Intersection}
+   * @param object {@code Sphere} of new {{@code Intersection}
+   */
   public void add(float t, Sphere object) {
     var intersection = new Intersection(t, object);
     add(intersection);
