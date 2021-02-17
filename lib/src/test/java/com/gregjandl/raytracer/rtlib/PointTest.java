@@ -29,7 +29,7 @@ class PointTest {
 
   @Nested
   @DisplayName("Points may be compared for equality")
-  class testEquality {
+  class TestEquality {
     final Point a = new Point(5, -3f, 17f);
     final Point b = new Point(5, -3, 17f);
     final Point c = new Point(5, 56, -3f);
