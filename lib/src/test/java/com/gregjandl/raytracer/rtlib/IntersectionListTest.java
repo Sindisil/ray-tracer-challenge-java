@@ -10,12 +10,12 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class IntersectionsTest {
+public class IntersectionListTest {
   @Test
   @DisplayName("An intersection encapsulates t and an object")
   void testIntersectionCreate() {
     var s = new Sphere();
-    var i = new Intersections.Intersection(3.5f, s);
+    var i = new IntersectionList.Intersection(3.5f, s);
     assertEquals(3.5f, i.getT());
     assertSame(i.getObject(), s);
   }
@@ -27,10 +27,10 @@ public class IntersectionsTest {
   void testIntersectionEquals() {
     var s1 = new Sphere();
     var s2 = new Sphere();
-    var i1 = new Intersections.Intersection(3.4f, s1);
-    var i2 = new Intersections.Intersection(3.4f, s1);
-    var i3 = new Intersections.Intersection(4.5f, s1);
-    var i4 = new Intersections.Intersection(4.5f, s2);
+    var i1 = new IntersectionList.Intersection(3.4f, s1);
+    var i2 = new IntersectionList.Intersection(3.4f, s1);
+    var i3 = new IntersectionList.Intersection(4.5f, s1);
+    var i4 = new IntersectionList.Intersection(4.5f, s2);
 
     assertTrue(i1.equals(i1));
     assertTrue(i1.equals(i2) && i2.equals(i1));
@@ -44,8 +44,8 @@ public class IntersectionsTest {
   @DisplayName("hash codes of equal Intersections are equal")
   void testIntersectionHashCode() {
     var s = new Sphere();
-    var i1 = new Intersections.Intersection(3.4f, s);
-    var i2 = new Intersections.Intersection(3.4f, s);
+    var i1 = new IntersectionList.Intersection(3.4f, s);
+    var i2 = new IntersectionList.Intersection(3.4f, s);
 
     assertEquals(i1.hashCode(), i2.hashCode());
   }
@@ -54,10 +54,10 @@ public class IntersectionsTest {
   @DisplayName("An Intersections collection may be asked if it contains a specified Intersection")
   void testContains() {
     var s = new Sphere();
-    var i1 = new Intersections.Intersection(1, s);
-    var i2 = new Intersections.Intersection(2, s);
-    var i3 = new Intersections.Intersection(-1, s);
-    var xs = new Intersections();
+    var i1 = new IntersectionList.Intersection(1, s);
+    var i2 = new IntersectionList.Intersection(2, s);
+    var i3 = new IntersectionList.Intersection(-1, s);
+    var xs = new IntersectionList();
     xs.addAll(List.of(i1, i2));
     assertTrue(xs.contains(i1));
     assertFalse(xs.contains(i3));
@@ -67,11 +67,11 @@ public class IntersectionsTest {
   @DisplayName("An Intersections container may be iterated over")
   void testIteration() {
     var s = new Sphere();
-    var i1 = new Intersections.Intersection(5, s);
-    var i2 = new Intersections.Intersection(7, s);
-    var i3 = new Intersections.Intersection(-3, s);
-    var i4 = new Intersections.Intersection(2, s);
-    var xs = new Intersections();
+    var i1 = new IntersectionList.Intersection(5, s);
+    var i2 = new IntersectionList.Intersection(7, s);
+    var i3 = new IntersectionList.Intersection(-3, s);
+    var i4 = new IntersectionList.Intersection(2, s);
+    var xs = new IntersectionList();
     xs.addAll(List.of(i1, i2, i3, i4));
     for (var i : xs) {
       assertNotNull(i);
@@ -82,9 +82,9 @@ public class IntersectionsTest {
   @DisplayName("The hit, when all intersections have positive t")
   void testHitWithAllPositiveT() {
     var s = new Sphere();
-    var i1 = new Intersections.Intersection(1, s);
-    var i2 = new Intersections.Intersection(2, s);
-    var xs = new Intersections();
+    var i1 = new IntersectionList.Intersection(1, s);
+    var i2 = new IntersectionList.Intersection(2, s);
+    var xs = new IntersectionList();
     xs.addAll(List.of(i1, i2));
     var i = xs.hit();
     assertEquals(i1, i.orElseThrow());
@@ -94,9 +94,9 @@ public class IntersectionsTest {
   @DisplayName("The hit, when some intersections have negative t")
   void testHitWithSomeNegativeT() {
     var s = new Sphere();
-    var i1 = new Intersections.Intersection(-1, s);
-    var i2 = new Intersections.Intersection(1, s);
-    var xs = new Intersections();
+    var i1 = new IntersectionList.Intersection(-1, s);
+    var i2 = new IntersectionList.Intersection(1, s);
+    var xs = new IntersectionList();
     xs.addAll(List.of(i1, i2));
     var i = xs.hit();
     assertEquals(i2, i.orElseThrow());
@@ -106,9 +106,9 @@ public class IntersectionsTest {
   @DisplayName("The hit, when all intersections have negative t")
   void testHitWithAllNegativeT() {
     var s = new Sphere();
-    var i1 = new Intersections.Intersection(-2, s);
-    var i2 = new Intersections.Intersection(-1, s);
-    var xs = new Intersections();
+    var i1 = new IntersectionList.Intersection(-2, s);
+    var i2 = new IntersectionList.Intersection(-1, s);
+    var xs = new IntersectionList();
     xs.addAll(List.of(i1, i2));
     var i = xs.hit();
     assertTrue(i.isEmpty());
@@ -118,11 +118,11 @@ public class IntersectionsTest {
   @DisplayName("The hit is always the lowest non-negative Intersection")
   void testHitAlwaysLowest() {
     var s = new Sphere();
-    var i1 = new Intersections.Intersection(5, s);
-    var i2 = new Intersections.Intersection(7, s);
-    var i3 = new Intersections.Intersection(-3, s);
-    var i4 = new Intersections.Intersection(2, s);
-    var xs = new Intersections();
+    var i1 = new IntersectionList.Intersection(5, s);
+    var i2 = new IntersectionList.Intersection(7, s);
+    var i3 = new IntersectionList.Intersection(-3, s);
+    var i4 = new IntersectionList.Intersection(2, s);
+    var xs = new IntersectionList();
     xs.addAll(List.of(i1, i2, i3, i4));
     var i = xs.hit();
     assertEquals(i4, i.orElseThrow());

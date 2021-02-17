@@ -1,6 +1,6 @@
 package com.gregjandl.raytracer.rtlib;
 
-import com.gregjandl.raytracer.rtlib.Intersections.Intersection;
+import com.gregjandl.raytracer.rtlib.IntersectionList.Intersection;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -9,15 +9,15 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * Represents a collection of zero or more {@code Intersection}s, ordered by {@code t}.
+ * Represents a sorted list of zero or more {@code Intersection}s, ordered by {@code t}.
  */
-class Intersections extends AbstractList<Intersection> {
+class IntersectionList extends AbstractList<Intersection> {
   private final List<Intersection> xs;
 
   /**
    * Create an empty {@code Intersections} collection.
    */
-  public Intersections() {
+  public IntersectionList() {
     xs = new ArrayList<>();
   }
 
@@ -38,7 +38,7 @@ class Intersections extends AbstractList<Intersection> {
 
   /**
    * Construct a new {@code Intersection} from the specified time {@code t} and Sphere {@code
-   * object} and add it to this {@code Intersections} collection, maintaining the sorted order of
+   * object} and add it to this {@code IntersectionList}, maintaining the sorted order of
    * entries.
    *
    * @param t time of new {@code Intersection}

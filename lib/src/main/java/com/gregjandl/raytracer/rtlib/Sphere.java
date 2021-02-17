@@ -11,13 +11,12 @@ public class Sphere {
   private Matrix4x4 transform = Matrix4x4.identity();
 
   /**
-   * Returns an {@code Intersections} object representing where the specified {@code Ray}
+   * Returns an {@code IntersectionList} representing where the specified {@code Ray}
    * intersects the surface of this {@code Sphere}.
    * @param r the {@code Ray} that may intersect with this {@code Sphere}
-   * @return {@code Intersections} object containing zero or more {@code Intersection}s with this
-   * {@code Sphere}
+   * @return list of zero or more {@code Intersection}s with this {@code Sphere}
    */
-  public Intersections intersects(Ray r) {
+  public IntersectionList intersects(Ray r) {
     var transformedRay = r.transform(transform.invert());
     var sphereToRay = transformedRay.getOrigin().subtract(WORLD_ORIGIN);
     var a = transformedRay.getDirection().dot(transformedRay.getDirection());
@@ -25,7 +24,7 @@ public class Sphere {
     var c = sphereToRay.dot(sphereToRay) - 1;
 
     var discriminant = (b * b) - 4 * a * c;
-    var xs = new Intersections();
+    var xs = new IntersectionList();
 
     if (discriminant >= 0) {
       var sqrtOfDiscriminant = Math.sqrt(discriminant);
