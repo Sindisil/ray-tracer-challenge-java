@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 public class SphereTest {
@@ -111,5 +112,63 @@ public class SphereTest {
     s.setTransform(Matrix4x4.translation(5, 0, 0));
     var xs = s.intersects(r);
     assertTrue(xs.isEmpty());
+  }
+
+  @Nested
+  @DisplayName("Normals on a sphere")
+  class TestNormals {
+    final Sphere sphere = new Sphere();
+
+    @Test
+    @DisplayName("The normal on a sphere at a point on the X axis")
+    void testNormalOnXAxis() {
+      var n = sphere.normalAt(new Point(1, 0, 0));
+      assertEquals(new Vector3(1, 0, 0), n);
+    }
+
+    @Test
+    @DisplayName("The normal on a sphere at a point on the Y axis")
+    void testNormalOnYAxis() {
+      var n = sphere.normalAt(new Point(0, 1, 0));
+      assertEquals(new Vector3(0, 1, 0), n);
+    }
+
+    @Test
+    @DisplayName("The normal on a sphere at a point on the Z axis")
+    void testNormalOnZAxis() {
+      var n = sphere.normalAt(new Point(0, 0, 1));
+      assertEquals(new Vector3(0, 0, 1), n);
+    }
+
+    @Test
+    @DisplayName("The normal on a sphere at a point on a nonaxial point")
+    void testNormalOnNonaxialPoint() {
+      var n = sphere.normalAt(new Point(Math.sqrt(3) / 3, Math.sqrt(3) / 3, Math.sqrt(3) / 3));
+      assertEquals(new Vector3(Math.sqrt(3) / 3, Math.sqrt(3) / 3, Math.sqrt(3) / 3), n);
+    }
+
+    @Test
+    @DisplayName("The normal is a normalized vector")
+    void testNormalIsNormalized() {
+      var n = sphere.normalAt(new Point(Math.sqrt(3) / 3, Math.sqrt(3) / 3, Math.sqrt(3) / 3));
+      assertEquals(n.normalize(), n);
+    }
+
+    @Test
+    @DisplayName("Normal on a translated sphere")
+    void testNormalOnTranslatedSphere() {
+      sphere.setTransform(Matrix4x4.translation(0, 1, 0));
+      var n = sphere.normalAt(new Point(0, 1.70711f, -0.70711f));
+      assertEquals(new Vector3(0, 0.70711f, -0.70711f), n);
+    }
+
+    @Test
+    @DisplayName("Normal on a scaled and rotated sphere")
+    void testNormalOnTransformedSphere() {
+      sphere.setTransform(Matrix4x4.rotationOnZ(Math.PI / 5).scale(1, 0.5f, 1));
+      var n = sphere.normalAt(new Point(0, Math.sqrt(2) / 2, -Math.sqrt(2) / 2));
+      assertEquals(new Vector3(0, 0.97014f, -0.24254f), n);
+    }
+
   }
 }
