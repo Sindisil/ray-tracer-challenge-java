@@ -20,22 +20,6 @@ public class IntersectionsTest {
     assertSame(i.getObject(), s);
   }
 
-  @Test
-  @DisplayName("An Intersection may be compared to another Intersection for ordering")
-  void testIntersectionCompareTo() {
-    var s = new Sphere();
-    var i1 = new Intersections.Intersection(3.4f, s);
-    var i2 = new Intersections.Intersection(3.4f, s);
-    var i3 = new Intersections.Intersection(4.5f, s);
-    var i4 = new Intersections.Intersection(5.6f, s);
-
-    assertEquals(Math.signum(i1.compareTo(i3)), -Math.signum(i3.compareTo(i1)));
-    assertEquals(i1.compareTo(i2), i2.compareTo(i1));
-    assertTrue(i4.compareTo(i3) > 0 && i3.compareTo(i2) > 0 && i4.compareTo(i2) > 0);
-    assertTrue(i2.compareTo(i3) < 0 && i3.compareTo(i4) < 0 && i2.compareTo(i4) < 0);
-    assertEquals(Math.signum(i1.compareTo(i4)), Math.signum(i2.compareTo(i4)));
-  }
-
   @SuppressWarnings({"EqualsBetweenInconvertibleTypes", "ConstantConditions",
       "SimplifiableAssertion", "EqualsWithItself"})
   @Test

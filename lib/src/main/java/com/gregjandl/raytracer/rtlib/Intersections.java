@@ -66,7 +66,11 @@ class Intersections extends AbstractList<Intersection> {
     return xs.stream().filter(i -> i.t >= 0).findFirst();
   }
 
-  static class Intersection implements Comparable<Intersection> {
+
+  /**
+   * Represents a single intersection between a Ray and a Sphere.
+   */
+  static class Intersection {
     private final float t;
     private final Sphere object;
 
@@ -91,24 +95,6 @@ class Intersections extends AbstractList<Intersection> {
     @Override
     public int hashCode() {
       return Objects.hash(t, object);
-    }
-
-    /**
-     * Compares this {@code Intersection} with the specified {@code Intersection} for order. Returns
-     * a negative integer, zero, or a positive integer as this {@code Intersection} is less than,
-     * equal to, or greater than the specified {@code Intersection}.
-     *
-     * <p> Note: this class has a natural ordering that is inconsistent with equals -- only
-     * {@code t} is compared for ordering.
-     *
-     * @param o the {@code Intersection} to be compared.
-     * @return a negative integer, zero, or a positive integer as this {@code Intersection} is less
-     * than, equal to, or greater than the specified {@code Intersection}.
-     * @throws NullPointerException if the specified {@code Intersection} is null
-     */
-    @Override
-    public int compareTo(Intersection o) {
-      return Float.compare(t, Objects.requireNonNull(o, "Intersection was null").t);
     }
 
   }
