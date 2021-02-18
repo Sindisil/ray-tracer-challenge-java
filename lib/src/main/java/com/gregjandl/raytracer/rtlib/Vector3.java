@@ -207,6 +207,11 @@ public class Vector3 {
     return new Vector3(y * v.z - z * v.y, z * v.x - x * v.z, x * v.y - y * v.x);
   }
 
+  /**
+   * Returns this vector reflected around the specified normal.
+   * @param normal around which to reflect this vector
+   * @return the reflected vector
+   */
   public Vector3 reflect(Vector3 normal) {
     return subtract(normal.add(normal).multiply(dot(normal)));
   }
