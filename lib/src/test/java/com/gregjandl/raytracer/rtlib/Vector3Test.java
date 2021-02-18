@@ -165,4 +165,22 @@ public class Vector3Test {
     assertEquals(new Vector3(-1, 2, -1), v1.cross(v2));
     assertEquals(new Vector3(1, -2, 1), v2.cross(v1));
   }
+
+  @Test
+  @DisplayName("Reflecting a vector approaching at 45 deg.")
+  void testReflectAt45Deg() {
+    var vector = new Vector3(1, -1, 0);
+    var normal = new Vector3(0, 1, 0);
+    var reflected = vector.reflect(normal);
+    assertEquals(new Vector3(1, 1, 0), reflected);
+  }
+
+  @Test
+  @DisplayName("Reflecting a vector off a slanted surface")
+  void testReflectOffSlant() {
+    var vector = new Vector3(0, -1, 0);
+    var normal = new Vector3(sqrt(2)/2, sqrt(2)/2, 0);
+    var reflected = vector.reflect(normal);
+    assertEquals(new Vector3(1, 0, 0), reflected);
+  }
 }
