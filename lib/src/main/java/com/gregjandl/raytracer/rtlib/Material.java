@@ -19,7 +19,7 @@ public class Material {
   }
 
   /**
-   * Returns the color component of this material.
+   * Returns the color of this material.
    *
    * @return the color
    */
@@ -28,34 +28,41 @@ public class Material {
   }
 
   /**
-   * Returns the ambient component of this material.
+   * Returns the ambient reflectivity (i.e., background lighting) of this material.
+   * <p>Typically in the range [0.0,1.0].</p>
    *
-   * @return the ambient value
+   * @return the ambient reflectivity
    */
   public float getAmbient() {
     return ambient;
   }
 
   /**
-   * Returns the diffuse component of this material.
+   * Returns the diffuse reflectivity (i.e., matte surface reflection) of this material.
+   * <p>Typically in the range [0.0,1.0].</p>
    *
-   * @return the diffuse value
+   * @return the diffuse reflectivity
    */
   public float getDiffuse() {
     return diffuse;
   }
 
   /**
-   * Returns the specular component of this material.
+   * Returns the specular reflectivity of this material.
+   * <p>Typically in the range [0.0,1.0].</p>
    *
-   * @return the specular value
+   * @return the specular reflectivity
    */
   public float getSpecular() {
     return specular;
   }
 
   /**
-   * Returns the shininess component of this material.
+   * Returns the shininess component of this material, controlling the size of the specular
+   * highlight.
+   * <p>
+   * Typically in the range [10.0,200.0], with smaller values resulting in a larger highlight.
+   * </p>
    *
    * @return the shininess value
    */
