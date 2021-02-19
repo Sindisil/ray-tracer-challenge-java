@@ -9,6 +9,7 @@ public class Sphere {
   private static final Point ORIGIN = new Point(0, 0, 0);
 
   private Matrix4x4 transform = Matrix4x4.identity();
+  private Material material = new Material.Builder().build();
 
   /**
    * Returns an {@code IntersectionList} representing where the specified {@code Ray} intersects the
@@ -62,6 +63,7 @@ public class Sphere {
 
   /**
    * Return the normal at the specified point on this sphere.
+   *
    * @param worldPoint Point on sphere for which to calculate the normal
    * @return the normal
    */
@@ -71,5 +73,24 @@ public class Sphere {
     var objectNormal = objectPoint.subtract(ORIGIN);
     var worldNormal = transform.invert().transpose().multiply(objectNormal);
     return worldNormal.normalize();
+  }
+
+  /**
+   * Return this {@code Sphere}'s {@code Material}.
+   *
+   * @return the material
+   */
+  public Material getMaterial() {
+    return material;
+  }
+
+  /**
+   * Replace this {@code Sphere}'s {@code Material} with the specified replacement.
+   *
+   * @param m the new {@code Material}
+   */
+  public void setMaterial(Material m) {
+    Objects.requireNonNull(m);
+    material = m;
   }
 }

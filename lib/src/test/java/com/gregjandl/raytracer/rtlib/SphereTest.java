@@ -169,6 +169,17 @@ public class SphereTest {
       var n = sphere.normalAt(new Point(0, Math.sqrt(2) / 2, -Math.sqrt(2) / 2));
       assertEquals(new Vector3(0, 0.97014f, -0.24254f), n);
     }
-
   }
+
+  @Test
+  @DisplayName("A sphere has a default material and may be assigned a new one")
+  void testCreateSphere() {
+    var s = new Sphere();
+    var m = new Material.Builder().build();
+    assertEquals(m, s.getMaterial());
+    var m2 = new Material.Builder().ambient(1).build();
+    s.setMaterial(m2);
+    assertEquals(m2, s.getMaterial());
+  }
+
 }

@@ -1,5 +1,7 @@
 package com.gregjandl.raytracer.rtlib;
 
+import java.util.Objects;
+
 /**
  * Represents the material of an object in the Phong lighting model.
  */
@@ -68,6 +70,30 @@ public class Material {
    */
   public float getShininess() {
     return shininess;
+  }
+
+  /**
+   * Compares this {@code Material} to the specified {@code object} for equality.
+   * @param o the object to compare
+   * @return {@code true} if and only if the object is a {@code Material} with the same Color
+   * and with reflection fields differing by less than {@link Utils#EPSILON} from those of this
+   * object.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) { return true; }
+    if (o == null || getClass() != o.getClass()) { return false; }
+    Material material = (Material) o;
+    return Utils.aboutEqual(material.ambient, ambient)
+        && Utils.aboutEqual(material.diffuse, diffuse)
+        && Utils.aboutEqual(material.specular, specular)
+        && Utils.aboutEqual(material.shininess, shininess)
+        && color.equals(material.color);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(color, ambient, diffuse, specular, shininess);
   }
 
   /**
