@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 public class MaterialTest {
@@ -30,4 +31,58 @@ public class MaterialTest {
     assertTrue(Utils.aboutEqual(0.4, m.getSpecular()));
     assertTrue(Utils.aboutEqual(100, m.getShininess()));
   }
+
+  @Nested
+  @DisplayName("Lighting")
+  class TestLighting {
+    final Material m = new Material.Builder().build();
+    final Point position = new Point(0, 0, 0);
+    final Vector3 normal = new Vector3(0, 0, -1);
+
+    @Test
+    @DisplayName("Lighting with the eye between the light and the surface")
+    void testEyeBetweenLightAndSurface() {
+      var eyeVec = new Vector3(0, 0, -1);
+      var light = new PointLight(new Point(0, 0, -10));
+      var result = m.lighting(light, position, eyeVec, normal);
+      assertEquals(new Color(1.9f, 1.9f, 1.9f), result);
+    }
+
+    @Test
+    @DisplayName("Lighting with eye between light and surface, eye offset 45 deg.")
+    void testEyeBetweenLightAndSurface45Deg() {
+      var eyeVec = new Vector3(0, Math.sqrt(2) / 2, Math.sqrt(2) / 2);
+      var light = new PointLight(new Point(0, 0, -10));
+      var result = m.lighting(light, position, eyeVec, normal);
+      assertEquals(Color.WHITE, result);
+    }
+
+    @Test
+    @DisplayName("Lighting with the eye opposite surface, light offset 45 deg.")
+    void testLightOffset40Deg() {
+      var eyeVec = new Vector3(0, 0, -1);
+      var light = new PointLight(new Point(0, 10, -10));
+      var result = m.lighting(light, position, eyeVec, normal);
+      assertEquals(new Color(0.7364f, 0.7364f, 0.7364f), result);
+    }
+
+    @Test
+    @DisplayName("Lighting with eye in the path of the reflection vector")
+    void testEyeInPathOfReflection() {
+      var eyeVec = new Vector3(0, -Math.sqrt(2) / 2, -Math.sqrt(2) / 2);
+      var light = new PointLight(new Point(0, 10, -10));
+      var result = m.lighting(light, position, eyeVec, normal);
+      assertEquals(new Color(1.6364f, 1.6364f, 1.6364f), result);
+    }
+
+    @Test
+    @DisplayName("Lighting with the light behind the surface")
+    void testLightBehindSurface() {
+      var eyeVec = new Vector3(0, 0, -1);
+      var light = new PointLight(new Point(0, 0, 10));
+      var result = m.lighting(light, position, eyeVec, normal);
+      assertEquals(new Color(.1f, .1f, .1f), result);
+    }
+  }
+
 }

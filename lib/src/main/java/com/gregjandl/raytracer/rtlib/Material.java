@@ -74,10 +74,10 @@ public class Material {
 
   /**
    * Compares this {@code Material} to the specified {@code object} for equality.
+   *
    * @param o the object to compare
-   * @return {@code true} if and only if the object is a {@code Material} with the same Color
-   * and with reflection fields differing by less than {@link Utils#EPSILON} from those of this
-   * object.
+   * @return {@code true} if and only if the object is a {@code Material} with the same Color and
+   * with reflection fields differing by less than {@link Utils#EPSILON} from those of this object.
    */
   @Override
   public boolean equals(Object o) {
@@ -94,6 +94,47 @@ public class Material {
   @Override
   public int hashCode() {
     return Objects.hash(color, ambient, diffuse, specular, shininess);
+  }
+
+  /**
+   * Return the effective color of reflected light from a point on a surface using Phong model.
+   * Essentially, add together the materials ambient, diffuse, and specular components, weighted by
+   * the angles between the vectors (toward eye, toward light, and normal).
+   *
+   * @param light  the light source
+   * @param point  the point on the surface
+   * @param eyeVec the vector pointing toward the eye position
+   * @param normal the normal vector at the point
+   * @return the resulting apparent color of the illuminated point
+   */
+  public Color lighting(PointLight light, Point point, Vector3 eyeVec, Vector3 normal) {
+    // combine surface color with light's color
+    var effectiveColor = color.multiply(light.getColor());
+
+    // find direction to light source
+    var lightVec = (light.getPosition().subtract(point)).normalize();
+
+    // ambient contribution
+    var result = effectiveColor.multiply(ambient);
+
+    var lightDotNormal = lightVec.dot(normal);
+
+    if (lightDotNormal >= 0) {
+      // light is on same side of the surface as eye, so add diffuse contribution
+      result = result.add(effectiveColor.multiply(diffuse).multiply(lightDotNormal));
+
+      var reflectDotEye = lightVec.negate().reflect(normal).dot(eyeVec);
+
+      if (reflectDotEye > 0) {
+        // Light reflects toward eye, so add specular contribution
+        result = result.add(
+            light.getColor()
+                .multiply(specular)
+                .multiply((float) Math.pow(reflectDotEye, shininess)));
+      }
+    }
+
+    return result;
   }
 
   /**
