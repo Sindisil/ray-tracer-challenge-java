@@ -1,6 +1,7 @@
 package com.gregjandl.raytracer.rtlib;
 
-import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +12,16 @@ public class LightsTest {
     var intensity = Color.WHITE;
     var position = new Point(0, 0, 0);
     var light = new PointLight(position, intensity);
-    Assertions.assertEquals(position, light.getPosition());
-    Assertions.assertEquals(intensity, light.getColor());
+    assertEquals(position, light.getPosition());
+    assertEquals(intensity, light.getColor());
+  }
+
+  @Test
+  @DisplayName("A convenience constructor for White point lights")
+  void testCreateWhitePointLight() {
+    var position = new Point(0, 0, 0);
+    var light = new PointLight(position);
+    assertEquals(position, light.getPosition());
+    assertEquals(Color.WHITE, light.getColor());
   }
 }

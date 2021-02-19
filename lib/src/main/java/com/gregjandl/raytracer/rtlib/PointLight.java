@@ -8,14 +8,22 @@ public class PointLight {
   private final Color color;
 
   /**
-   * Create a new {@code PointLight} with the specified position and color/intensity.
+   * Create a {@code PointLight} with the specified position and color/intensity.
    *
-   * @param position position of the light in 3D space
+   * @param position position of the light
    * @param color    color of the light
    */
   public PointLight(Point position, Color color) {
     this.position = position;
     this.color = color;
+  }
+
+  /**
+   * Create a white {@code PointLight} with the specified position.
+   * @param position position of the light
+   */
+  public PointLight(Point position) {
+    this(position, Color.WHITE);
   }
 
   /**
