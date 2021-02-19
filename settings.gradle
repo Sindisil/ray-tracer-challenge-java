@@ -8,4 +8,4 @@
  */
 
 rootProject.name = 'ray-tracer-challenge-java'
-include('lib')
+include('app', 'lib')
