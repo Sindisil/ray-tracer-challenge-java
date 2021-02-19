@@ -62,7 +62,7 @@ public class Vector3 {
   public float getZ() { return z;}
 
   /**
-   * Compares this {@code Vector3} to the specified {@code Object}.
+   * Compares this {@code Vector3} to the specified {@code Object} for equality.
    *
    * @param o {@code Object} to which this {@code Vector3} should be compared
    * @return {@code true} if and only if the specified {@code Object} is a {@code Vector3} whose
