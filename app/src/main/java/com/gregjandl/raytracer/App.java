@@ -32,17 +32,17 @@ public class App {
 
     light = new PointLight(new Point(-10, 10, -10));
     shape = new Sphere();
-    shape.setMaterial(new Material.Builder().color(new Color(1, .2f, 1)).build());
+    shape.setMaterial(new Material.Builder().shininess(50).build());
   }
 
   public static void main(String[] args) throws IOException {
-    int imageSize = 1080;
+    int imageSize = 400;
     var app = new App(imageSize);
 
     var start = System.nanoTime();
     app.render();
     var endRendering = System.nanoTime();
-    app.writePng(new File("app/build/raytrace.png"));
+    app.writePng(new File("raytrace.png"));
     var endWriting = System.nanoTime();
 
     System.out.println(
