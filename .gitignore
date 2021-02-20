@@ -8,3 +8,4 @@ build
 /.img/
 /coverage/
 /javadoc/
+/raytrace.png
