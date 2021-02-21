@@ -14,8 +14,8 @@ import javax.imageio.ImageIO;
 
 public class App {
   static final Point rayOrigin = new Point(0, 0, -5);
-  static final float wallZ = 10;
-  static final float wallSize = 7;
+  static final float wallZ = 12;
+  static final float wallSize = 10;
   static final float half = wallSize / 2;
 
   final int canvasSize;
