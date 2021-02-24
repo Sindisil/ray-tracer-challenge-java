@@ -1,6 +1,5 @@
 package com.gregjandl.raytracer;
 
-import com.gregjandl.raytracer.rtlib.Color;
 import com.gregjandl.raytracer.rtlib.Material;
 import com.gregjandl.raytracer.rtlib.Point;
 import com.gregjandl.raytracer.rtlib.PointLight;
@@ -36,7 +35,7 @@ public class App {
   }
 
   public static void main(String[] args) throws IOException {
-    int imageSize = 400;
+    int imageSize = args.length == 1 ? Integer.parseInt(args[0]) : 400;
     var app = new App(imageSize);
 
     var start = System.nanoTime();
