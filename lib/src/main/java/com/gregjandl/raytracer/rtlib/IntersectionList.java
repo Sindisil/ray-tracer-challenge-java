@@ -89,7 +89,7 @@ public class IntersectionList extends AbstractList<Intersection> {
       if (this == o) { return true; }
       if (o == null || getClass() != o.getClass()) { return false; }
       Intersection that = (Intersection) o;
-      return Utils.aboutEqual(t, that.t) && Objects.equals(object, that.object);
+      return Utils.aboutEqual(t, that.t) && object == that.object;
     }
 
     @Override

@@ -34,6 +34,7 @@ public class IntersectionListTest {
 
     assertTrue(i1.equals(i1));
     assertTrue(i1.equals(i2) && i2.equals(i1));
+    assertEquals(i1.hashCode(), i2.hashCode());
     assertFalse(i1.equals(i3));
     assertFalse(i3.equals(i4));
     assertFalse(i1.equals("not an Intersection"));
