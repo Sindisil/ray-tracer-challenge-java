@@ -96,6 +96,12 @@ public class Material {
     return Objects.hash(color, ambient, diffuse, specular, shininess);
   }
 
+  @Override
+  public String toString() {
+    return "Material{color=" + color + ", ambient=" + ambient + ", diffuse=" + diffuse
+        + ", specular=" + specular + ", shininess=" + shininess + '}';
+  }
+
   /**
    * Return the effective color of reflected light from a point on a surface using Phong model.
    * Essentially, add together the materials ambient, diffuse, and specular components, weighted by
