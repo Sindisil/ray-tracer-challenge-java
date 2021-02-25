@@ -161,6 +161,20 @@ public class Material {
     public Builder() {}
 
     /**
+     * Creates a {@code Material#Builder} with initial component values identical to the supplied
+     * {@code Material}.
+     *
+     * @param other {@code Material} from which to take initial component values
+     */
+    public Builder(Material other) {
+      color = other.color;
+      ambient = other.ambient;
+      diffuse = other.diffuse;
+      specular = other.specular;
+      shininess = other.shininess;
+    }
+
+    /**
      * Sets this builder's color component to the specified {@code Color}
      *
      * @param c the color to use when building a {@code Material}

@@ -2,6 +2,7 @@ package com.gregjandl.raytracer.rtlib;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -50,9 +51,67 @@ public class WorldTest {
     var s = new Sphere();
     var i = new IntersectionList.Intersection(4, s);
     var comps = new World.PreComps(i, r);
+    assertEquals(i.getT(), comps.getT());
+    assertEquals(i.getObject(), comps.getObject());
     assertEquals(new Point(0, 0, -1), comps.getPoint());
     assertEquals(new Vector3(0, 0, -1), comps.getEyeVec());
     assertEquals(new Vector3(0, 0, -1), comps.getNormal());
+  }
+
+  @Test
+  @DisplayName("Shading an intersection")
+  void testShadingIntersection() {
+    var w = World.getDefault();
+    var r = new Ray(new Point(0, 0, -5), new Vector3(0, 0, 1));
+    var s = w.getObject(0);
+    var i = new IntersectionList.Intersection(4, s);
+    var comps = new World.PreComps(i, r);
+    var c = w.shadeHit(comps);
+    assertEquals(new Color(0.38066f, 0.47583f, 0.2855f), c);
+  }
+
+  @Test
+  @DisplayName("Shading an intersection from the inside")
+  void testShadingInsideIntersection() {
+    var w = World.getDefault();
+    w.setLights(List.of(new PointLight(new Point(0, 0.25f, 0))));
+    var r = new Ray(new Point(0, 0, 0), new Vector3(0, 0, 1));
+    var s = w.getObject(1);
+    var i = new IntersectionList.Intersection(0.5f, s);
+    var comps = new World.PreComps(i, r);
+    var c = w.shadeHit(comps);
+    assertEquals(new Color(0.90498f, 0.90498f, 0.90498f), c);
+  }
+
+  @Test
+  @DisplayName("The color when a ray misses")
+  void testColorWhenRayMisses() {
+    var w = World.getDefault();
+    var r = new Ray(new Point(0, 0, -5), new Vector3(0, 1, 0));
+    var c = w.colorAt(r);
+    assertEquals(Color.BLACK, c);
+  }
+
+  @Test
+  @DisplayName("The color when a ray hits")
+  void testColorWhenRayHits() {
+    var w = World.getDefault();
+    var r = new Ray(new Point(0, 0, -5), new Vector3(0, 0, 1));
+    var c = w.colorAt(r);
+    assertEquals(new Color(0.38066f, 0.47583f, 0.2855f), c);
+  }
+
+  @Test
+  @DisplayName("The color with an intersection behind the ray")
+  void testColorWithHitBehindRay() {
+    var w = World.getDefault();
+    var outer = w.getObject(0);
+    outer.setMaterial(new Material.Builder(outer.getMaterial()).ambient(1).build());
+    var inner = w.getObject(1);
+    inner.setMaterial(new Material.Builder(inner.getMaterial()).ambient(1).build());
+    var r = new Ray(new Point(0, 0, .75f), new Vector3(0, 0, -1));
+    var c = w.colorAt(r);
+    assertEquals(inner.getMaterial().getColor(), c);
   }
 
 }

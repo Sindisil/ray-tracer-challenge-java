@@ -1,6 +1,7 @@
 package com.gregjandl.raytracer.rtlib;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class World {
   private final ArrayList<Sphere> objects;
@@ -49,17 +50,44 @@ public class World {
     return xs;
   }
 
+  Color shadeHit(PreComps comps) {
+    var material = comps.getObject().getMaterial();
+    return lights.stream()
+        .reduce(Color.BLACK,
+            (color, light) -> material.lighting(light, comps.getPoint(), comps.getEyeVec(),
+                comps.getNormal()),
+            Color::add);
+  }
+
+  void setLights(List<PointLight> pointLights) {
+    lights.clear();
+    lights.addAll(pointLights);
+  }
+
+  Color colorAt(Ray r) {
+    var xs = intersect(r);
+    var hit = xs.hit();
+    if (hit.isEmpty()) { return Color.BLACK;}
+
+    var comps = new PreComps(hit.get(), r);
+    return shadeHit(comps);
+  }
+
   /**
    * Utility class providing precomputed values for items related to an intersection that will be
    * used in the shader.
    */
   static class PreComps {
+    private final float t;
+    private final Sphere object;
     private final Point point;
     private final Vector3 eyeVec;
     private final Vector3 normal;
     private final boolean inside;
 
     PreComps(IntersectionList.Intersection intersection, Ray ray) {
+      t = intersection.getT();
+      object = intersection.getObject();
       point = ray.getPosition(intersection.getT());
       eyeVec = ray.getDirection().negate();
       var norm = intersection.getObject().normalAt(point);
@@ -71,6 +99,10 @@ public class World {
       }
       normal = norm;
     }
+
+    float getT() { return t; }
+
+    Sphere getObject() { return object; }
 
     Point getPoint() { return point; }
 
