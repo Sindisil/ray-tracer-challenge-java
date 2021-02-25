@@ -69,9 +69,10 @@ public class Sphere {
    * @param t the new transformation matrix
    * @throws NullPointerException if the specified matrix is {@code null}
    */
-  public void setTransform(Matrix4x4 t) {
+  public Sphere setTransform(Matrix4x4 t) {
     Objects.requireNonNull(t);
     transform = t;
+    return this;
   }
 
   /**
@@ -102,9 +103,10 @@ public class Sphere {
    *
    * @param m the new {@code Material}
    */
-  public void setMaterial(Material m) {
+  public Sphere setMaterial(Material m) {
     Objects.requireNonNull(m);
     material = m;
+    return this;
   }
 
   /**

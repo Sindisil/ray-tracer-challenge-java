@@ -1,6 +1,10 @@
 package com.gregjandl.raytracer.rtlib;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -10,6 +14,43 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 public class SphereTest {
+  @Test
+  @DisplayName("Spheres have toString()")
+  void testToString() {
+    assertNotNull(new Sphere().toString());
+  }
+
+  @SuppressWarnings({"SimplifiableAssertion", "EqualsBetweenInconvertibleTypes",
+      "ConstantConditions", "EqualsWithItself"})
+  @Test
+  @DisplayName("Spheres may be compared for equality, which is distinct from identity")
+  void testEquals() {
+    var s1 = new Sphere();
+    var s2 = new Sphere();
+    var s3 = new Sphere();
+    var s4 = new Sphere();
+    var m1 = new Material.Builder().build();
+    var m2 = new Material.Builder(m1).color(Color.BLUE).build();
+    var t1 = Matrix4x4.scaling(2, 2, 2);
+
+    s1.setMaterial(m1);
+    s2.setMaterial(m2);
+    s3.setMaterial(m2);
+    s4.setMaterial(m2).setTransform(t1);
+
+    assertTrue(s4.equals(s4)); // equals self
+    assertSame(s4, s4);
+    assertTrue(s2.equals(s3)); // equals
+    assertTrue(s3.equals(s2)); // symmetry
+    assertNotSame(s2, s3); // not same
+    assertFalse(s1.equals(s2)); // differ
+    assertFalse(s3.equals(s4)); // differ
+    assertFalse(s2.equals(s1)); // symmetry
+    assertFalse(s3.equals(s4)); // symmetry
+    assertFalse(s4.equals(null));
+    assertFalse(s4.equals("not a sphere"));
+  }
+
   @Test
   @DisplayName("A ray intersects a sphere at two points")
   void testRayIntersectsAtTwoPoints() {
