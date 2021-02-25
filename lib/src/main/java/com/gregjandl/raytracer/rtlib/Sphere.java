@@ -12,13 +12,15 @@ public class Sphere {
   private Material material = new Material.Builder().build();
 
   /**
-   * Returns an {@code IntersectionList} representing where the specified {@code Ray} intersects the
-   * surface of this {@code Sphere}.
+   * Adds entrys to the specified {@code IntersectionList} representing where the specified {@code
+   * Ray} intersects the surface of this {@code Sphere}.
    *
-   * @param r the {@code Ray} that may intersect with this {@code Sphere}
-   * @return list of zero or more {@code Intersection}s with this {@code Sphere}
+   * @param r  the {@code Ray} that may intersect with this {@code Sphere}
+   * @param xs the {@code IntersectionList} to which any new intersections should be added
+   * @return the specified {@code IntersectionList} with zero or more {@code Intersection}s with
+   * this {@code Sphere} added
    */
-  public IntersectionList intersects(Ray r) {
+  public IntersectionList intersects(Ray r, IntersectionList xs) {
     var transformedRay = r.transform(transform.invert());
     var sphereToRay = transformedRay.getOrigin().subtract(ORIGIN);
     var a = transformedRay.getDirection().dot(transformedRay.getDirection());
@@ -26,7 +28,6 @@ public class Sphere {
     var c = sphereToRay.dot(sphereToRay) - 1;
 
     var discriminant = (b * b) - 4 * a * c;
-    var xs = new IntersectionList();
 
     if (discriminant >= 0) {
       var sqrtOfDiscriminant = Math.sqrt(discriminant);
@@ -36,6 +37,18 @@ public class Sphere {
 
     return xs;
 
+  }
+
+  /**
+   * Returns an {@code IntersectionList} representing where the specified {@code Ray} intersects the
+   * surface of this {@code Sphere}.
+   *
+   * @param r the {@code Ray} that may intersect with this {@code Sphere}
+   * @return list of zero or more {@code Intersection}s with this {@code Sphere}
+   */
+  public IntersectionList intersects(Ray r) {
+    var xs = new IntersectionList();
+    return intersects(r, xs);
   }
 
   /**
