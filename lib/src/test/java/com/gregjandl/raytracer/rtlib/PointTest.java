@@ -55,7 +55,7 @@ class PointTest {
     void testHashCode() {
       var a = new Point(1, 2, 3);
       var b = new Point(1, 2, 3);
-      assertEquals(a.hashCode(), b.hashCode());
+      assertTrue(a.equals(b) && a.hashCode() == b.hashCode());
     }
 
     @Test
