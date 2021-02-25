@@ -2,7 +2,6 @@ package com.gregjandl.raytracer.rtlib;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -128,7 +127,8 @@ public class SphereTest {
     var s = new Sphere();
     assertEquals(Matrix4x4.identity(), s.getTransform());
     var t = Matrix4x4.translation(2, 3, 4);
-    s.setTransform(t);
+    var s2 = s.setTransform(t);
+    assertSame(s, s2);
     assertEquals(t, s.getTransform());
     assertThrows(NullPointerException.class, () -> s.setTransform(null));
   }
@@ -162,7 +162,8 @@ public class SphereTest {
     var m = new Material.Builder().build();
     assertEquals(m, s.getMaterial());
     var m2 = new Material.Builder().ambient(1).build();
-    s.setMaterial(m2);
+    var s2 = s.setMaterial(m2);
+    assertSame(s, s2);
     assertEquals(m2, s.getMaterial());
   }
 
