@@ -93,4 +93,40 @@ public class Sphere {
     Objects.requireNonNull(m);
     material = m;
   }
+
+  /**
+   * Returns a string representation of this {@code Sphere}. This method is intended to be used for
+   * debugging purposes; the representation may change, but will not be {@code null}.
+   *
+   * @return a string representation of this {@code Sphere}
+   */
+  @Override
+  public String toString() {
+    return "Sphere{transform=" + transform + ", material=" + material + '}';
+  }
+
+  /**
+   * Compares this {@code Sphere} with the specified {@code Object} for equality.
+   *
+   * @param o {@code Object} to which this {@code Sphere} is to be compared.
+   * @return {@code true} if and only if the specified {@code Object} is a {@code Sphere} whose
+   * transform and material are equal to this {@code Sphere}'s
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) { return true; }
+    if (o == null || getClass() != o.getClass()) { return false; }
+    Sphere sphere = (Sphere) o;
+    return transform.equals(sphere.transform) && material.equals(sphere.material);
+  }
+
+  /**
+   * Returns the hash code for this {@code Sphere}
+   *
+   * @return hash code for this {@code Sphere}
+   */
+  @Override
+  public int hashCode() {
+    return Objects.hash(transform, material);
+  }
 }
