@@ -48,4 +48,34 @@ public class World {
     }
     return xs;
   }
+
+  /**
+   * Utility class providing precomputed values for items related to
+   * an intersection that will be used in the shader.
+   */
+  static class PreComps {
+    private final Point point;
+    private final Vector3 eyeVec;
+    private final Vector3 normal;
+    private final boolean inside;
+
+    PreComps(IntersectionList.Intersection intersection, Ray ray) {
+      point = ray.getPosition(intersection.getT());
+      eyeVec = ray.getDirection().negate();
+      var norm = intersection.getObject().normalAt(point);
+      if (norm.dot(eyeVec) < 0) {
+        inside = true;
+        norm = norm.negate();
+      } else {
+        inside = false;
+      }
+      normal = norm;
+    }
+
+    Point getPoint() { return point; }
+    Vector3 getEyeVec() { return eyeVec; }
+    Vector3 getNormal() { return normal; }
+
+    public boolean isInside() { return inside;}
+  }
 }

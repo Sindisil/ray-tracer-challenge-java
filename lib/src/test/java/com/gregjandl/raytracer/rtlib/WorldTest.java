@@ -42,4 +42,17 @@ public class WorldTest {
     assertEquals(5.5, xs.get(2).getT());
     assertEquals(6, xs.get(3).getT());
   }
+
+  @Test
+  @DisplayName("Precomputing the state of an intersection")
+  void testPreComps() {
+    var r = new Ray(new Point(0, 0, -5), new Vector3(0, 0, 1));
+    var s = new Sphere();
+    var i = new IntersectionList.Intersection(4, s);
+    var comps = new World.PreComps(i, r);
+    assertEquals(new Point(0, 0, -1), comps.getPoint());
+    assertEquals(new Vector3(0, 0, -1), comps.getEyeVec());
+    assertEquals(new Vector3(0, 0, -1), comps.getNormal());
+  }
+
 }

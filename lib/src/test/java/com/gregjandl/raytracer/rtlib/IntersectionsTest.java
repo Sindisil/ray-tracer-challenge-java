@@ -10,7 +10,7 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class IntersectionListTest {
+public class IntersectionsTest {
   @Test
   @DisplayName("An intersection encapsulates t and an object")
   void testIntersectionCreate() {
@@ -127,5 +127,29 @@ public class IntersectionListTest {
     xs.addAll(List.of(i1, i2, i3, i4));
     var i = xs.hit();
     assertEquals(i4, i.orElseThrow());
+  }
+
+  @Test
+  @DisplayName("The hit, when an intersection occurs on the outside")
+  void testHitOutside() {
+    var r = new Ray(new Point(0, 0, -5), new Vector3(0, 0, 1));
+    var s = new Sphere();
+    var i = new IntersectionList.Intersection(4, s);
+    var comps = new World.PreComps(i, r);
+    assertFalse(comps.isInside());
+  }
+
+  @Test
+  @DisplayName("The hit, when an intersection occurs on the inside")
+  void testHitInside() {
+    var r = new Ray(new Point(0, 0, 0), new Vector3(0, 0, 1));
+    var s = new Sphere();
+    var i = new IntersectionList.Intersection(1, s);
+    var comps = new World.PreComps(i, r);
+    assertEquals(new Point(0, 0, 1), comps.getPoint());
+    assertEquals(new Vector3(0, 0, -1), comps.getEyeVec());
+    assertTrue(comps.isInside());
+    // normal would have been (0, 0, 1), but should be inverted
+    assertEquals(new Vector3(0, 0, -1), comps.getNormal());
   }
 }
