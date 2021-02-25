@@ -12,7 +12,7 @@ public class Sphere {
   private Material material = new Material.Builder().build();
 
   /**
-   * Adds entrys to the specified {@code IntersectionList} representing where the specified {@code
+   * Adds entries to the specified {@code IntersectionList} representing where the specified {@code
    * Ray} intersects the surface of this {@code Sphere}.
    *
    * @param r  the {@code Ray} that may intersect with this {@code Sphere}
