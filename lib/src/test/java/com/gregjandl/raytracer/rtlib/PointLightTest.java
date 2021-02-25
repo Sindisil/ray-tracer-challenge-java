@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class LightsTest {
+public class PointLightTest {
   @Test
   @DisplayName("A point light has a position and intensity")
   void testCreatePointLight() {
