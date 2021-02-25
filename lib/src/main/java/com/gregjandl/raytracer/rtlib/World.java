@@ -50,8 +50,8 @@ public class World {
   }
 
   /**
-   * Utility class providing precomputed values for items related to
-   * an intersection that will be used in the shader.
+   * Utility class providing precomputed values for items related to an intersection that will be
+   * used in the shader.
    */
   static class PreComps {
     private final Point point;
@@ -73,7 +73,9 @@ public class World {
     }
 
     Point getPoint() { return point; }
+
     Vector3 getEyeVec() { return eyeVec; }
+
     Vector3 getNormal() { return normal; }
 
     public boolean isInside() { return inside;}
