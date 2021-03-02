@@ -1,6 +1,7 @@
 package com.gregjandl.raytracer.rtlib;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -18,6 +19,12 @@ public class CameraTest {
     assertEquals(hSize, c.getHSize());
     assertEquals(vSize, c.getVSize());
     assertEquals(fov, c.getFov());
+  }
+
+  @Test
+  @DisplayName("Camera has toString")
+  void testToString() {
+    assertNotNull(new Camera(10, 10, 1).toString());
   }
 
   @Test
