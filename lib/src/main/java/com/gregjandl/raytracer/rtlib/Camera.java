@@ -114,16 +114,16 @@ public class Camera {
   /**
    * Render the scene represented by the supplied {@code World} into a BufferedImage, and
    * return the resulting image.
-   * @param w the scene to render
+   * @param scene the scene to render
    * @return the rendered scene
    */
-  public BufferedImage render(Scene w) {
+  public BufferedImage render(Scene scene) {
     var image = new BufferedImage(hSize, vSize, BufferedImage.TYPE_INT_RGB);
 
     for (int y = 0; y < vSize - 1; ++y) {
       for (int x = 0; x < hSize - 1; ++x) {
         var r = rayForPixel(x, y);
-        var c = w.colorAt(r);
+        var c = scene.colorAt(r);
         image.setRGB(x, y, c.toAwtColor().getRGB());
       }
     }
