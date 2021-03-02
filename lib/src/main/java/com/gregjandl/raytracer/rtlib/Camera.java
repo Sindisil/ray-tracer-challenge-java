@@ -2,6 +2,10 @@ package com.gregjandl.raytracer.rtlib;
 
 import java.awt.image.BufferedImage;
 
+/**
+ * Represents a view, allowing a {@code World} (i.e., scene) to be rendered
+ * to a {@code BufferedImage}.
+ */
 public class Camera {
   private final int hSize;
   private final int vSize;
@@ -11,12 +15,19 @@ public class Camera {
   private final float halfHeight;
   private Matrix4x4 viewTransform;
 
-  public Camera(int hSize, int vSize, float fov) {
+  /**
+   * Construct a {@code Camera} with the specified view size and field of view.
+   * FOV is treated saved internally as a {@code float} value.
+   * @param hSize Width of this camera's rendered view
+   * @param vSize Height of this camera's rendered view
+   * @param fov this camera's field of view
+   */
+  public Camera(int hSize, int vSize, double fov) {
     viewTransform = Matrix4x4.identity();
 
     this.hSize = hSize;
     this.vSize = vSize;
-    this.fov = fov;
+    this.fov = (float) fov;
 
     var halfView = Math.tan(fov / 2);
     var aspectRatio = hSize / (float) vSize;
@@ -32,14 +43,22 @@ public class Camera {
     pixelSize = (halfWidth * 2) / hSize;
   }
 
-  public Camera(int hSize, int vSize, double fov) {
-    this(hSize, vSize, (float) fov);
-  }
-
+  /**
+   * Return the horizontal size of this {@code Camera}'s view.
+   * @return horizontal view size
+   */
   public int getHSize() { return hSize; }
 
+  /**
+   * Return the vertical  size of this {@code Camera}'s view.
+   * @return vertical view size
+   */
   public int getVSize() { return vSize; }
 
+  /**
+   * Returns the field of view for this Camera.
+   * @return the field of view
+   */
   public float getFov() { return fov; }
 
   float getPixelSize() { return pixelSize; }
@@ -59,7 +78,22 @@ public class Camera {
     return new Ray(origin, direction);
   }
 
-  void setViewTransform(Point from, Point to, Vector3 up) {
+  /**
+   * Returns this {@code Camera}'s view transformation
+   * @return the view transformation
+   */
+  public Matrix4x4 getViewTransform() {
+    return viewTransform;
+  }
+
+  /**
+   * Computes a new view transformation from the supplied {@code from} and {@code to} points and
+   * {@code up} vector, and assigns it to this {@code Camera}'s view transform.
+   * @param from the location of the camera eye
+   * @param to the point the camera is looking at
+   * @param up a vector indicating the up direction
+   */
+  public void setViewTransform(Point from, Point to, Vector3 up) {
     var forward = to.subtract(from).normalize();
     var left = forward.cross(up.normalize());
     var trueUp = left.cross(forward);
@@ -73,15 +107,17 @@ public class Camera {
         orientation.multiply(Matrix4x4.translation(-from.getX(), -from.getY(), -from.getZ()));
   }
 
-  Matrix4x4 getViewTransform() {
-    return viewTransform;
-  }
-
   void setViewTransform(Matrix4x4 viewTransform) {
     this.viewTransform = viewTransform;
   }
 
-  BufferedImage render(World w) {
+  /**
+   * Render the scene represented by the supplied {@code World} into a BufferedImage, and
+   * return the resulting image.
+   * @param w the scene to render
+   * @return the rendered scene
+   */
+  public BufferedImage render(Scene w) {
     var image = new BufferedImage(hSize, vSize, BufferedImage.TYPE_INT_RGB);
 
     for (int y = 0; y < vSize - 1; ++y) {
@@ -95,6 +131,12 @@ public class Camera {
     return image;
   }
 
+  /**
+   * Returns a string representation of this {@code Camera}. This method is intended to be used for
+   * debugging purposes; the representation may change, but will not be {@code null}.
+   *
+   * @return a string representation of this {@code Camera}
+   */
   @Override
   public String toString() {
     return "Camera{hSize=" + hSize + ", vSize=" + vSize + ", fov=" + fov
