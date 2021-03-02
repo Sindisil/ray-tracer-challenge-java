@@ -63,7 +63,7 @@ public class MaterialTest {
   }
 
   @Test
-  @DisplayName("Materials have toSring()")
+  @DisplayName("Materials have toString()")
   void testToString() {
     assertNotNull(new Material.Builder().build().toString());
   }
