@@ -8,6 +8,9 @@ import java.util.Objects;
  * @author Greg Jandl (greg.jandl@gmail.com)
  */
 public class Point {
+  /**
+   * Point representing the origin (i.e. (0, 0, 0))
+   */
   public static final Point ORIGIN = new Point(0, 0, 0);
 
   private final float x;

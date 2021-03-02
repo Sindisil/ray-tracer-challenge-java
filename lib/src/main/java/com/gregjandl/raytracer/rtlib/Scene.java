@@ -3,15 +3,38 @@ package com.gregjandl.raytracer.rtlib;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a scene to be rendered, made up of objects to be rendered lit by some number of
+ * lights.
+ */
 public class Scene {
   private final ArrayList<Sphere> objects;
   private final ArrayList<PointLight> lights;
 
+  /**
+   * Construct an empty scene.
+   */
   public Scene() {
     objects = new ArrayList<>();
     lights = new ArrayList<>(1);
   }
 
+  /**
+   * Construct and return the default scene.
+   *
+   * The default scene consists of:
+   * <ul>
+   *   <li>One white <code>PointLight</code> @ (-10, 10, -10)</li>
+   *   <li>Two concentric spheres at the origin:
+   *   <ul>
+   *     <li>Color(0.8, 1.0, 0.6), diffuse(0.7), specular(0.2)</li>
+   *     <li>Default material, scaled by .5 in each direction</li>
+   *   </ul>
+   *   </li>
+   * </ul>
+   *
+   * @return a default scene
+   */
   public static Scene getDefault() {
     var w = new Scene();
     var l1 = new PointLight(new Point(-10, 10, -10), Color.WHITE);
@@ -26,23 +49,49 @@ public class Scene {
     return w;
   }
 
+  /**
+   * Return number of objects in this scene
+   *
+   * @return number of objects
+   */
   public int getObjectCount() {
     return objects.size();
   }
 
+  /**
+   * Return number of lights in this scene
+   *
+   * @return number of lights
+   */
   public int getLightCount() {
     return lights.size();
   }
 
+  /**
+   * Return the light indicated by the specified index
+   *
+   * @param i the index of the light to return
+   * @return the light
+   * @throws IndexOutOfBoundsException if the index is out of range ({@code i < 0 || i >=
+   *                                   getLightCount()})
+   */
   public PointLight getLight(int i) {
     return lights.get(i);
   }
 
+  /**
+   * Return the object indicated by the specified index
+   *
+   * @param i the index of the object to return
+   * @return the object
+   * @throws IndexOutOfBoundsException if the index is out of range ({@code i < 0 || i >=
+   *                                   getObjectCount()})
+   */
   public Sphere getObject(int i) {
     return objects.get(i);
   }
 
-  public IntersectionList intersect(Ray r) {
+  IntersectionList intersect(Ray r) {
     var xs = new IntersectionList();
     for (var obj : objects) {
       obj.intersects(r, xs);
@@ -64,7 +113,13 @@ public class Scene {
     lights.addAll(pointLights);
   }
 
-  Color colorAt(Ray r) {
+  /**
+   * Return the shaded color at the point intersected by the specified {@code Ray}
+   *
+   * @param r the {@code Ray} to be traced into the scene
+   * @return the {@code Color} of the point the ray intersects
+   */
+  public Color colorAt(Ray r) {
     var xs = intersect(r);
     var hit = xs.hit();
     if (hit.isEmpty()) { return Color.BLACK;}

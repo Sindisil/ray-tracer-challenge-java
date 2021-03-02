@@ -67,6 +67,7 @@ public class Sphere {
    * non-null
    *
    * @param t the new transformation matrix
+   * @return this {@code Sphere}
    * @throws NullPointerException if the specified matrix is {@code null}
    */
   public Sphere setTransform(Matrix4x4 t) {
@@ -102,6 +103,7 @@ public class Sphere {
    * Replace this {@code Sphere}'s {@code Material} with the specified replacement.
    *
    * @param m the new {@code Material}
+   * @return this {@code Sphere}
    */
   public Sphere setMaterial(Material m) {
     Objects.requireNonNull(m);
