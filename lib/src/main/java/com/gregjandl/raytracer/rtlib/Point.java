@@ -8,6 +8,8 @@ import java.util.Objects;
  * @author Greg Jandl (greg.jandl@gmail.com)
  */
 public class Point {
+  public static final Point ORIGIN = new Point(0, 0, 0);
+
   private final float x;
   private final float y;
   private final float z;
