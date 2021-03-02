@@ -11,7 +11,7 @@ import java.util.Optional;
 /**
  * Represents a sorted list of zero or more {@code Intersection}s, ordered by {@code t}.
  */
-public class IntersectionList extends AbstractList<Intersection> {
+class IntersectionList extends AbstractList<Intersection> {
   private final List<Intersection> xs;
 
   /**
@@ -70,7 +70,7 @@ public class IntersectionList extends AbstractList<Intersection> {
   /**
    * Represents a single intersection between a Ray and a Sphere.
    */
-  public static class Intersection {
+  static class Intersection {
     private final float t;
     private final Sphere object;
 
