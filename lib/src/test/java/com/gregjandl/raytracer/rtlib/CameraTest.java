@@ -130,7 +130,7 @@ public class CameraTest {
   @Test
   @DisplayName("Rendering a world with a camera")
   void testRender() {
-    var w = World.getDefault();
+    var w = Scene.getDefault();
     var c = new Camera(11, 11, Math.PI/2);
     var from = new Point(0, 0, -5);
     var to = Point.ORIGIN;

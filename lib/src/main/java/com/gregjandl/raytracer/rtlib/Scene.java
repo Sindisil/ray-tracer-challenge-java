@@ -3,17 +3,17 @@ package com.gregjandl.raytracer.rtlib;
 import java.util.ArrayList;
 import java.util.List;
 
-public class World {
+public class Scene {
   private final ArrayList<Sphere> objects;
   private final ArrayList<PointLight> lights;
 
-  public World() {
+  public Scene() {
     objects = new ArrayList<>();
     lights = new ArrayList<>(1);
   }
 
-  public static World getDefault() {
-    var w = new World();
+  public static Scene getDefault() {
+    var w = new Scene();
     var l1 = new PointLight(new Point(-10, 10, -10), Color.WHITE);
     var s1 = new Sphere();
     s1.setMaterial(

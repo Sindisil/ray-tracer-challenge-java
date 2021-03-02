@@ -135,7 +135,7 @@ public class IntersectionsTest {
     var r = new Ray(new Point(0, 0, -5), new Vector3(0, 0, 1));
     var s = new Sphere();
     var i = new IntersectionList.Intersection(4, s);
-    var comps = new World.PreComps(i, r);
+    var comps = new Scene.PreComps(i, r);
     assertFalse(comps.isInside());
   }
 
@@ -145,7 +145,7 @@ public class IntersectionsTest {
     var r = new Ray(new Point(0, 0, 0), new Vector3(0, 0, 1));
     var s = new Sphere();
     var i = new IntersectionList.Intersection(1, s);
-    var comps = new World.PreComps(i, r);
+    var comps = new Scene.PreComps(i, r);
     assertEquals(new Point(0, 0, 1), comps.getPoint());
     assertEquals(new Vector3(0, 0, -1), comps.getEyeVec());
     assertTrue(comps.isInside());
