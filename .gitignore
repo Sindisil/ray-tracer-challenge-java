@@ -9,3 +9,5 @@ build
 /coverage/
 /javadoc/
 /raytrace.png
+/*.jfr
+/*.nps
