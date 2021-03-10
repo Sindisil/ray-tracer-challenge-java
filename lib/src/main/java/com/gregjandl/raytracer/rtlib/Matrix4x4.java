@@ -61,7 +61,7 @@ public class Matrix4x4 {
    * @param z translation factor in {@code z} dimension.
    * @return the transformation matrix
    */
-  static Matrix4x4 translation(float x, float y, float z) {
+  public static Matrix4x4 translation(float x, float y, float z) {
     return identity().set(0, 3, x).set(1, 3, y).set(2, 3, z);
   }
 
