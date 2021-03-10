@@ -2,6 +2,7 @@ package com.gregjandl.raytracer.rtlib;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents a scene to be rendered, made up of objects to be rendered lit by some number of
@@ -126,6 +127,16 @@ public class Scene {
 
     var comps = new PreComps(hit.get(), r);
     return shadeHit(comps);
+  }
+
+  public void addLight(PointLight light) {
+    Objects.requireNonNull(light, "Added lights must be non-null");
+    lights.add(light);
+  }
+
+  public void addObject(Sphere object) {
+    Objects.requireNonNull(object, "Added objects must be non-null");
+    objects.add(object);
   }
 
   /**

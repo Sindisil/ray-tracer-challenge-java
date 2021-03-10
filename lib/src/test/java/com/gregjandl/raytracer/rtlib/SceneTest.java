@@ -32,6 +32,29 @@ public class SceneTest {
   }
 
   @Test
+  @DisplayName("Adding a light to a scene")
+  void testAddLight() {
+    var light = new PointLight(Point.ORIGIN);
+    var scene = new Scene();
+    assertEquals(0, scene.getLightCount());
+    scene.addLight(light);
+    assertEquals(1, scene.getLightCount());
+    assertEquals(light, scene.getLight(0));
+
+  }
+
+  @Test
+  @DisplayName("Adding an object to a scene")
+  void testAddObject() {
+    var sphere = new Sphere().setMaterial(new Material.Builder().color(Color.BLUE).build());
+    var scene = new Scene();
+    assertEquals(0, scene.getObjectCount());
+    scene.addObject(sphere);
+    assertEquals(1, scene.getObjectCount());
+    assertEquals(sphere, scene.getObject(0));
+  }
+
+  @Test
   @DisplayName("Intersect a world with a ray")
   void testIntersectRay() {
     var scene = Scene.getDefault();
