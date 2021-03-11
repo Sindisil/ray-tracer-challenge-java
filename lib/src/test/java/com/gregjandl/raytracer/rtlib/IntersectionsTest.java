@@ -136,7 +136,7 @@ public class IntersectionsTest {
     var s = new Sphere();
     var i = new IntersectionList.Intersection(4, s);
     var comps = new Scene.PreComps(i, r);
-    assertFalse(comps.isInside());
+    assertFalse(comps.inside);
   }
 
   @Test
@@ -146,10 +146,21 @@ public class IntersectionsTest {
     var s = new Sphere();
     var i = new IntersectionList.Intersection(1, s);
     var comps = new Scene.PreComps(i, r);
-    assertEquals(new Point(0, 0, 1), comps.getPoint());
-    assertEquals(new Vector3(0, 0, -1), comps.getEyeVec());
-    assertTrue(comps.isInside());
+    assertEquals(new Point(0, 0, 1), comps.point);
+    assertEquals(new Vector3(0, 0, -1), comps.eyeVec);
+    assertTrue(comps.inside);
     // normal would have been (0, 0, 1), but should be inverted
-    assertEquals(new Vector3(0, 0, -1), comps.getNormal());
+    assertEquals(new Vector3(0, 0, -1), comps.normal);
+  }
+
+  @Test
+  @DisplayName("The hit should offset the point")
+  void testHitOffsetsPoint() {
+    var r = new Ray(new Point(0, 0, -5), new Vector3(0, 0, 1));
+    var s = new Sphere().setTransform(Matrix4x4.translation(0, 0, 1));
+    var i = new IntersectionList.Intersection(5, s);
+    var comps = new Scene.PreComps(i, r);
+    assertTrue(comps.overPoint.getZ() < -Utils.EPSILON / 2);
+    assertTrue(comps.point.getZ() > comps.overPoint.getZ());
   }
 }

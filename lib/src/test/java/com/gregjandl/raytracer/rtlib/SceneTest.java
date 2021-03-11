@@ -1,9 +1,12 @@
 package com.gregjandl.raytracer.rtlib;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 public class SceneTest {
@@ -74,11 +77,11 @@ public class SceneTest {
     var s = new Sphere();
     var i = new IntersectionList.Intersection(4, s);
     var comps = new Scene.PreComps(i, r);
-    assertEquals(i.getT(), comps.getT());
-    assertEquals(i.getObject(), comps.getObject());
-    assertEquals(new Point(0, 0, -1), comps.getPoint());
-    assertEquals(new Vector3(0, 0, -1), comps.getEyeVec());
-    assertEquals(new Vector3(0, 0, -1), comps.getNormal());
+    assertEquals(i.getT(), comps.t);
+    assertEquals(i.getObject(), comps.object);
+    assertEquals(new Point(0, 0, -1), comps.point);
+    assertEquals(new Vector3(0, 0, -1), comps.eyeVec);
+    assertEquals(new Vector3(0, 0, -1), comps.normal);
   }
 
   @Test
@@ -104,6 +107,21 @@ public class SceneTest {
     var comps = new Scene.PreComps(i, r);
     var c = scene.shadeHit(comps);
     assertEquals(new Color(0.90498f, 0.90498f, 0.90498f), c);
+  }
+
+  @Test
+  @DisplayName("Shading an intersection in shadow")
+  void testShadingIntersectionInShadow() {
+    var scene = new Scene();
+    scene.addLight(new PointLight(new Point(0, 0, -10)));
+    scene.addObject(new Sphere());
+
+    var s2 = new Sphere().setTransform(Matrix4x4.translation(0, 0, 10));
+    scene.addObject(s2);
+    var r = new Ray(new Point(0, 0, 5), new Vector3(0, 0, 1));
+    var i = new IntersectionList.Intersection(4, s2);
+    var c = scene.shadeHit(new Scene.PreComps(i, r));
+    assertEquals(new Color(0.1f, 0.1f, 0.1f), c);
   }
 
   @Test
@@ -136,4 +154,39 @@ public class SceneTest {
     var c = scene.colorAt(r);
     assertEquals(inner.getMaterial().getColor(), c);
   }
+
+  @Nested
+  @DisplayName("Shadows")
+  class ShadowsTest {
+    Scene scene = Scene.getDefault();
+
+    @Test
+    @DisplayName("There is no shadow when nothing is collinear with the point and light")
+    void testUnobstructed() {
+      var point = new Point(0, 10, 0);
+      assertFalse(scene.isShadowed(point, scene.getLight(0)));
+    }
+
+    @Test
+    @DisplayName("There is a shadow when an object is between the point and the light")
+    void testBetweenPointAndLight() {
+      var point = new Point(10, -10, 10);
+      assertTrue(scene.isShadowed(point, scene.getLight(0)));
+    }
+
+    @Test
+    @DisplayName("There is no shadow when an object is behind the light")
+    void testBehindLight() {
+      var point = new Point(-20, 20, -20);
+      assertFalse(scene.isShadowed(point, scene.getLight(0)));
+    }
+
+    @Test
+    @DisplayName("There is no shadow when an object is behind the point")
+    void testBehindPoint() {
+      var point = new Point(-2, 2, -2);
+      assertFalse(scene.isShadowed(point, scene.getLight(0)));
+    }
+  }
+
 }

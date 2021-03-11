@@ -22,7 +22,7 @@ public class Scene {
 
   /**
    * Construct and return the default scene.
-   *
+   * <p>
    * The default scene consists of:
    * <ul>
    *   <li>One white <code>PointLight</code> @ (-10, 10, -10)</li>
@@ -101,12 +101,11 @@ public class Scene {
   }
 
   Color shadeHit(PreComps comps) {
-    var material = comps.getObject().getMaterial();
+    var material = comps.object.getMaterial();
     return lights.stream()
-        .reduce(Color.BLACK,
-            (color, light) -> material.lighting(light, comps.getPoint(), comps.getEyeVec(),
-                comps.getNormal(), false),
-            Color::add);
+        .map((light) -> material.lighting(light, comps.point, comps.eyeVec, comps.normal,
+            isShadowed(comps.overPoint, light)))
+        .reduce(Color.BLACK, Color::add);
   }
 
   void setLights(List<PointLight> pointLights) {
@@ -139,17 +138,27 @@ public class Scene {
     objects.add(object);
   }
 
+  boolean isShadowed(Point point, PointLight light) {
+    var lightVec = light.getPosition().subtract(point);
+    var distance = lightVec.magnitude();
+    var direction = lightVec.normalize();
+
+    var hit = intersect(new Ray(point, direction)).hit();
+    return hit.isPresent() && hit.get().getT() < distance;
+  }
+
   /**
    * Utility class providing precomputed values for items related to an intersection that will be
    * used in the shader.
    */
   static class PreComps {
-    private final float t;
-    private final Sphere object;
-    private final Point point;
-    private final Vector3 eyeVec;
-    private final Vector3 normal;
-    private final boolean inside;
+    final float t;
+    final Sphere object;
+    final Point point;
+    final Vector3 eyeVec;
+    final Vector3 normal;
+    final boolean inside;
+    final Point overPoint;
 
     PreComps(IntersectionList.Intersection intersection, Ray ray) {
       t = intersection.getT();
@@ -164,18 +173,8 @@ public class Scene {
         inside = false;
       }
       normal = norm;
+
+      overPoint = point.add(normal.multiply(Utils.EPSILON * 16));
     }
-
-    float getT() { return t; }
-
-    Sphere getObject() { return object; }
-
-    Point getPoint() { return point; }
-
-    Vector3 getEyeVec() { return eyeVec; }
-
-    Vector3 getNormal() { return normal; }
-
-    public boolean isInside() { return inside;}
   }
 }
