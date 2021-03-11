@@ -80,7 +80,7 @@ public class MaterialTest {
     void testEyeBetweenLightAndSurface() {
       var eyeVec = new Vector3(0, 0, -1);
       var light = new PointLight(new Point(0, 0, -10));
-      var result = m.lighting(light, position, eyeVec, normal);
+      var result = m.lighting(light, position, eyeVec, normal, false);
       assertEquals(new Color(1.9f, 1.9f, 1.9f), result);
     }
 
@@ -89,7 +89,7 @@ public class MaterialTest {
     void testEyeBetweenLightAndSurface45Deg() {
       var eyeVec = new Vector3(0, Math.sqrt(2) / 2, Math.sqrt(2) / 2);
       var light = new PointLight(new Point(0, 0, -10));
-      var result = m.lighting(light, position, eyeVec, normal);
+      var result = m.lighting(light, position, eyeVec, normal, false);
       assertEquals(Color.WHITE, result);
     }
 
@@ -98,7 +98,7 @@ public class MaterialTest {
     void testLightOffset40Deg() {
       var eyeVec = new Vector3(0, 0, -1);
       var light = new PointLight(new Point(0, 10, -10));
-      var result = m.lighting(light, position, eyeVec, normal);
+      var result = m.lighting(light, position, eyeVec, normal, false);
       assertEquals(new Color(0.7364f, 0.7364f, 0.7364f), result);
     }
 
@@ -107,7 +107,7 @@ public class MaterialTest {
     void testEyeInPathOfReflection() {
       var eyeVec = new Vector3(0, -Math.sqrt(2) / 2, -Math.sqrt(2) / 2);
       var light = new PointLight(new Point(0, 10, -10));
-      var result = m.lighting(light, position, eyeVec, normal);
+      var result = m.lighting(light, position, eyeVec, normal, false);
       assertEquals(new Color(1.6364f, 1.6364f, 1.6364f), result);
     }
 
@@ -116,8 +116,18 @@ public class MaterialTest {
     void testLightBehindSurface() {
       var eyeVec = new Vector3(0, 0, -1);
       var light = new PointLight(new Point(0, 0, 10));
-      var result = m.lighting(light, position, eyeVec, normal);
+      var result = m.lighting(light, position, eyeVec, normal, false);
       assertEquals(new Color(.1f, .1f, .1f), result);
+    }
+
+    @Test
+    @DisplayName("Lighting with the surface in shadow")
+    void testLightWithShadow() {
+      var eyeVec = new Vector3(0, 0, -1);
+      var light = new PointLight(new Point(0, 0, -10));
+      var inShadow = true;
+      var result = m.lighting(light, position, eyeVec, normal, inShadow);
+      assertEquals(new Color(0.1f, 0.1f, 0.1f), result);
     }
   }
 

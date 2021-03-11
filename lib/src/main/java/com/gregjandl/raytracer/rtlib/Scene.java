@@ -105,7 +105,7 @@ public class Scene {
     return lights.stream()
         .reduce(Color.BLACK,
             (color, light) -> material.lighting(light, comps.getPoint(), comps.getEyeVec(),
-                comps.getNormal()),
+                comps.getNormal(), false),
             Color::add);
   }
 

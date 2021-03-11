@@ -107,13 +107,15 @@ public class Material {
    * Essentially, add together the materials ambient, diffuse, and specular components, weighted by
    * the angles between the vectors (toward eye, toward light, and normal).
    *
-   * @param light  the light source
-   * @param point  the point on the surface
-   * @param eyeVec the vector pointing toward the eye position
-   * @param normal the normal vector at the point
+   * @param light    the light source
+   * @param point    the point on the surface
+   * @param eyeVec   the vector pointing toward the eye position
+   * @param normal   the normal vector at the point
+   * @param inShadow  {@code true} if point is in shadow
    * @return the resulting apparent color of the illuminated point
    */
-  public Color lighting(PointLight light, Point point, Vector3 eyeVec, Vector3 normal) {
+  public Color lighting(PointLight light, Point point, Vector3 eyeVec, Vector3 normal,
+      boolean inShadow) {
     // combine surface color with light's color
     var effectiveColor = color.multiply(light.getColor());
 
@@ -122,6 +124,9 @@ public class Material {
 
     // ambient contribution
     var result = effectiveColor.multiply(ambient);
+
+    // Points in shadow have no diffuse or specular contribution
+    if (inShadow) return result;
 
     var lightDotNormal = lightVec.dot(normal);
 
