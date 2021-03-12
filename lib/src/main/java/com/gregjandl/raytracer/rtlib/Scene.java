@@ -153,7 +153,7 @@ public class Scene {
    */
   static class PreComps {
     final float t;
-    final Sphere object;
+    final Shape object;
     final Point point;
     final Vector3 eyeVec;
     final Vector3 normal;

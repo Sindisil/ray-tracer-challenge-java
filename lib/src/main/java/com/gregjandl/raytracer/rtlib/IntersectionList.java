@@ -1,6 +1,7 @@
 package com.gregjandl.raytracer.rtlib;
 
 import com.gregjandl.raytracer.rtlib.IntersectionList.Intersection;
+
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -38,13 +39,12 @@ class IntersectionList extends AbstractList<Intersection> {
 
   /**
    * Construct a new {@code Intersection} from the specified time {@code t} and Sphere {@code
-   * object} and add it to this {@code IntersectionList}, maintaining the sorted order of
-   * entries.
+   * object} and add it to this {@code IntersectionList}, maintaining the sorted order of entries.
    *
-   * @param t time of new {@code Intersection}
+   * @param t      time of new {@code Intersection}
    * @param object {@code Sphere} of new {{@code Intersection}
    */
-  public void add(float t, Sphere object) {
+  public void add(float t, Shape object) {
     var intersection = new Intersection(t, object);
     add(intersection);
   }
@@ -72,9 +72,9 @@ class IntersectionList extends AbstractList<Intersection> {
    */
   static class Intersection {
     private final float t;
-    private final Sphere object;
+    private final Shape object;
 
-    Intersection(float t, Sphere object) {
+    Intersection(float t, Shape object) {
       Objects.requireNonNull(object, "Intersection can't be constructed with null object");
       this.t = t;
       this.object = object;
@@ -82,7 +82,7 @@ class IntersectionList extends AbstractList<Intersection> {
 
     public float getT() { return t; }
 
-    public Sphere getObject() { return object; }
+    public Shape getObject() { return object; }
 
     @Override
     public boolean equals(Object o) {

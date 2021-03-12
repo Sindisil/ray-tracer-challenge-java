@@ -13,6 +13,14 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 public class SphereTest {
+  @SuppressWarnings("ConstantConditions")
+  @Test
+  @DisplayName("A Sphere is a Shape")
+  void testSubclassing() {
+    var s = new Sphere();
+    assertTrue(s instanceof Shape);
+  }
+
   @Test
   @DisplayName("Spheres have toString()")
   void testToString() {

@@ -158,7 +158,7 @@ public class SceneTest {
   @Nested
   @DisplayName("Shadows")
   class ShadowsTest {
-    Scene scene = Scene.getDefault();
+    final Scene scene = Scene.getDefault();
 
     @Test
     @DisplayName("There is no shadow when nothing is collinear with the point and light")

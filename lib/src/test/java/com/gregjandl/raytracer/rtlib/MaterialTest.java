@@ -125,8 +125,7 @@ public class MaterialTest {
     void testLightWithShadow() {
       var eyeVec = new Vector3(0, 0, -1);
       var light = new PointLight(new Point(0, 0, -10));
-      var inShadow = true;
-      var result = m.lighting(light, position, eyeVec, normal, inShadow);
+      var result = m.lighting(light, position, eyeVec, normal, true);
       assertEquals(new Color(0.1f, 0.1f, 0.1f), result);
     }
   }
