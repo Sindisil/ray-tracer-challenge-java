@@ -24,7 +24,8 @@ public class SphereTest {
   @Test
   @DisplayName("Spheres have toString()")
   void testToString() {
-    assertNotNull(new Sphere().toString());
+    var s = new Sphere().toString();
+    assertNotNull(s);
   }
 
   @SuppressWarnings({"SimplifiableAssertion", "EqualsBetweenInconvertibleTypes",

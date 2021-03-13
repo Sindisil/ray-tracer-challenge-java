@@ -71,7 +71,8 @@ public abstract class AbstractShape<T extends AbstractShape<T>> implements Shape
    */
   @Override
   public String toString() {
-    return "Shape{transform=" + transform + ", material=" + material + '}';
+    return thisObj.getClass().getSimpleName() + "{transform=" + transform + ", material=" + material
+        + '}';
   }
 
   /**

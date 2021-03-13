@@ -9,17 +9,6 @@ public class Sphere extends AbstractShape<Sphere> implements Shape {
     return this;
   }
 
-  /**
-   * Returns a string representation of this {@code Sphere}. This method is intended to be used for
-   * debugging purposes; the representation may change, but will not be {@code null}.
-   *
-   * @return a string representation of this {@code Sphere}
-   */
-  @Override
-  public String toString() {
-    return "Sphere{transform=" + transform + ", material=" + material + '}';
-  }
-
   @Override
   protected IntersectionList localIntersect(Ray localRay, IntersectionList xs) {
     var sphereToRay = localRay.getOrigin().subtract(Point.ORIGIN);
