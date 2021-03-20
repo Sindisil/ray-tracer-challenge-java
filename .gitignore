@@ -1,13 +1,22 @@
 # Ignore Gradle project-specific cache directory
 .gradle
 
-# Ignore Gradle build output directory
+# Ignore build output directories
 build
+target
+
+# Ignore IDE and tool related files
 /.idea/
-/.css/
-/.img/
+.settings
+.classpath
+.project
+/*.jfr
+*.iml
+*.nps
+
+# ignore generated files
 /coverage/
 /javadoc/
+
+# ignore program output
 /raytrace.png
-/*.jfr
-/*.nps
