@@ -5,14 +5,14 @@ plugins {
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(15)
+        languageVersion = JavaLanguageVersion.of(16)
 
     }
 }
 
 tasks.withType(JavaCompile) {
     options.deprecation = true
-    options.compilerArgs << '-Xlint'
+    options.compilerArgs += ['-Xlint']
 }
 
 jacocoTestReport {
