@@ -19,4 +19,4 @@ target
 /javadoc/
 
 # ignore program output
-/raytrace.png
+raytrace.png
