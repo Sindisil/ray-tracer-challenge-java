@@ -3,8 +3,8 @@ package com.gregjandl.raytracer.rtlib;
 public interface Shape {
   /**
    * Return this {@code Shape}'s current transformation matrix.
-   * <p>
-   * A newly constructed {@code Shape} has an identity transformation matrix.
+   *
+   * <p>A newly constructed {@code Shape} has an identity transformation matrix.
    *
    * @return the transformation matrix
    */
@@ -38,10 +38,10 @@ public interface Shape {
    * Adds entries to the specified {@code IntersectionList} representing where the specified {@code
    * Ray} intersects the surface of this Shape.
    *
-   * @param r  the {@code Ray} that may intersect with this Shape
+   * @param r the {@code Ray} that may intersect with this Shape
    * @param xs the {@code IntersectionList} to which any new intersections should be added
    * @return the specified {@code IntersectionList} with zero or more {@code Intersection}s with
-   * this {@code Sphere} added
+   *     this {@code Sphere} added
    */
   IntersectionList intersects(Ray r, IntersectionList xs);
 

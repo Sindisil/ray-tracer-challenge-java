@@ -11,8 +11,8 @@ public final class Utils {
 
   /**
    * Compare two values for equality within {@code EPSILON}.
-   * <p>
-   * This method accepts {@code double} values for convenience, but they are down cast to {@code
+   *
+   * <p>This method accepts {@code double} values for convenience, but they are down cast to {@code
    * float} before comparison.
    *
    * @param lhs first value to compare

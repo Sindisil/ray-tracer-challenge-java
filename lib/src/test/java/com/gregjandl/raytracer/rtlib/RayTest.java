@@ -19,8 +19,12 @@ public class RayTest {
     assertEquals(direction, r1.getDirection());
   }
 
-  @SuppressWarnings({"SimplifiableAssertion", "EqualsWithItself",
-      "EqualsBetweenInconvertibleTypes", "ConstantConditions"})
+  @SuppressWarnings({
+    "SimplifiableAssertion",
+    "EqualsWithItself",
+    "EqualsBetweenInconvertibleTypes",
+    "ConstantConditions"
+  })
   @Test
   @DisplayName("Comparing Rays for equality")
   void testEquals() {
@@ -52,7 +56,6 @@ public class RayTest {
   void testToString() {
     assertNotNull(new Ray(new Point(0, 0, 0), new Vector3(1, 1, 1)).toString());
   }
-
 
   @Test
   @DisplayName("Computing a point from a distance")

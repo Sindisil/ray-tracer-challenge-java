@@ -2,9 +2,7 @@ package com.gregjandl.raytracer.rtlib;
 
 import java.util.Objects;
 
-/**
- * Represents a point light source.
- */
+/** Represents a point light source. */
 public class PointLight {
   private final Point position;
   private final Color color;
@@ -13,7 +11,7 @@ public class PointLight {
    * Create a {@code PointLight} with the specified position and color/intensity.
    *
    * @param position position of the light
-   * @param color    color of the light
+   * @param color color of the light
    */
   public PointLight(Point position, Color color) {
     this.position = position;
@@ -22,6 +20,7 @@ public class PointLight {
 
   /**
    * Create a white {@code PointLight} with the specified position.
+   *
    * @param position position of the light
    */
   public PointLight(Point position) {
@@ -47,8 +46,8 @@ public class PointLight {
   }
 
   /**
-   * Returns a string representation of this {@code PointLight}. This method is intended to be used for
-   * debugging purposes; the representation may change, but will not be {@code null}.
+   * Returns a string representation of this {@code PointLight}. This method is intended to be used
+   * for debugging purposes; the representation may change, but will not be {@code null}.
    *
    * @return a string representation of this {@code PointLight}
    */
@@ -62,15 +61,18 @@ public class PointLight {
    *
    * @param o {@code Object} to which this {@code PointLight} is to be compared.
    * @return {@code true} if and only if the specified {@code Object} is a {@code PointLight} whose
-   * position and color are equal to this {@code PointLight}'s
+   *     position and color are equal to this {@code PointLight}'s
    */
   @Override
   public boolean equals(Object o) {
-    if (this == o) { return true; }
-    if (o == null || getClass() != o.getClass()) { return false; }
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
     PointLight that = (PointLight) o;
-    return Objects.equals(position, that.position)
-        && Objects.equals(color, that.color);
+    return Objects.equals(position, that.position) && Objects.equals(color, that.color);
   }
 
   /**

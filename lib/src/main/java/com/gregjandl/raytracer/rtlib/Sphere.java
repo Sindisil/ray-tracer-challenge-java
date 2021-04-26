@@ -1,8 +1,6 @@
 package com.gregjandl.raytracer.rtlib;
 
-/**
- * Represents a spherical object in space.
- */
+/** Represents a spherical object in space. */
 public class Sphere extends AbstractShape<Sphere> implements Shape {
   @Override
   protected Sphere getThis() {

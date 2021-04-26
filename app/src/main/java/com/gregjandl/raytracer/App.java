@@ -9,7 +9,6 @@ import com.gregjandl.raytracer.rtlib.PointLight;
 import com.gregjandl.raytracer.rtlib.Scene;
 import com.gregjandl.raytracer.rtlib.Sphere;
 import com.gregjandl.raytracer.rtlib.Vector3;
-
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -30,60 +29,60 @@ public class App {
 
     var floor = new Sphere();
     floor.setTransform(Matrix4x4.scaling(10, 0.01f, 10));
-    floor.setMaterial(new Material.Builder()
-        .color(new Color(1, .9f, .9f))
-        .specular(0)
-        .build());
+    floor.setMaterial(new Material.Builder().color(new Color(1, .9f, .9f)).specular(0).build());
     scene.addObject(floor);
 
     var leftWall = new Sphere();
-    leftWall.setTransform(Matrix4x4.scaling(10, 0.01f, 10)
-        .rotateOnX(Math.PI / 2)
-        .rotateOnY(-Math.PI / 4)
-        .translate(0, 0, 5));
+    leftWall.setTransform(
+        Matrix4x4.scaling(10, 0.01f, 10)
+            .rotateOnX(Math.PI / 2)
+            .rotateOnY(-Math.PI / 4)
+            .translate(0, 0, 5));
     leftWall.setMaterial(floor.getMaterial());
     scene.addObject(leftWall);
 
     var rightWall = new Sphere();
-    rightWall.setTransform(Matrix4x4.scaling(10, 0.01f, 10)
-        .rotateOnX(Math.PI / 2)
-        .rotateOnY(Math.PI / 4)
-        .translate(0, 0, 5));
+    rightWall.setTransform(
+        Matrix4x4.scaling(10, 0.01f, 10)
+            .rotateOnX(Math.PI / 2)
+            .rotateOnY(Math.PI / 4)
+            .translate(0, 0, 5));
     rightWall.setMaterial(floor.getMaterial());
     scene.addObject(rightWall);
 
     var largeSphere = new Sphere();
     largeSphere.setTransform(Matrix4x4.translation(-0.5f, 1, 0.5f));
-    largeSphere.setMaterial(new Material.Builder()
-        .color(new Color(0.1f, 1, 0.5f))
-        .diffuse(0.7f)
-        .specular(0.3f)
-        .build());
+    largeSphere.setMaterial(
+        new Material.Builder()
+            .color(new Color(0.1f, 1, 0.5f))
+            .diffuse(0.7f)
+            .specular(0.3f)
+            .build());
     scene.addObject(largeSphere);
 
     var mediumSphere = new Sphere();
-    mediumSphere.setTransform(Matrix4x4.scaling(0.5f, 0.5f, 0.5f)
-        .translate(1.5f, 0.5f, -0.5f));
-    mediumSphere.setMaterial(new Material.Builder()
-        .color(new Color(0.5f, 1, 0.1f))
-        .diffuse(0.7f)
-        .specular(0.3f)
-        .build());
+    mediumSphere.setTransform(Matrix4x4.scaling(0.5f, 0.5f, 0.5f).translate(1.5f, 0.5f, -0.5f));
+    mediumSphere.setMaterial(
+        new Material.Builder()
+            .color(new Color(0.5f, 1, 0.1f))
+            .diffuse(0.7f)
+            .specular(0.3f)
+            .build());
     scene.addObject(mediumSphere);
 
     var smallSphere = new Sphere();
-    smallSphere.setTransform(Matrix4x4.scaling(0.33f, 0.33f, 0.33f)
-        .translate(-1.5f, 0.33f, -0.75f));
-    smallSphere.setMaterial(new Material.Builder()
-        .color(new Color(1, 0.8f, 0.1f))
-        .diffuse(0.7f)
-        .specular(0.3f)
-        .build());
+    smallSphere.setTransform(
+        Matrix4x4.scaling(0.33f, 0.33f, 0.33f).translate(-1.5f, 0.33f, -0.75f));
+    smallSphere.setMaterial(
+        new Material.Builder()
+            .color(new Color(1, 0.8f, 0.1f))
+            .diffuse(0.7f)
+            .specular(0.3f)
+            .build());
     scene.addObject(smallSphere);
 
     scene.addLight(new PointLight(new Point(-10, 10, -10)));
   }
-
 
   public BufferedImage render() {
     return camera.render(scene);
@@ -94,21 +93,22 @@ public class App {
     int vSize;
 
     switch (args.length) {
-      // no size specified, use default
+        // no size specified, use default
       case 0 -> {
         hSize = 200;
         vSize = 100;
       }
-      // square image of specified size
+        // square image of specified size
       case 1 -> hSize = vSize = Integer.parseInt(args[0]);
-      // rectangular image with specified width and height, in that order
+        // rectangular image with specified width and height, in that order
       case 2 -> {
         hSize = Integer.parseInt(args[0]);
         vSize = Integer.parseInt(args[1]);
       }
-      // unexpected number of arguments, show usage and exit
+        // unexpected number of arguments, show usage and exit
       default -> {
-        System.err.println("""
+        System.err.println(
+            """
             Unexpected number of arguments.
 
             [size] for square image of specified size
@@ -132,10 +132,14 @@ public class App {
     var endWriting = System.nanoTime();
 
     System.out.println(
-        "Rendering of " + hSize + " x " + vSize + " image took: "
-            + ((endRendering - start) / 1000000) + "ms.");
-    System.out.println(
-        "Writing of the resulting PNG took: " + ((endWriting - endRendering) / 1000000)
+        "Rendering of "
+            + hSize
+            + " x "
+            + vSize
+            + " image took: "
+            + ((endRendering - start) / 1000000)
             + "ms.");
+    System.out.println(
+        "Writing of the resulting PNG took: " + ((endWriting - endRendering) / 1000000) + "ms.");
   }
 }

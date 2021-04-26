@@ -65,8 +65,12 @@ public class ColorTest {
     assertEquals(new Color(.9f, .2f, .04f), c2.multiply(c1));
   }
 
-  @SuppressWarnings({"SimplifiableAssertion", "EqualsWithItself",
-      "EqualsBetweenInconvertibleTypes", "ConstantConditions"})
+  @SuppressWarnings({
+    "SimplifiableAssertion",
+    "EqualsWithItself",
+    "EqualsBetweenInconvertibleTypes",
+    "ConstantConditions"
+  })
   @Test
   @DisplayName("Colors may be tested for equality")
   void testEquals() {

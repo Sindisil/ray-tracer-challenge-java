@@ -18,8 +18,12 @@ public class AbstractShapeTest {
     assertNotNull(new TestShape().toString());
   }
 
-  @SuppressWarnings({"SimplifiableAssertion", "EqualsBetweenInconvertibleTypes",
-      "ConstantConditions", "EqualsWithItself"})
+  @SuppressWarnings({
+    "SimplifiableAssertion",
+    "EqualsBetweenInconvertibleTypes",
+    "ConstantConditions",
+    "EqualsWithItself"
+  })
   @Test
   @DisplayName("Shapes may be compared for equality, which is distinct from identity")
   void testEquals() {
@@ -121,5 +125,4 @@ public class AbstractShapeTest {
       return new Vector3(localPoint.getX(), localPoint.getY(), localPoint.getZ());
     }
   }
-
 }

@@ -36,11 +36,16 @@ public class Vector3Test {
     final Vector3 b = new Vector3(5.0f, -3.0f, 17.0f);
     final Vector3 c = new Vector3(5.0f, 56.0f, -3.0f);
 
-    @SuppressWarnings({"ConstantConditions", "EqualsBetweenInconvertibleTypes", "EqualsWithItself",
-        "SimplifiableAssertion"})
+    @SuppressWarnings({
+      "ConstantConditions",
+      "EqualsBetweenInconvertibleTypes",
+      "EqualsWithItself",
+      "SimplifiableAssertion"
+    })
     @Test
-    @DisplayName("a and b should compare equal to each other symmetrically, but not to c, "
-        + "non-Vector3 or null")
+    @DisplayName(
+        "a and b should compare equal to each other symmetrically, but not to c, "
+            + "non-Vector3 or null")
     void testAEqualsBNotC() {
       assertTrue(a.equals(a)); // equal to self
       assertTrue(a.equals(b)); // equal
@@ -140,8 +145,8 @@ public class Vector3Test {
     @DisplayName("Non-zero Vectors may be normalized")
     void testNormalize() {
       assertEquals(new Vector3(1, 0, 0), new Vector3(4, 0, 0).normalize());
-      assertEquals(new Vector3(1 / sqrt(14), 2 / sqrt(14), 3 / sqrt(14)),
-          new Vector3(1, 2, 3).normalize());
+      assertEquals(
+          new Vector3(1 / sqrt(14), 2 / sqrt(14), 3 / sqrt(14)), new Vector3(1, 2, 3).normalize());
     }
 
     @Test
@@ -179,7 +184,7 @@ public class Vector3Test {
   @DisplayName("Reflecting a vector off a slanted surface")
   void testReflectOffSlant() {
     var vector = new Vector3(0, -1, 0);
-    var normal = new Vector3(sqrt(2)/2, sqrt(2)/2, 0);
+    var normal = new Vector3(sqrt(2) / 2, sqrt(2) / 2, 0);
     var reflected = vector.reflect(normal);
     assertEquals(new Vector3(1, 0, 0), reflected);
   }

@@ -20,7 +20,7 @@ public class UtilsTest {
 
   @Test
   @DisplayName("floats may be clamped to the range [0, 1], inclusive")
-  void testClamp01(){
+  void testClamp01() {
     assertEquals(0, Utils.clamp(-1f));
     assertEquals(0, Utils.clamp(0f));
     assertEquals(1, Utils.clamp(1.1f));

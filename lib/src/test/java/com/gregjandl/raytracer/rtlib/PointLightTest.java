@@ -42,8 +42,12 @@ public class PointLightTest {
     assertTrue(a.equals(b) && a.hashCode() == b.hashCode());
   }
 
-  @SuppressWarnings({"SimplifiableAssertion", "EqualsWithItself", "ConstantConditions",
-      "EqualsBetweenInconvertibleTypes"})
+  @SuppressWarnings({
+    "SimplifiableAssertion",
+    "EqualsWithItself",
+    "ConstantConditions",
+    "EqualsBetweenInconvertibleTypes"
+  })
   @Test
   @DisplayName("PointLights may be compared for equality")
   void testEquals() {

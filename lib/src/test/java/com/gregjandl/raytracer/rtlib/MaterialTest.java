@@ -24,9 +24,14 @@ public class MaterialTest {
   @Test
   @DisplayName("Create a custom material")
   void testCreateCustomMaterial() {
-    var m = new Material.Builder()
-        .color(Color.BLUE).ambient(.2f).diffuse(.3f).specular(.4f).shininess(100)
-        .build();
+    var m =
+        new Material.Builder()
+            .color(Color.BLUE)
+            .ambient(.2f)
+            .diffuse(.3f)
+            .specular(.4f)
+            .shininess(100)
+            .build();
     assertEquals(Color.BLUE, m.getColor());
     assertTrue(Utils.aboutEqual(0.2, m.getAmbient()));
     assertTrue(Utils.aboutEqual(0.3, m.getDiffuse()));
@@ -34,14 +39,23 @@ public class MaterialTest {
     assertTrue(Utils.aboutEqual(100, m.getShininess()));
   }
 
-  @SuppressWarnings({"SimplifiableAssertion", "EqualsWithItself", "ConstantConditions",
-      "EqualsBetweenInconvertibleTypes"})
+  @SuppressWarnings({
+    "SimplifiableAssertion",
+    "EqualsWithItself",
+    "ConstantConditions",
+    "EqualsBetweenInconvertibleTypes"
+  })
   @Test
   @DisplayName("Materials may be compared for equality")
   void testEquals() {
-    var m1 = new Material.Builder()
-        .ambient(1).color(Color.BLUE).diffuse(1).shininess(1).specular(1)
-        .build();
+    var m1 =
+        new Material.Builder()
+            .ambient(1)
+            .color(Color.BLUE)
+            .diffuse(1)
+            .shininess(1)
+            .specular(1)
+            .build();
     var m2 = new Material.Builder(m1).build();
     var mAmb = new Material.Builder(m1).ambient(.5f).build();
     var mCol = new Material.Builder(m1).color(Color.GREEN).build();
@@ -129,5 +143,4 @@ public class MaterialTest {
       assertEquals(new Color(0.1f, 0.1f, 0.1f), result);
     }
   }
-
 }

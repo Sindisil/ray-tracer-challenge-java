@@ -8,9 +8,7 @@ import java.util.Objects;
  * @author Greg Jandl (greg.jandl@gmail.com)
  */
 public class Point {
-  /**
-   * Point representing the origin (i.e. (0, 0, 0))
-   */
+  /** Point representing the origin (i.e. (0, 0, 0)) */
   public static final Point ORIGIN = new Point(0, 0, 0);
 
   private final float x;
@@ -48,36 +46,47 @@ public class Point {
    *
    * @return the X coordinate of this {@code Point}
    */
-  public float getX() { return x;}
+  public float getX() {
+    return x;
+  }
 
   /**
    * Returns the Y coordinate of this {@code Point}.
    *
    * @return the Y coordinate of this {@code Point}
    */
-  public float getY() { return y;}
+  public float getY() {
+    return y;
+  }
 
   /**
    * Returns the Z coordinate of this {@code Point}.
    *
    * @return the Z coordinate of this {@code Point}
    */
-  public float getZ() { return z;}
+  public float getZ() {
+    return z;
+  }
 
   /**
    * Compares this {@code Point} to the specified {@code Object}.
    *
    * @param o {@code Object} to which this {@code Point} should be compared
    * @return {@code true} if and only if the specified {@code Object} is a {@code Point} whose
-   * elements differ by less than {@link Utils#EPSILON}.
+   *     elements differ by less than {@link Utils#EPSILON}.
    * @see Utils#aboutEqual(double, double)
    */
   @Override
   public boolean equals(Object o) {
-    if (this == o) { return true;}
-    if (o == null || getClass() != o.getClass()) { return false;}
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
     var point = (Point) o;
-    return Utils.aboutEqual(point.x, x) && Utils.aboutEqual(point.y, y)
+    return Utils.aboutEqual(point.x, x)
+        && Utils.aboutEqual(point.y, y)
         && Utils.aboutEqual(point.z, z);
   }
 

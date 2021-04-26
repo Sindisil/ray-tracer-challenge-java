@@ -20,8 +20,12 @@ public class IntersectionsTest {
     assertSame(i.getObject(), s);
   }
 
-  @SuppressWarnings({"EqualsBetweenInconvertibleTypes", "ConstantConditions",
-      "SimplifiableAssertion", "EqualsWithItself"})
+  @SuppressWarnings({
+    "EqualsBetweenInconvertibleTypes",
+    "ConstantConditions",
+    "SimplifiableAssertion",
+    "EqualsWithItself"
+  })
   @Test
   @DisplayName("Intersections may be compared for equality")
   void testIntersectionEquals() {

@@ -48,7 +48,7 @@ public class CameraTest {
 
     @BeforeEach
     void initCamera() {
-      c  = new Camera(201, 101, Math.PI/2);
+      c = new Camera(201, 101, Math.PI / 2);
     }
 
     @Test
@@ -70,8 +70,9 @@ public class CameraTest {
     @Test
     @DisplayName("Constructing a ray when the camera is transformed")
     void testRayWithTransformedCamera() {
-      c.setViewTransform(Matrix4x4.translation(0, -2, 5).rotateOnY(Math.PI/4));
-      var expected = new Ray(new Point(0, 2, -5), new Vector3(Math.sqrt(2)/2, 0, -Math.sqrt(2)/2));
+      c.setViewTransform(Matrix4x4.translation(0, -2, 5).rotateOnY(Math.PI / 4));
+      var expected =
+          new Ray(new Point(0, 2, -5), new Vector3(Math.sqrt(2) / 2, 0, -Math.sqrt(2) / 2));
       var r = c.rayForPixel(100, 50);
       assertEquals(expected, r);
     }
@@ -118,12 +119,14 @@ public class CameraTest {
     var up = new Vector3(1, 1, 0);
     var c = new Camera(10, 10, 1);
     c.setViewTransform(from, to, up);
-    var expected = new Matrix4x4(new float[][]{
-        {-0.50709f, 0.50709f, 0.67612f, -2.36643f},
-        {0.76772f, 0.60609f, 0.12122f, -2.82843f},
-        {-0.35857f, 0.59761f, -0.71714f, 0},
-        {0, 0, 0, 1}
-    });
+    var expected =
+        new Matrix4x4(
+            new float[][] {
+              {-0.50709f, 0.50709f, 0.67612f, -2.36643f},
+              {0.76772f, 0.60609f, 0.12122f, -2.82843f},
+              {-0.35857f, 0.59761f, -0.71714f, 0},
+              {0, 0, 0, 1}
+            });
     assertEquals(expected, c.getViewTransform());
   }
 
@@ -131,7 +134,7 @@ public class CameraTest {
   @DisplayName("Rendering a world with a camera")
   void testRender() {
     var w = Scene.getDefault();
-    var c = new Camera(11, 11, Math.PI/2);
+    var c = new Camera(11, 11, Math.PI / 2);
     var from = new Point(0, 0, -5);
     var to = Point.ORIGIN;
     var up = new Vector3(0, 1, 0);

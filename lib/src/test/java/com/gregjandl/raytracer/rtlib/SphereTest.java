@@ -28,8 +28,12 @@ public class SphereTest {
     assertNotNull(s);
   }
 
-  @SuppressWarnings({"SimplifiableAssertion", "EqualsBetweenInconvertibleTypes",
-      "ConstantConditions", "EqualsWithItself"})
+  @SuppressWarnings({
+    "SimplifiableAssertion",
+    "EqualsBetweenInconvertibleTypes",
+    "ConstantConditions",
+    "EqualsWithItself"
+  })
   @Test
   @DisplayName("Spheres may be compared for equality, which is distinct from identity")
   void testEquals() {
@@ -232,5 +236,4 @@ public class SphereTest {
       assertEquals(new Vector3(0, 0.97014f, -0.24254f), n);
     }
   }
-
 }

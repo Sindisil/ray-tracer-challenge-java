@@ -12,9 +12,7 @@ public class Scene {
   private final ArrayList<Sphere> objects;
   private final ArrayList<PointLight> lights;
 
-  /**
-   * Construct an empty scene.
-   */
+  /** Construct an empty scene. */
   public Scene() {
     objects = new ArrayList<>();
     lights = new ArrayList<>(1);
@@ -22,16 +20,16 @@ public class Scene {
 
   /**
    * Construct and return the default scene.
-   * <p>
-   * The default scene consists of:
+   *
+   * <p>The default scene consists of:
+   *
    * <ul>
-   *   <li>One white <code>PointLight</code> @ (-10, 10, -10)</li>
+   *   <li>One white <code>PointLight</code> @ (-10, 10, -10)
    *   <li>Two concentric spheres at the origin:
-   *   <ul>
-   *     <li>Color(0.8, 1.0, 0.6), diffuse(0.7), specular(0.2)</li>
-   *     <li>Default material, scaled by .5 in each direction</li>
-   *   </ul>
-   *   </li>
+   *       <ul>
+   *         <li>Color(0.8, 1.0, 0.6), diffuse(0.7), specular(0.2)
+   *         <li>Default material, scaled by .5 in each direction
+   *       </ul>
    * </ul>
    *
    * @return a default scene
@@ -74,7 +72,7 @@ public class Scene {
    * @param i the index of the light to return
    * @return the light
    * @throws IndexOutOfBoundsException if the index is out of range ({@code i < 0 || i >=
-   *                                   getLightCount()})
+   *     getLightCount()})
    */
   public PointLight getLight(int i) {
     return lights.get(i);
@@ -86,7 +84,7 @@ public class Scene {
    * @param i the index of the object to return
    * @return the object
    * @throws IndexOutOfBoundsException if the index is out of range ({@code i < 0 || i >=
-   *                                   getObjectCount()})
+   *     getObjectCount()})
    */
   public Sphere getObject(int i) {
     return objects.get(i);
@@ -103,8 +101,14 @@ public class Scene {
   Color shadeHit(PreComps comps) {
     var material = comps.object.getMaterial();
     return lights.stream()
-        .map((light) -> material.lighting(light, comps.point, comps.eyeVec, comps.normal,
-            isShadowed(comps.overPoint, light)))
+        .map(
+            (light) ->
+                material.lighting(
+                    light,
+                    comps.point,
+                    comps.eyeVec,
+                    comps.normal,
+                    isShadowed(comps.overPoint, light)))
         .reduce(Color.BLACK, Color::add);
   }
 
@@ -122,7 +126,9 @@ public class Scene {
   public Color colorAt(Ray r) {
     var xs = intersect(r);
     var hit = xs.hit();
-    if (hit.isEmpty()) { return Color.BLACK;}
+    if (hit.isEmpty()) {
+      return Color.BLACK;
+    }
 
     var comps = new PreComps(hit.get(), r);
     return shadeHit(comps);

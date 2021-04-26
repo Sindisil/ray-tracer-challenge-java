@@ -15,10 +15,10 @@ public class Plane extends AbstractShape<Plane> implements Shape {
    * Ray} (which has been transformed relative to this {@code Plane}) intersects the surface of this
    * {@code Plane}.
    *
-   * @param r  the {@code Ray} that may intersect with this {@code Plane}
+   * @param r the {@code Ray} that may intersect with this {@code Plane}
    * @param xs the {@code IntersectionList} to which any new intersections should be added
    * @return the specified {@code IntersectionList} with zero or more {@code Intersection}s with
-   * this {@code Plane} added
+   *     this {@code Plane} added
    */
   @Override
   protected IntersectionList localIntersect(Ray r, IntersectionList xs) {

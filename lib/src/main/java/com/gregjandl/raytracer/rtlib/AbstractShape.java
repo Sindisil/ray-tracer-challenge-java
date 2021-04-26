@@ -15,8 +15,8 @@ public abstract class AbstractShape<T extends AbstractShape<T>> implements Shape
 
   /**
    * Return this {@code AbstractShape}'s current transformation matrix.
-   * <p>
-   * A newly constructed {@code AbstractShape} has an identity transformation matrix.
+   *
+   * <p>A newly constructed {@code AbstractShape} has an identity transformation matrix.
    *
    * @return the transformation matrix
    */
@@ -71,7 +71,11 @@ public abstract class AbstractShape<T extends AbstractShape<T>> implements Shape
    */
   @Override
   public String toString() {
-    return thisObj.getClass().getSimpleName() + "{transform=" + transform + ", material=" + material
+    return thisObj.getClass().getSimpleName()
+        + "{transform="
+        + transform
+        + ", material="
+        + material
         + '}';
   }
 
@@ -80,12 +84,16 @@ public abstract class AbstractShape<T extends AbstractShape<T>> implements Shape
    *
    * @param o {@code Object} to which this {@code AbstractShape} is to be compared.
    * @return {@code true} if and only if the specified {@code Object} is a {@code AbstractShape}
-   * whose transform and material are equal to this {@code AbstractShape}'s
+   *     whose transform and material are equal to this {@code AbstractShape}'s
    */
   @Override
   public boolean equals(Object o) {
-    if (this == o) { return true; }
-    if (o == null || getClass() != o.getClass()) { return false; }
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
     var shape = getClass().cast(o);
     return transform.equals(shape.transform) && material.equals(shape.material);
   }
@@ -105,10 +113,10 @@ public abstract class AbstractShape<T extends AbstractShape<T>> implements Shape
    * Ray} (which has been transformed relative to this {@code Shape}) intersects the surface of this
    * Shape.
    *
-   * @param r  the {@code Ray} that may intersect with this Shape
+   * @param r the {@code Ray} that may intersect with this Shape
    * @param xs the {@code IntersectionList} to which any new intersections should be added
    * @return the specified {@code IntersectionList} with zero or more {@code Intersection}s with
-   * this {@code Sphere} added
+   *     this {@code Sphere} added
    */
   protected abstract IntersectionList localIntersect(Ray r, IntersectionList xs);
 
@@ -116,10 +124,10 @@ public abstract class AbstractShape<T extends AbstractShape<T>> implements Shape
    * Adds entries to the specified {@code IntersectionList} representing where the specified {@code
    * Ray} intersects the surface of this Shape.
    *
-   * @param r  the {@code Ray} that may intersect with this Shape
+   * @param r the {@code Ray} that may intersect with this Shape
    * @param xs the {@code IntersectionList} to which any new intersections should be added
    * @return the specified {@code IntersectionList} with zero or more {@code Intersection}s with
-   * this {@code Sphere} added
+   *     this {@code Sphere} added
    */
   @Override
   public IntersectionList intersects(Ray r, IntersectionList xs) {

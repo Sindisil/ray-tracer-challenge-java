@@ -43,7 +43,6 @@ public class SceneTest {
     scene.addLight(light);
     assertEquals(1, scene.getLightCount());
     assertEquals(light, scene.getLight(0));
-
   }
 
   @Test
@@ -188,5 +187,4 @@ public class SceneTest {
       assertFalse(scene.isShadowed(point, scene.getLight(0)));
     }
   }
-
 }

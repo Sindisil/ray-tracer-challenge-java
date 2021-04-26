@@ -43,38 +43,47 @@ public class Vector3 {
    *
    * @return the X component of the vector
    */
-  public float getX() { return x;}
-
+  public float getX() {
+    return x;
+  }
 
   /**
    * Return the Y component of the vector.
    *
    * @return the Y component of the vector
    */
-  public float getY() { return y;}
-
+  public float getY() {
+    return y;
+  }
 
   /**
    * Return the Z component of the vector.
    *
    * @return the Z component of the vector
    */
-  public float getZ() { return z;}
+  public float getZ() {
+    return z;
+  }
 
   /**
    * Compares this {@code Vector3} to the specified {@code Object} for equality.
    *
    * @param o {@code Object} to which this {@code Vector3} should be compared
    * @return {@code true} if and only if the specified {@code Object} is a {@code Vector3} whose
-   * elements differ by less than {@link Utils#EPSILON}.
+   *     elements differ by less than {@link Utils#EPSILON}.
    * @see Utils#aboutEqual(double, double)
    */
   @Override
   public boolean equals(Object o) {
-    if (this == o) { return true; }
-    if (o == null || getClass() != o.getClass()) { return false; }
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
     var vector3 = (Vector3) o;
-    return Utils.aboutEqual(x, vector3.x) && Utils.aboutEqual(y, vector3.y)
+    return Utils.aboutEqual(x, vector3.x)
+        && Utils.aboutEqual(y, vector3.y)
         && Utils.aboutEqual(z, vector3.z);
   }
 
@@ -89,8 +98,8 @@ public class Vector3 {
   }
 
   /**
-   * Returns a string representation of this {@code Vector3}.  This method is intended to be used
-   * for debugging purposes; the representation may change, but will not be {@code null}.
+   * Returns a string representation of this {@code Vector3}. This method is intended to be used for
+   * debugging purposes; the representation may change, but will not be {@code null}.
    *
    * @return a string representation of this {@code Vector3}
    */
@@ -177,7 +186,7 @@ public class Vector3 {
    *
    * @return normalized copy of this {@code Vector3}
    * @throws ArithmeticException if this {@code Vector3} has a zero magnitude, which would result in
-   *                             division by zero.
+   *     division by zero.
    */
   public Vector3 normalize() {
     if (magnitude() == 0) {
@@ -209,6 +218,7 @@ public class Vector3 {
 
   /**
    * Returns this vector reflected around the specified normal.
+   *
    * @param normal around which to reflect this vector
    * @return the reflected vector
    */

@@ -2,9 +2,7 @@ package com.gregjandl.raytracer.rtlib;
 
 import java.util.Objects;
 
-/**
- * Represents the material of an object in the Phong lighting model.
- */
+/** Represents the material of an object in the Phong lighting model. */
 public class Material {
   private final Color color;
   private final float ambient;
@@ -31,7 +29,8 @@ public class Material {
 
   /**
    * Returns the ambient reflectivity (i.e., background lighting) of this material.
-   * <p>Typically in the range [0.0,1.0].</p>
+   *
+   * <p>Typically in the range [0.0,1.0].
    *
    * @return the ambient reflectivity
    */
@@ -41,7 +40,8 @@ public class Material {
 
   /**
    * Returns the diffuse reflectivity (i.e., matte surface reflection) of this material.
-   * <p>Typically in the range [0.0,1.0].</p>
+   *
+   * <p>Typically in the range [0.0,1.0].
    *
    * @return the diffuse reflectivity
    */
@@ -51,7 +51,8 @@ public class Material {
 
   /**
    * Returns the specular reflectivity of this material.
-   * <p>Typically in the range [0.0,1.0].</p>
+   *
+   * <p>Typically in the range [0.0,1.0].
    *
    * @return the specular reflectivity
    */
@@ -62,9 +63,8 @@ public class Material {
   /**
    * Returns the shininess component of this material, controlling the size of the specular
    * highlight.
-   * <p>
-   * Typically in the range [10.0,200.0], with smaller values resulting in a larger highlight.
-   * </p>
+   *
+   * <p>Typically in the range [10.0,200.0], with smaller values resulting in a larger highlight.
    *
    * @return the shininess value
    */
@@ -77,12 +77,17 @@ public class Material {
    *
    * @param o the object to compare
    * @return {@code true} if and only if the object is a {@code Material} with the same Color and
-   * with reflection fields differing by less than {@link Utils#EPSILON} from those of this object.
+   *     with reflection fields differing by less than {@link Utils#EPSILON} from those of this
+   *     object.
    */
   @Override
   public boolean equals(Object o) {
-    if (this == o) { return true; }
-    if (o == null || getClass() != o.getClass()) { return false; }
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
     Material material = (Material) o;
     return Utils.aboutEqual(material.ambient, ambient)
         && Utils.aboutEqual(material.diffuse, diffuse)
@@ -98,8 +103,17 @@ public class Material {
 
   @Override
   public String toString() {
-    return "Material{color=" + color + ", ambient=" + ambient + ", diffuse=" + diffuse
-        + ", specular=" + specular + ", shininess=" + shininess + '}';
+    return "Material{color="
+        + color
+        + ", ambient="
+        + ambient
+        + ", diffuse="
+        + diffuse
+        + ", specular="
+        + specular
+        + ", shininess="
+        + shininess
+        + '}';
   }
 
   /**
@@ -107,10 +121,10 @@ public class Material {
    * Essentially, add together the materials ambient, diffuse, and specular components, weighted by
    * the angles between the vectors (toward eye, toward light, and normal).
    *
-   * @param light    the light source
-   * @param point    the point on the surface
-   * @param eyeVec   the vector pointing toward the eye position
-   * @param normal   the normal vector at the point
+   * @param light the light source
+   * @param point the point on the surface
+   * @param eyeVec the vector pointing toward the eye position
+   * @param normal the normal vector at the point
    * @param inShadow {@code true} if point is in shadow
    * @return the resulting apparent color of the illuminated point
    */
@@ -125,7 +139,9 @@ public class Material {
     var result = effectiveColor.multiply(ambient);
 
     // Points in shadow have no diffuse or specular contribution
-    if (inShadow) { return result; }
+    if (inShadow) {
+      return result;
+    }
 
     var lightDotNormal = lightVec.dot(normal);
 
@@ -137,10 +153,12 @@ public class Material {
 
       if (reflectDotEye > 0) {
         // Light reflects toward eye, so add specular contribution
-        result = result.add(
-            light.getColor()
-                .multiply(specular)
-                .multiply((float) Math.pow(reflectDotEye, shininess)));
+        result =
+            result.add(
+                light
+                    .getColor()
+                    .multiply(specular)
+                    .multiply((float) Math.pow(reflectDotEye, shininess)));
       }
     }
 
@@ -149,6 +167,7 @@ public class Material {
 
   /**
    * Builder for constructing instances of Material.
+   *
    * <table style="width: 25%;margin-top: 1em">
    *  <caption style="text-align: left">Default component values:</caption>
    *  <tr><td>{@code color}</td>     <td>{@code Color.WHITE}</td></tr>
@@ -165,9 +184,7 @@ public class Material {
     private float specular = 0.9f;
     private float shininess = 200;
 
-    /**
-     * Creates a {@code Material#Builder} with default component values.
-     */
+    /** Creates a {@code Material#Builder} with default component values. */
     public Builder() {}
 
     /**

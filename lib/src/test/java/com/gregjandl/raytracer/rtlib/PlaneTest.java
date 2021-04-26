@@ -13,7 +13,7 @@ public class PlaneTest {
   @Test
   @DisplayName("A plane is a shape")
   void testPlaneIsShape() {
-    assertTrue(new Plane() instanceof  Shape);
+    assertTrue(new Plane() instanceof Shape);
   }
 
   @Test
@@ -32,13 +32,13 @@ public class PlaneTest {
     var n3 = p.localNormalAt(new Point(-5, 0, 150));
     assertEquals(new Vector3(0, 1, 0), n1);
     assertEquals(new Vector3(0, 1, 0), n2);
-    assertEquals(new Vector3(0, 1, 0), n3
-    );
+    assertEquals(new Vector3(0, 1, 0), n3);
   }
 
   @Nested
   class IntersectionsTest {
     final Plane p = new Plane();
+
     @Test
     @DisplayName("Intersect with a ray parallel to the plane")
     void testIntersectRayParallel() {
@@ -75,6 +75,4 @@ public class PlaneTest {
       assertEquals(p, xs.get(0).getObject());
     }
   }
-
-
 }

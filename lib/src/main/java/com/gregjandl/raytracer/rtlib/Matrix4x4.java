@@ -2,15 +2,11 @@ package com.gregjandl.raytracer.rtlib;
 
 import java.util.Arrays;
 
-/**
- * {@code Matrix4x4} represents a 4x4 float matrix.
- */
+/** {@code Matrix4x4} represents a 4x4 float matrix. */
 public class Matrix4x4 {
   private final float[] m = new float[16];
 
-  /**
-   * Constructs a 4x4 matrix initialized to all zeros.
-   */
+  /** Constructs a 4x4 matrix initialized to all zeros. */
   public Matrix4x4() {}
 
   /**
@@ -20,8 +16,12 @@ public class Matrix4x4 {
    */
   public Matrix4x4(float[][] data) {
     if (data.length != 4 || data[0].length != 4) {
-      throw new IllegalArgumentException("Matrix4x4 invalid initializer size [" + data.length +
-          "][" + (data.length > 0 ? data[0].length : "--") + "]");
+      throw new IllegalArgumentException(
+          "Matrix4x4 invalid initializer size ["
+              + data.length
+              + "]["
+              + (data.length > 0 ? data[0].length : "--")
+              + "]");
     }
     for (int row = 0; row < data.length; ++row) {
       System.arraycopy(data[row], 0, m, row * 4, data[0].length);
@@ -30,6 +30,7 @@ public class Matrix4x4 {
 
   /**
    * Returns a 4x4 identity Matrix.
+   *
    * <pre>
    *   +--        --+
    *   | 1  0  0  0 |
@@ -38,6 +39,7 @@ public class Matrix4x4 {
    *   | 0  0  0  1 |
    *   +--        --+
    * </pre>
+   *
    * @return a 4x4 identity Matrix
    */
   public static Matrix4x4 identity() {
@@ -47,6 +49,7 @@ public class Matrix4x4 {
   /**
    * Generate a transformation matrix to translate in {@code x}, {@code y}, and {@code z}
    * dimensions.
+   *
    * <pre>
    *   +--        --+
    *   | 1  0  0  x |
@@ -67,6 +70,7 @@ public class Matrix4x4 {
 
   /**
    * Generate a transformation matrix to scale in {@code x}, {@code y}, and {@code z} dimensions.
+   *
    * <pre>
    *   +--        --+
    *   | x  0  0  0 |
@@ -87,6 +91,7 @@ public class Matrix4x4 {
 
   /**
    * Generate a transformation matrix to perform clockwise rotation around the X axis.
+   *
    * <pre>
    *   +--                   --+
    *   | 1     0       0    0 |
@@ -102,13 +107,16 @@ public class Matrix4x4 {
   public static Matrix4x4 rotationOnX(double r) {
     return new Matrix4x4()
         .set(0, 0, 1)
-        .set(1, 1, (float) Math.cos(r)).set(1, 2, -((float) Math.sin(r)))
-        .set(2, 1, (float) Math.sin(r)).set(2, 2, (float) Math.cos(r))
+        .set(1, 1, (float) Math.cos(r))
+        .set(1, 2, -((float) Math.sin(r)))
+        .set(2, 1, (float) Math.sin(r))
+        .set(2, 2, (float) Math.cos(r))
         .set(3, 3, 1);
   }
 
   /**
    * Generate a transformation matrix to perform clockwise rotation around the Y axis.
+   *
    * <pre>
    *   +--                 --+
    *   |  cos r  0  sin r  0 |
@@ -123,14 +131,17 @@ public class Matrix4x4 {
    */
   public static Matrix4x4 rotationOnY(double r) {
     return new Matrix4x4()
-        .set(0, 0, (float) Math.cos(r)).set(0, 2, (float) Math.sin(r))
+        .set(0, 0, (float) Math.cos(r))
+        .set(0, 2, (float) Math.sin(r))
         .set(1, 1, 1)
-        .set(2, 0, -((float) Math.sin(r))).set(2, 2, (float) Math.cos(r))
+        .set(2, 0, -((float) Math.sin(r)))
+        .set(2, 2, (float) Math.cos(r))
         .set(3, 3, 1);
   }
 
   /**
    * Generate a transformation matrix to perform clockwise rotation around the Z axis.
+   *
    * <pre>
    *   +--                 --+
    *   | cos r  -sin r  0  0 |
@@ -145,22 +156,26 @@ public class Matrix4x4 {
    */
   public static Matrix4x4 rotationOnZ(double r) {
     return new Matrix4x4()
-        .set(0, 0, (float) Math.cos(r)).set(0, 1, -((float) Math.sin(r)))
-        .set(1, 0, (float) Math.sin(r)).set(1, 1, (float) Math.cos(r))
+        .set(0, 0, (float) Math.cos(r))
+        .set(0, 1, -((float) Math.sin(r)))
+        .set(1, 0, (float) Math.sin(r))
+        .set(1, 1, (float) Math.cos(r))
         .set(2, 2, 1)
         .set(3, 3, 1);
   }
 
   /**
    * Generate a transformation matrix to perform a shear operation in one or more of:
+   *
    * <ul>
-   *   <li>x in proportion to y</li>
-   *   <li>x in proportion to z</li>
-   *   <li>y in proportion to x</li>
-   *   <li>y in proportion to z</li>
-   *   <li>z in proportion to x</li>
-   *   <li>z in proportion to y</li>
+   *   <li>x in proportion to y
+   *   <li>x in proportion to z
+   *   <li>y in proportion to x
+   *   <li>y in proportion to z
+   *   <li>z in proportion to x
+   *   <li>z in proportion to y
    * </ul>
+   *
    * <pre>
    *   +--           --+
    *   |  1  xy  xz  0 |
@@ -180,15 +195,18 @@ public class Matrix4x4 {
    */
   public static Matrix4x4 shearing(float xy, float xz, float yx, float yz, float zx, float zy) {
     return identity()
-        .set(0, 1, xy).set(0, 2, xz)
-        .set(1, 0, yx).set(1, 2, yz)
-        .set(2, 0, zx).set(2, 1, zy);
+        .set(0, 1, xy)
+        .set(0, 2, xz)
+        .set(1, 0, yx)
+        .set(1, 2, yz)
+        .set(2, 0, zx)
+        .set(2, 1, zy);
   }
 
   /**
    * Return the value of the matrix element at ({@code row}, {@code col}).
-   * <p>
-   * The matrix coordinates are zero based (i.e., valid range is [0, 3]).
+   *
+   * <p>The matrix coordinates are zero based (i.e., valid range is [0, 3]).
    *
    * @param row the row coordinate of the element
    * @param col the column coordinate of the element
@@ -214,13 +232,17 @@ public class Matrix4x4 {
    *
    * @param o {@code Object} to which this {@code Matrix4x4} should be compared
    * @return {@code true} if and only if the specified {@code Object} is a {@code Matrix4x4} whose
-   * elements differ by less than {@link Utils#EPSILON}.
+   *     elements differ by less than {@link Utils#EPSILON}.
    * @see Utils#aboutEqual(double, double)
    */
   @Override
   public boolean equals(Object o) {
-    if (this == o) { return true; }
-    if (o == null || getClass() != o.getClass()) { return false; }
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
     Matrix4x4 other = (Matrix4x4) o;
     for (int i = 0; i < 16; ++i) {
       if (!Utils.aboutEqual(m[i], other.m[i])) {
@@ -273,7 +295,9 @@ public class Matrix4x4 {
     var res = new Matrix4x4();
     for (int r = 0; r < 4; ++r) {
       for (int c = 0; c < 4; ++c) {
-        res.set(r, c,
+        res.set(
+            r,
+            c,
             get(r, 0) * other.get(0, c)
                 + get(r, 1) * other.get(1, c)
                 + get(r, 2) * other.get(2, c)
@@ -376,10 +400,11 @@ public class Matrix4x4 {
     var d0223 = get(2, 0) * get(3, 2) - get(2, 2) * get(3, 0);
     var d0123 = get(2, 0) * get(3, 1) - get(2, 1) * get(3, 0);
 
-    var determinant = get(0, 0) * (get(1, 1) * d2323 - get(1, 2) * d1323 + get(1, 3) * d1223)
-        - get(0, 1) * (get(1, 0) * d2323 - get(1, 2) * d0323 + get(1, 3) * d0223)
-        + get(0, 2) * (get(1, 0) * d1323 - get(1, 1) * d0323 + get(1, 3) * d0123)
-        - get(0, 3) * (get(1, 0) * d1223 - get(1, 1) * d0223 + get(1, 2) * d0123);
+    var determinant =
+        get(0, 0) * (get(1, 1) * d2323 - get(1, 2) * d1323 + get(1, 3) * d1223)
+            - get(0, 1) * (get(1, 0) * d2323 - get(1, 2) * d0323 + get(1, 3) * d0223)
+            + get(0, 2) * (get(1, 0) * d1323 - get(1, 1) * d0323 + get(1, 3) * d0123)
+            - get(0, 3) * (get(1, 0) * d1223 - get(1, 1) * d0223 + get(1, 2) * d0123);
 
     if (determinant == 0) {
       throw new ArithmeticException("Matrix with 0 determinant not invertible.");
@@ -405,41 +430,41 @@ public class Matrix4x4 {
     var d0112 = get(1, 0) * get(2, 1) - get(1, 1) * get(2, 0);
 
     Matrix4x4 inverted = new Matrix4x4();
-    inverted.set(0, 0,
-        invDeterminant * (get(1, 1) * d2323 - get(1, 2) * d1323 + get(1, 3) * d1223));
-    inverted.set(0, 1,
-        invDeterminant * -(get(0, 1) * d2323 - get(0, 2) * d1323 + get(0, 3) * d1223));
-    inverted.set(0, 2,
-        invDeterminant * (get(0, 1) * d2313 - get(0, 2) * d1313 + get(0, 3) * d1213));
-    inverted.set(0, 3,
-        invDeterminant * -(get(0, 1) * d2312 - get(0, 2) * d1312 + get(0, 3) * d1212));
+    inverted.set(
+        0, 0, invDeterminant * (get(1, 1) * d2323 - get(1, 2) * d1323 + get(1, 3) * d1223));
+    inverted.set(
+        0, 1, invDeterminant * -(get(0, 1) * d2323 - get(0, 2) * d1323 + get(0, 3) * d1223));
+    inverted.set(
+        0, 2, invDeterminant * (get(0, 1) * d2313 - get(0, 2) * d1313 + get(0, 3) * d1213));
+    inverted.set(
+        0, 3, invDeterminant * -(get(0, 1) * d2312 - get(0, 2) * d1312 + get(0, 3) * d1212));
 
-    inverted.set(1, 0,
-        invDeterminant * -(get(1, 0) * d2323 - get(1, 2) * d0323 + get(1, 3) * d0223));
-    inverted.set(1, 1,
-        invDeterminant * (get(0, 0) * d2323 - get(0, 2) * d0323 + get(0, 3) * d0223));
-    inverted.set(1, 2,
-        invDeterminant * -(get(0, 0) * d2313 - get(0, 2) * d0313 + get(0, 3) * d0213));
-    inverted.set(1, 3,
-        invDeterminant * (get(0, 0) * d2312 - get(0, 2) * d0312 + get(0, 3) * d0212));
+    inverted.set(
+        1, 0, invDeterminant * -(get(1, 0) * d2323 - get(1, 2) * d0323 + get(1, 3) * d0223));
+    inverted.set(
+        1, 1, invDeterminant * (get(0, 0) * d2323 - get(0, 2) * d0323 + get(0, 3) * d0223));
+    inverted.set(
+        1, 2, invDeterminant * -(get(0, 0) * d2313 - get(0, 2) * d0313 + get(0, 3) * d0213));
+    inverted.set(
+        1, 3, invDeterminant * (get(0, 0) * d2312 - get(0, 2) * d0312 + get(0, 3) * d0212));
 
-    inverted.set(2, 0,
-        invDeterminant * (get(1, 0) * d1323 - get(1, 1) * d0323 + get(1, 3) * d0123));
-    inverted.set(2, 1,
-        invDeterminant * -(get(0, 0) * d1323 - get(0, 1) * d0323 + get(0, 3) * d0123));
-    inverted.set(2, 2,
-        invDeterminant * (get(0, 0) * d1313 - get(0, 1) * d0313 + get(0, 3) * d0113));
-    inverted.set(2, 3,
-        invDeterminant * -(get(0, 0) * d1312 - get(0, 1) * d0312 + get(0, 3) * d0112));
+    inverted.set(
+        2, 0, invDeterminant * (get(1, 0) * d1323 - get(1, 1) * d0323 + get(1, 3) * d0123));
+    inverted.set(
+        2, 1, invDeterminant * -(get(0, 0) * d1323 - get(0, 1) * d0323 + get(0, 3) * d0123));
+    inverted.set(
+        2, 2, invDeterminant * (get(0, 0) * d1313 - get(0, 1) * d0313 + get(0, 3) * d0113));
+    inverted.set(
+        2, 3, invDeterminant * -(get(0, 0) * d1312 - get(0, 1) * d0312 + get(0, 3) * d0112));
 
-    inverted.set(3, 0,
-        invDeterminant * -(get(1, 0) * d1223 - get(1, 1) * d0223 + get(1, 2) * d0123));
-    inverted.set(3, 1,
-        invDeterminant * (get(0, 0) * d1223 - get(0, 1) * d0223 + get(0, 2) * d0123));
-    inverted.set(3, 2,
-        invDeterminant * -(get(0, 0) * d1213 - get(0, 1) * d0213 + get(0, 2) * d0113));
-    inverted.set(3, 3,
-        invDeterminant * (get(0, 0) * d1212 - get(0, 1) * d0212 + get(0, 2) * d0112));
+    inverted.set(
+        3, 0, invDeterminant * -(get(1, 0) * d1223 - get(1, 1) * d0223 + get(1, 2) * d0123));
+    inverted.set(
+        3, 1, invDeterminant * (get(0, 0) * d1223 - get(0, 1) * d0223 + get(0, 2) * d0123));
+    inverted.set(
+        3, 2, invDeterminant * -(get(0, 0) * d1213 - get(0, 1) * d0213 + get(0, 2) * d0113));
+    inverted.set(
+        3, 3, invDeterminant * (get(0, 0) * d1212 - get(0, 1) * d0212 + get(0, 2) * d0112));
 
     return inverted;
   }
@@ -510,13 +535,14 @@ public class Matrix4x4 {
 
   /**
    * Apply a transformation matrix to this matrix to shear in one or more of:
+   *
    * <ul>
-   *   <li>x in proportion to y</li>
-   *   <li>x in proportion to z</li>
-   *   <li>y in proportion to x</li>
-   *   <li>y in proportion to z</li>
-   *   <li>z in proportion to x</li>
-   *   <li>z in proportion to y</li>
+   *   <li>x in proportion to y
+   *   <li>x in proportion to z
+   *   <li>y in proportion to x
+   *   <li>y in proportion to z
+   *   <li>z in proportion to x
+   *   <li>z in proportion to y
    * </ul>
    *
    * @param xy factor y is multiplied by before adding to x

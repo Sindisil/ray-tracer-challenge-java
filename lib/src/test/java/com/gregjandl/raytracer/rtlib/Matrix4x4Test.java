@@ -13,12 +13,14 @@ public class Matrix4x4Test {
   @Test
   @DisplayName("Creating and inspecting a 4x4 matrix")
   void testCreateAndAccess() {
-    var m = new Matrix4x4(new float[][]{
-        {1, 2, 3, 4},
-        {5.5f, 6.5f, 7.5f, 8.5f},
-        {9, 10, 11, 12},
-        {13.5f, 14.5f, 15.5f, 16.5f}
-    });
+    var m =
+        new Matrix4x4(
+            new float[][] {
+              {1, 2, 3, 4},
+              {5.5f, 6.5f, 7.5f, 8.5f},
+              {9, 10, 11, 12},
+              {13.5f, 14.5f, 15.5f, 16.5f}
+            });
     assertEquals(1, m.get(0, 0));
     assertEquals(4, m.get(0, 3));
     assertEquals(5.5f, m.get(1, 0));
@@ -54,9 +56,10 @@ public class Matrix4x4Test {
   @Test
   @DisplayName("Matrix constructor is bounds checked")
   void testBadCreate() {
-    assertThrows(IllegalArgumentException.class, () -> new Matrix4x4(new float[][]{{1}, {2}, {3}}));
+    assertThrows(
+        IllegalArgumentException.class, () -> new Matrix4x4(new float[][] {{1}, {2}, {3}}));
     //noinspection ZeroLengthArrayAllocation
-    assertThrows(IllegalArgumentException.class, () -> new Matrix4x4(new float[][]{}));
+    assertThrows(IllegalArgumentException.class, () -> new Matrix4x4(new float[][] {}));
   }
 
   @Test
@@ -68,8 +71,9 @@ public class Matrix4x4Test {
   @Test
   @DisplayName("Matrix access is bounds checked")
   void testBadAccess() {
-    var m = new Matrix4x4(new float[][]{
-        {1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}});
+    var m =
+        new Matrix4x4(
+            new float[][] {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}});
     assertThrows(IndexOutOfBoundsException.class, () -> m.get(-1, -1));
     assertThrows(IndexOutOfBoundsException.class, () -> m.get(-1, 1));
     assertThrows(IndexOutOfBoundsException.class, () -> m.get(4, 4));
@@ -78,19 +82,27 @@ public class Matrix4x4Test {
     assertThrows(IndexOutOfBoundsException.class, () -> m.get(1, -4));
   }
 
-  @SuppressWarnings({"SimplifiableAssertion", "EqualsBetweenInconvertibleTypes",
-      "ConstantConditions", "EqualsWithItself"})
+  @SuppressWarnings({
+    "SimplifiableAssertion",
+    "EqualsBetweenInconvertibleTypes",
+    "ConstantConditions",
+    "EqualsWithItself"
+  })
   @Test
   @DisplayName("Matrix equality")
   void testEquals() {
-    var a = new Matrix4x4(new float[][]{
-        {1, 2, 3, 4}, {5, 6, 7, 8}, {9.1f, 8.1f, 7.1f, 6.1f}, {5, 4, 3, 2}});
-    var b = new Matrix4x4(new float[][]{
-        {1, 2, 3, 4}, {5, 6, 7, 8}, {9.1f, 8.1f, 7.1f, 6.1f}, {5, 4, 3, 2}});
-    var c = new Matrix4x4(new float[][]{
-        {1, 2, 3, 4}, {5, 6, 7, 0}, {9.1f, 8.1f, 7.1f, 6.1f}, {5, 4, 3, 2}});
-    var d = new Matrix4x4(new float[][]{
-        {1, 2, 3, 4}, {5, 6, 7, 8}, {9.1f, 8.1f, 7.1f, 6.1f}, {5, 4, 3, 2.1f}});
+    var a =
+        new Matrix4x4(
+            new float[][] {{1, 2, 3, 4}, {5, 6, 7, 8}, {9.1f, 8.1f, 7.1f, 6.1f}, {5, 4, 3, 2}});
+    var b =
+        new Matrix4x4(
+            new float[][] {{1, 2, 3, 4}, {5, 6, 7, 8}, {9.1f, 8.1f, 7.1f, 6.1f}, {5, 4, 3, 2}});
+    var c =
+        new Matrix4x4(
+            new float[][] {{1, 2, 3, 4}, {5, 6, 7, 0}, {9.1f, 8.1f, 7.1f, 6.1f}, {5, 4, 3, 2}});
+    var d =
+        new Matrix4x4(
+            new float[][] {{1, 2, 3, 4}, {5, 6, 7, 8}, {9.1f, 8.1f, 7.1f, 6.1f}, {5, 4, 3, 2.1f}});
 
     assertTrue(a.equals(a)); // equals self
     assertTrue(a.equals(b)); // equals
@@ -104,20 +116,21 @@ public class Matrix4x4Test {
   @Test
   @DisplayName("Matrix4x4 hash codes are equal if matrices are equal")
   void testHashCode() {
-    var a = new Matrix4x4(new float[][]{{1, 2, 3, 4}, {5, 6, 7, 8}, {8, 7, 6, 5}, {4, 3, 2, 1}});
-    var b = new Matrix4x4(new float[][]{{1, 2, 3, 4}, {5, 6, 7, 8}, {8, 7, 6, 5}, {4, 3, 2, 1}});
+    var a = new Matrix4x4(new float[][] {{1, 2, 3, 4}, {5, 6, 7, 8}, {8, 7, 6, 5}, {4, 3, 2, 1}});
+    var b = new Matrix4x4(new float[][] {{1, 2, 3, 4}, {5, 6, 7, 8}, {8, 7, 6, 5}, {4, 3, 2, 1}});
     assertEquals(b.hashCode(), a.hashCode());
   }
 
   @Test
   @DisplayName("Matrices may be multiplied")
   void testMultiply() {
-    var a = new Matrix4x4(new float[][]{
-        {1, 2, 3, 4}, {5, 6, 7, 8}, {9, 8, 7, 6}, {5, 4, 3, 2}});
-    var b = new Matrix4x4(new float[][]{
-        {-2, 1, 2, 3}, {3, 2, 1, -1}, {4, 3, 6, 5}, {1, 2, 7, 8}});
-    var c = new Matrix4x4(new float[][]{
-        {20, 22, 50, 48}, {44, 54, 114, 108}, {40, 58, 110, 102}, {16, 26, 46, 42}});
+    var a = new Matrix4x4(new float[][] {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 8, 7, 6}, {5, 4, 3, 2}});
+    var b = new Matrix4x4(new float[][] {{-2, 1, 2, 3}, {3, 2, 1, -1}, {4, 3, 6, 5}, {1, 2, 7, 8}});
+    var c =
+        new Matrix4x4(
+            new float[][] {
+              {20, 22, 50, 48}, {44, 54, 114, 108}, {40, 58, 110, 102}, {16, 26, 46, 42}
+            });
 
     assertEquals(c, a.multiply(b));
   }
@@ -125,7 +138,7 @@ public class Matrix4x4Test {
   @Test
   @DisplayName("A matrix may be multiplied by a Vector")
   void testMultiplyByVector() {
-    var m = new Matrix4x4(new float[][]{{1, 2, 3, 4}, {2, 4, 4, 2}, {8, 6, 4, 1}, {0, 0, 0, 1}});
+    var m = new Matrix4x4(new float[][] {{1, 2, 3, 4}, {2, 4, 4, 2}, {8, 6, 4, 1}, {0, 0, 0, 1}});
     var v = new Vector3(1, 2, 3);
     assertEquals(new Vector3(14, 22, 32), m.multiply(v));
   }
@@ -133,7 +146,7 @@ public class Matrix4x4Test {
   @Test
   @DisplayName("A matrix may be multiplied by a Point")
   void testMultiplyByPoint() {
-    var m = new Matrix4x4(new float[][]{{1, 2, 3, 4}, {2, 4, 4, 2}, {8, 6, 4, 1}, {0, 0, 0, 1}});
+    var m = new Matrix4x4(new float[][] {{1, 2, 3, 4}, {2, 4, 4, 2}, {8, 6, 4, 1}, {0, 0, 0, 1}});
     var p = new Point(1, 2, 3);
     assertEquals(new Point(18, 24, 33), m.multiply(p));
   }
@@ -141,7 +154,7 @@ public class Matrix4x4Test {
   @Test
   @DisplayName("Multiplying by the identity matrix returns the original value")
   void testMultiplyByIdentity() {
-    var m = new Matrix4x4(new float[][]{{1, 2, 3, 4}, {2, 4, 4, 2}, {8, 6, 4, 1}, {0, 0, 0, 1}});
+    var m = new Matrix4x4(new float[][] {{1, 2, 3, 4}, {2, 4, 4, 2}, {8, 6, 4, 1}, {0, 0, 0, 1}});
     var p = new Point(1, 2, 3);
     var v = new Vector3(4, 5, 6);
     assertEquals(m, Matrix4x4.identity().multiply(m));
@@ -152,9 +165,9 @@ public class Matrix4x4Test {
   @Test
   @DisplayName("A Matrix may be transposed")
   void testTranspose() {
-    var m = new Matrix4x4(new float[][]{{0, 9, 3, 0}, {9, 8, 0, 8}, {1, 8, 5, 3}, {0, 0, 5, 8}});
-    var expected = new Matrix4x4(
-        new float[][]{{0, 9, 1, 0}, {9, 8, 8, 0}, {3, 0, 5, 5}, {0, 8, 3, 8}});
+    var m = new Matrix4x4(new float[][] {{0, 9, 3, 0}, {9, 8, 0, 8}, {1, 8, 5, 3}, {0, 0, 5, 8}});
+    var expected =
+        new Matrix4x4(new float[][] {{0, 9, 1, 0}, {9, 8, 8, 0}, {3, 0, 5, 5}, {0, 8, 3, 8}});
     assertEquals(expected, m.transpose());
   }
 
@@ -167,52 +180,58 @@ public class Matrix4x4Test {
   @Test
   @DisplayName("Calculating the determinant of a 4x4 matrix")
   void testDeterminant() {
-    var m = new Matrix4x4(
-        new float[][]{{-2, -8, 3, 5}, {-3, 1, 7, 3}, {1, 2, -9, 6}, {-6, 7, 7, -9}});
+    var m =
+        new Matrix4x4(new float[][] {{-2, -8, 3, 5}, {-3, 1, 7, 3}, {1, 2, -9, 6}, {-6, 7, 7, -9}});
     assertTrue(Utils.aboutEqual(-4071f, m.determinant()));
-
   }
 
   @Test
   @DisplayName("Testing an invertible matrix for invertibility")
   void testCheckInvertible() {
-    var m = new Matrix4x4(new float[][]{{6, 4, 4, 4}, {5, 5, 7, 6}, {4, -9, 3, -7}, {9, 1, 7, -6}});
+    var m =
+        new Matrix4x4(new float[][] {{6, 4, 4, 4}, {5, 5, 7, 6}, {4, -9, 3, -7}, {9, 1, 7, -6}});
     assertTrue(m.isInvertible());
   }
 
   @Test
   @DisplayName("Testing an invertible matrix for invertibility")
   void testCheckNonInvertible() {
-    var m = new Matrix4x4(
-        new float[][]{{-4, 2, -2, 3}, {9, 6, 2, 6}, {0, -5, 1, -5}, {0, 0, 0, 0}});
+    var m =
+        new Matrix4x4(new float[][] {{-4, 2, -2, 3}, {9, 6, 2, 6}, {0, -5, 1, -5}, {0, 0, 0, 0}});
     assertFalse(m.isInvertible());
   }
 
   @Test
   @DisplayName("Attempting to invert a non-invertible matrix should throw")
   void testInvertNonInvertible() {
-    var m = new Matrix4x4(
-        new float[][]{{-4, 2, -2, 3}, {9, 6, 2, 6}, {0, -5, 1, -5}, {0, 0, 0, 0}});
+    var m =
+        new Matrix4x4(new float[][] {{-4, 2, -2, 3}, {9, 6, 2, 6}, {0, -5, 1, -5}, {0, 0, 0, 0}});
     assertThrows(ArithmeticException.class, m::invert);
   }
 
   @Test
   @DisplayName("Calculating the inverse of matrices")
   void testInvert() {
-    var m1 = new Matrix4x4(
-        new float[][]{{-5, 2, 6, -8}, {1, -5, 1, 8}, {7, 7, -6, -7}, {1, -3, 7, 4}});
-    var invM1 = new Matrix4x4(new float[][]{
-        {0.21805f, 0.45113f, 0.24060f, -0.04511f},
-        {-0.80827f, -1.45677f, -0.44361f, 0.52068f},
-        {-0.07895f, -0.22368f, -0.05263f, 0.19737f},
-        {-0.52256f, -0.81391f, -0.30075f, 0.30639f}});
-    var m2 = new Matrix4x4(
-        new float[][]{{8, -5, 9, 2}, {7, 5, 6, 1}, {-6, 0, 9, 6}, {-3, 0, -9, -4}});
-    var invM2 = new Matrix4x4(new float[][]{
-        {-.15385f, -.15385f, -.28205f, -.53846f},
-        {-.07692f, .12308f, .02564f, .03077f},
-        {.35897f, .35897f, .43590f, .92308f},
-        {-.69231f, -.69231f, -.76923f, -1.92308f}});
+    var m1 =
+        new Matrix4x4(new float[][] {{-5, 2, 6, -8}, {1, -5, 1, 8}, {7, 7, -6, -7}, {1, -3, 7, 4}});
+    var invM1 =
+        new Matrix4x4(
+            new float[][] {
+              {0.21805f, 0.45113f, 0.24060f, -0.04511f},
+              {-0.80827f, -1.45677f, -0.44361f, 0.52068f},
+              {-0.07895f, -0.22368f, -0.05263f, 0.19737f},
+              {-0.52256f, -0.81391f, -0.30075f, 0.30639f}
+            });
+    var m2 =
+        new Matrix4x4(new float[][] {{8, -5, 9, 2}, {7, 5, 6, 1}, {-6, 0, 9, 6}, {-3, 0, -9, -4}});
+    var invM2 =
+        new Matrix4x4(
+            new float[][] {
+              {-.15385f, -.15385f, -.28205f, -.53846f},
+              {-.07692f, .12308f, .02564f, .03077f},
+              {.35897f, .35897f, .43590f, .92308f},
+              {-.69231f, -.69231f, -.76923f, -1.92308f}
+            });
     assertEquals(invM1, m1.invert());
     assertEquals(invM2, m2.invert());
   }
@@ -220,9 +239,10 @@ public class Matrix4x4Test {
   @Test
   @DisplayName("Multiplying a product by one factor's inverse")
   void testMultiplyByInverse() {
-    var m1 = new Matrix4x4(
-        new float[][]{{3, -9, 7, 3}, {3, -8, 2, -9}, {-4, 4, 4, 4}, {1, -6, 5, -1}});
-    var m2 = new Matrix4x4(new float[][]{{8, 2, 2, 2}, {3, -1, 7, 0}, {7, 0, 5, 4}, {6, -2, 0, 5}});
+    var m1 =
+        new Matrix4x4(new float[][] {{3, -9, 7, 3}, {3, -8, 2, -9}, {-4, 4, 4, 4}, {1, -6, 5, -1}});
+    var m2 =
+        new Matrix4x4(new float[][] {{8, 2, 2, 2}, {3, -1, 7, 0}, {7, 0, 5, 4}, {6, -2, 0, 5}});
     assertEquals(m1, m1.multiply(m2).multiply(m2.invert()));
   }
 

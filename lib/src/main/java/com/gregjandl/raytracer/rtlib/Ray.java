@@ -12,7 +12,7 @@ public class Ray {
   /**
    * Create a {@code Ray} with the specified origin and direction
    *
-   * @param origin    the Ray's origin
+   * @param origin the Ray's origin
    * @param direction the Ray's direction
    */
   public Ray(Point origin, Vector3 direction) {
@@ -43,12 +43,16 @@ public class Ray {
    *
    * @param o {@code Object} to which this {@code Ray} is to be compared.
    * @return {@code true} if and only if the specified {@code Object} is a {@code Ray} whose origin
-   * and direction are equal to this {@code Ray}'s
+   *     and direction are equal to this {@code Ray}'s
    */
   @Override
   public boolean equals(Object o) {
-    if (this == o) { return true; }
-    if (o == null || getClass() != o.getClass()) { return false; }
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
     Ray ray = (Ray) o;
     return origin.equals(ray.origin) && direction.equals(ray.direction);
   }
@@ -89,7 +93,7 @@ public class Ray {
    *
    * @param m transformation matrix to apply
    * @return a new {@code Ray} whose origin and direction have been multiplied by the specified
-   * transformation matrix.
+   *     transformation matrix.
    */
   public Ray transform(Matrix4x4 m) {
     return new Ray(m.multiply(origin), m.multiply(direction));
