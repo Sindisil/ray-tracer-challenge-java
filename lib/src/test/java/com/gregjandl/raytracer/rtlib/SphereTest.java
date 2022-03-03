@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 public class SphereTest {
-  @SuppressWarnings("ConstantConditions")
   @Test
   @DisplayName("A Sphere is a Shape")
   void testSubclassing() {
@@ -28,12 +27,6 @@ public class SphereTest {
     assertNotNull(s);
   }
 
-  @SuppressWarnings({
-    "SimplifiableAssertion",
-    "EqualsBetweenInconvertibleTypes",
-    "ConstantConditions",
-    "EqualsWithItself"
-  })
   @Test
   @DisplayName("Spheres may be compared for equality, which is distinct from identity")
   void testEquals() {

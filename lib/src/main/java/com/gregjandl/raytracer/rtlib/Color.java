@@ -14,45 +14,34 @@ import java.util.Objects;
  */
 public class Color {
   /** The color black. */
-  @SuppressWarnings("unused")
   public static final Color BLACK = new Color(0, 0, 0);
   /** The color white. */
-  @SuppressWarnings("unused")
   public static final Color WHITE = new Color(1, 1, 1);
   /** The color red. */
-  @SuppressWarnings("unused")
   public static final Color RED = new Color(1, 0, 0);
 
   /** The color green. */
-  @SuppressWarnings("unused")
   public static final Color GREEN = new Color(0, 1, 0);
 
   /** The color blue. */
-  @SuppressWarnings("unused")
   public static final Color BLUE = new Color(0, 0, 1);
 
   /** The color yellow. */
-  @SuppressWarnings("unused")
   public static final Color YELLOW = new Color(1, 1, 0);
 
   /** The color magenta. */
-  @SuppressWarnings("unused")
   public static final Color MAGENTA = new Color(1, 0, 1);
 
   /** The color cyan. */
-  @SuppressWarnings("unused")
   public static final Color CYAN = new Color(0, 1, 1);
 
   /** The color light gray. */
-  @SuppressWarnings("unused")
   public static final Color LT_GRAY = new Color(.25f, .25f, .25f);
 
   /** The color gray. */
-  @SuppressWarnings("unused")
   public static final Color GRAY = new Color(.5f, .5f, .5f);
 
   /** The color light gray. */
-  @SuppressWarnings("unused")
   public static final Color DK_GRAY = new Color(.75f, .75f, .75f);
 
   private final float r;

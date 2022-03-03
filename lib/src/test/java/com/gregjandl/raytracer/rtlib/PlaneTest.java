@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 public class PlaneTest {
-  @SuppressWarnings("ConstantConditions")
   @Test
   @DisplayName("A plane is a shape")
   void testPlaneIsShape() {

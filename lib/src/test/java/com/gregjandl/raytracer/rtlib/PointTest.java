@@ -34,12 +34,6 @@ class PointTest {
     final Point b = new Point(5, -3, 17f);
     final Point c = new Point(5, 56, -3f);
 
-    @SuppressWarnings({
-      "SimplifiableAssertion",
-      "ConstantConditions",
-      "EqualsBetweenInconvertibleTypes",
-      "EqualsWithItself"
-    })
     @Test
     @DisplayName("a and b should compare equal to each other, but not to c")
     void testAEqualsBNotC() {

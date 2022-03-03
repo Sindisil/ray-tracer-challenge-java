@@ -36,12 +36,6 @@ public class Vector3Test {
     final Vector3 b = new Vector3(5.0f, -3.0f, 17.0f);
     final Vector3 c = new Vector3(5.0f, 56.0f, -3.0f);
 
-    @SuppressWarnings({
-      "ConstantConditions",
-      "EqualsBetweenInconvertibleTypes",
-      "EqualsWithItself",
-      "SimplifiableAssertion"
-    })
     @Test
     @DisplayName(
         "a and b should compare equal to each other symmetrically, but not to c, "

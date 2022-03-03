@@ -39,12 +39,6 @@ public class MaterialTest {
     assertTrue(Utils.aboutEqual(100, m.getShininess()));
   }
 
-  @SuppressWarnings({
-    "SimplifiableAssertion",
-    "EqualsWithItself",
-    "ConstantConditions",
-    "EqualsBetweenInconvertibleTypes"
-  })
   @Test
   @DisplayName("Materials may be compared for equality")
   void testEquals() {

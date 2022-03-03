@@ -19,12 +19,6 @@ public class RayTest {
     assertEquals(direction, r1.getDirection());
   }
 
-  @SuppressWarnings({
-    "SimplifiableAssertion",
-    "EqualsWithItself",
-    "EqualsBetweenInconvertibleTypes",
-    "ConstantConditions"
-  })
   @Test
   @DisplayName("Comparing Rays for equality")
   void testEquals() {

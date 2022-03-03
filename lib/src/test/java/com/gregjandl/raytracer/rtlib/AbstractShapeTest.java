@@ -18,12 +18,6 @@ public class AbstractShapeTest {
     assertNotNull(new TestShape().toString());
   }
 
-  @SuppressWarnings({
-    "SimplifiableAssertion",
-    "EqualsBetweenInconvertibleTypes",
-    "ConstantConditions",
-    "EqualsWithItself"
-  })
   @Test
   @DisplayName("Shapes may be compared for equality, which is distinct from identity")
   void testEquals() {

@@ -52,13 +52,11 @@ public class Matrix4x4Test {
     assertThrows(IndexOutOfBoundsException.class, () -> m.set(1, 5, 2));
   }
 
-  @SuppressWarnings("ResultOfObjectAllocationIgnored")
   @Test
   @DisplayName("Matrix constructor is bounds checked")
   void testBadCreate() {
     assertThrows(
         IllegalArgumentException.class, () -> new Matrix4x4(new float[][] {{1}, {2}, {3}}));
-    //noinspection ZeroLengthArrayAllocation
     assertThrows(IllegalArgumentException.class, () -> new Matrix4x4(new float[][] {}));
   }
 
@@ -82,12 +80,6 @@ public class Matrix4x4Test {
     assertThrows(IndexOutOfBoundsException.class, () -> m.get(1, -4));
   }
 
-  @SuppressWarnings({
-    "SimplifiableAssertion",
-    "EqualsBetweenInconvertibleTypes",
-    "ConstantConditions",
-    "EqualsWithItself"
-  })
   @Test
   @DisplayName("Matrix equality")
   void testEquals() {

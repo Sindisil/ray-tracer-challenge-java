@@ -353,12 +353,12 @@ public class Matrix4x4 {
    *
    * @return the determinant
    */
-  @SuppressWarnings({"SpellCheckingInspection", "DuplicatedCode"})
   public float determinant() {
     /*
-     2x2 determinants needed to compute the full determinant.
-     name format is dCCRR where CC == columns and RR == rows
-    */
+     * cSpell:ignore CCRR
+     * 2x2 determinants needed to compute the full determinant.
+     * name format is dCCRR where CC == columns and RR == rows
+     */
     var d2323 = get(2, 2) * get(3, 3) - get(2, 3) * get(3, 2);
     var d1323 = get(2, 1) * get(3, 3) - get(2, 3) * get(3, 1);
     var d1223 = get(2, 1) * get(3, 2) - get(2, 2) * get(3, 1);
@@ -386,13 +386,12 @@ public class Matrix4x4 {
    *
    * @return a matrix that is the inverse of this matrix
    */
-  @SuppressWarnings({"SpellCheckingInspection", "DuplicatedCode"})
   public Matrix4x4 invert() {
 
     /*
-     2x2 determinants needed to compute the full determinant.
-     name format is dCCRR where CC == columns and RR == rows
-    */
+     * 2x2 determinants needed to compute the full determinant.
+     * name format is dCCRR where CC == columns and RR == rows
+     */
     var d2323 = get(2, 2) * get(3, 3) - get(2, 3) * get(3, 2);
     var d1323 = get(2, 1) * get(3, 3) - get(2, 3) * get(3, 1);
     var d1223 = get(2, 1) * get(3, 2) - get(2, 2) * get(3, 1);
@@ -413,9 +412,9 @@ public class Matrix4x4 {
     var invDeterminant = 1 / determinant;
 
     /*
-     Additional 2x2 determinants needed to invert matrix
-        names are dCCRR where CC == cols && RR == rows
-    */
+     * Additional 2x2 determinants needed to invert matrix
+     * names are dCCRR where CC == cols && RR == rows
+     */
     var d2313 = get(1, 2) * get(3, 3) - get(1, 3) * get(3, 2);
     var d1313 = get(1, 1) * get(3, 3) - get(1, 3) * get(3, 1);
     var d1213 = get(1, 1) * get(3, 2) - get(1, 2) * get(3, 1);
